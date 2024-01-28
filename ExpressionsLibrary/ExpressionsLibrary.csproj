@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6250E71D-68EE-40C9-991D-CBBFBA48B222}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExpressionsLibrary</RootNamespace>
+    <AssemblyName>ExpressionsLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArithmeticExpression.cs" />
+    <Compile Include="ArithmeticExpressions\AssociationExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CellExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\AdditionExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\CompoundExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\DivisionExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\FixExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\ModExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\MultiplicationExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\PowerExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\SqrtExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\SubtractingExpression.cs" />
+    <Compile Include="ArithmeticExpressions\ErrorExpression.cs" />
+    <Compile Include="ArithmeticExpressions\Expression.cs" />
+    <Compile Include="ArithmeticExpressions\ExpressionBase.cs" />
+    <Compile Include="ArithmeticExpressions\ICell.cs" />
+    <Compile Include="ArithmeticExpressions\NegativeExpression.cs" />
+    <Compile Include="ArithmeticExpressions\PositiveExpression.cs" />
+    <Compile Include="ArithmeticExpressions\ValueExpression.cs" />
+    <Compile Include="BooleanExpression.cs" />
+    <Compile Include="BooleanExpressions\AssociationExpression.cs" />
+    <Compile Include="BooleanExpressions\CompoundExpressions\AndExpression.cs" />
+    <Compile Include="BooleanExpressions\CompoundExpressions\CompoundExpression.cs" />
+    <Compile Include="BooleanExpressions\CompoundExpressions\OrExpression.cs" />
+    <Compile Include="BooleanExpressions\CompoundExpressions\XorExpression.cs" />
+    <Compile Include="BooleanExpressions\ErrorExpression.cs" />
+    <Compile Include="BooleanExpressions\Expression.cs" />
+    <Compile Include="BooleanExpressions\ExpressionBase.cs" />
+    <Compile Include="BooleanExpressions\FalseExpression.cs" />
+    <Compile Include="BooleanExpressions\NotExpression.cs" />
+    <Compile Include="BooleanExpressions\TrueExpression.cs" />
+    <Compile Include="ExpressionBase.cs" />
+    <Compile Include="LogicExpression.cs" />
+    <Compile Include="LogicExpressions\CompoundExpression.cs" />
+    <Compile Include="LogicExpressions\EqualExpression.cs" />
+    <Compile Include="LogicExpressions\ErrorExpression.cs" />
+    <Compile Include="LogicExpressions\Expression.cs" />
+    <Compile Include="LogicExpressions\ExpressionBase.cs" />
+    <Compile Include="LogicExpressions\ILogicExpression.cs" />
+    <Compile Include="LogicExpressions\LessExpression.cs" />
+    <Compile Include="LogicExpressions\LessOrEqualExpression.cs" />
+    <Compile Include="LogicExpressions\MoreExpression.cs" />
+    <Compile Include="LogicExpressions\MoreOrEqualExpression.cs" />
+    <Compile Include="LogicExpressions\NotEqualExpression.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitCollection.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

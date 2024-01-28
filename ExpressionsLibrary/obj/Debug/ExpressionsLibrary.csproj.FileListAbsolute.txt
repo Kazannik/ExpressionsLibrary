@@ -1,0 +1,5 @@
+c:\users\mikhail\documents\visual studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.dll
+c:\users\mikhail\documents\visual studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.pdb
+c:\users\mikhail\documents\visual studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csprojResolveAssemblyReference.cache
+c:\users\mikhail\documents\visual studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
+c:\users\mikhail\documents\visual studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb
