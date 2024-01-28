@@ -1,0 +1,9 @@
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.csprojResolveAssemblyReference.cache
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\UnitTestExpressions.dll
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\UnitTestExpressions.pdb
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ExpressionsLibrary.dll
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ExpressionsLibrary.pdb
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.dll
+C:\Users\Mikhail\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.pdb
