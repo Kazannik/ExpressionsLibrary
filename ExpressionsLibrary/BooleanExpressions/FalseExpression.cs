@@ -5,9 +5,9 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// <summary>
     /// Отрицательное логическое выражение.
     /// </summary>
-    class FalseExpression : ExpressionBase
+    class FalseExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
-        public static FalseExpression Create()
+        public static LogicExpressions.ILogicExpression Create()
         {
             return new FalseExpression();
         }

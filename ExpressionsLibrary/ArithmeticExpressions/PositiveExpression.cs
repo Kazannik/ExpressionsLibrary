@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExpressionsLibrary.ArithmeticExpressions
 {
     /// <summary>
     /// Элемент положительного алгебраического выражения.
     /// </summary>
-    class PositiveExpression : ExpressionBase
+    class PositiveExpression : ExpressionBase, IExpression
     {
-        private ExpressionBase expression;
+        private IExpression expression;
 
-        public static PositiveExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new PositiveExpression(ref cells, UnitCollection.Create(array));
         }
 
         private PositiveExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
-            this.expression = Expression.Create(ref cells, array);
+            expression = Expression.Create(ref cells, array);
         }
 
         /// <summary>

@@ -3,9 +3,9 @@
     /// <summary>
     /// Положительное логическое выражение.
     /// </summary>
-    class TrueExpression : ExpressionBase
+    class TrueExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
-        public static TrueExpression Create()
+        public static LogicExpressions.ILogicExpression Create()
         {
             return new TrueExpression();
         }

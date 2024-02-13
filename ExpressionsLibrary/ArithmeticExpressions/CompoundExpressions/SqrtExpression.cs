@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Корень числа.
     /// </summary>
-    class SqrtExpression : CompoundExpression
+    class SqrtExpression : CompoundExpression, IExpression
     {
         private SqrtExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -54,7 +54,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolSqrt + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static SqrtExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new SqrtExpression(ref cells, left, right);
         }

@@ -7,9 +7,9 @@ namespace ExpressionsLibrary
     /// <summary>
     /// Логическое выражение.
     /// </summary>
-    public class LogicExpression : LogicExpressions.ExpressionBase
+    class LogicExpression : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
     {
-        private LogicExpressions.ExpressionBase expression;
+        private LogicExpressions.ILogicExpression expression;
         private Dictionary<string, ArithmeticExpressions.ICell> collection;
 
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
@@ -183,23 +183,31 @@ namespace ExpressionsLibrary
             SymbolStartError = ArithmeticExpression.SymbolStartError;
             SymbolEndError = ArithmeticExpression.SymbolEndError;
 
-            SymbolEqual = @"=";
-            SymbolNotEqual = @"<>";
-            SymbolLess = @"<";
-            SymbolMore = @">";
-            SymbolLessOrEqual = "<=";
-            SymbolMoreOrEqual = @">=";
+            SymbolEqual = string.IsNullOrWhiteSpace(SymbolEqual) ? @"=": SymbolEqual;
+            SymbolNotEqual = string.IsNullOrWhiteSpace(SymbolNotEqual) ? @"<>": SymbolNotEqual;
+            SymbolLess = string.IsNullOrWhiteSpace(SymbolLess) ? @"<": SymbolLess;
+            SymbolMore = string.IsNullOrWhiteSpace(SymbolMore) ? @">": SymbolMore;
+            SymbolLessOrEqual = string.IsNullOrWhiteSpace(SymbolLessOrEqual) ? "<=": SymbolLessOrEqual;
+            SymbolMoreOrEqual = string.IsNullOrWhiteSpace(SymbolMoreOrEqual) ? @">=": SymbolMoreOrEqual;
         }
 
-        public static LogicExpression Create(string text)
+
+        public static bool IsExpression(string text)
+        {
+            string context = text.Replace(" ", "");
+            regexAll = new Regex(csLogic, ArithmeticExpression.options);
+            return regexAll.IsMatch(text);
+        }
+
+        public static LogicExpressions.ILogicExpression Create(string text)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(csLogic + @"|" + ArithmeticExpression.csArithmetic + @"|" +  ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);
-            UnitCollection collection = UnitCollection.Create(ArithmeticExpression.regexAll.Matches(text));
+            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new LogicExpression(collection);
         }
 
-        public static LogicExpression Create(string text, string cellpattern)
+        public static LogicExpressions.ILogicExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(@"(" + cellpattern + @")|" + csLogic + @"|" + ArithmeticExpression.csArithmetic + @"|"  + ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);

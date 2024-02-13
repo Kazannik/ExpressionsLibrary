@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Логическое "ИЛИ" (OR).
     /// </summary>
-    class OrExpression : CompoundExpression
+    class OrExpression : CompoundExpression, LogicExpressions.ILogicExpression
     {
         private OrExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -38,7 +38,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolOr + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static OrExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new OrExpression(ref cells, left, right);
         }

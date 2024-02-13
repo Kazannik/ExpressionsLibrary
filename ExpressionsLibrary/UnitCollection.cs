@@ -8,16 +8,16 @@ namespace ExpressionsLibrary
     /// <summary>
     /// Коллекция элементов алгебраического действия.
     /// </summary>
-    class UnitCollection : IEnumerable<UnitCollection.BaseUnit>
+    class UnitCollection : IEnumerable<UnitCollection.IUnit>
     {
-        List<BaseUnit> List;
+        private List<IUnit> List;
 
         public UnitCollection()
         {
-            List = new List<BaseUnit>();
+            List = new List<IUnit>();
         }
 
-        public static UnitCollection Create(BaseUnit unit)
+        public static UnitCollection Create(IUnit unit)
         {
             UnitCollection result = new UnitCollection();
             result.List.Add(BaseUnit.Create(result, unit));
@@ -27,7 +27,7 @@ namespace ExpressionsLibrary
         public static UnitCollection Create(UnitCollection array)
         {
             UnitCollection result = new UnitCollection();
-            foreach (BaseUnit u in array)
+            foreach (IUnit u in array)
             {
                 result.List.Add(BaseUnit.Create(result, u));
             }
@@ -59,17 +59,17 @@ namespace ExpressionsLibrary
             return result;
         }
 
-        public BaseUnit First
+        public IUnit First
         {
             get { return List.First(); }
         }
 
-        public BaseUnit Last
+        public IUnit Last
         {
             get { return List.Last(); }
         }
 
-        public BaseUnit this[int index]
+        public IUnit this[int index]
         {
             get { return List[index]; }
         }
@@ -209,7 +209,7 @@ namespace ExpressionsLibrary
 
         public int GetLastIndex()
         {
-            IEnumerable<int> array = from BaseUnit U in List
+            IEnumerable<int> array = from IUnit U in List
                                      where U.Action > 0
                                      orderby U.Action descending
                                      group U by U.Action into G
@@ -239,7 +239,7 @@ namespace ExpressionsLibrary
             else { return -1; }
         }
 
-        IEnumerator<BaseUnit> IEnumerable<UnitCollection.BaseUnit>.GetEnumerator()
+        IEnumerator<IUnit> IEnumerable<IUnit>.GetEnumerator()
         {
             return List.GetEnumerator();
         }
@@ -250,9 +250,44 @@ namespace ExpressionsLibrary
         }
 
         /// <summary>
+        /// Интерфейс базового алгебраического действия.
+        /// </summary>
+        public interface IUnit
+        {
+            /// <summary>
+            /// Тип элемента.
+            /// </summary>
+            MatchType UnitType { get; }
+            /// <summary>
+            /// Приоритет математического действия.
+            /// </summary>
+            int Action { get; }
+            /// <summary>
+            /// Признак оператора арифметического выражения.
+            /// </summary>
+            bool IsArithmetic { get; }
+            /// <summary>
+            /// Признак оператора булевого выражения.
+            /// </summary>
+            bool IsBoolean { get; }
+            /// <summary>
+            /// Признак оператора логического выражения.
+            /// </summary>
+            bool IsLogic { get; }
+            /// <summary>
+            /// Строковое значение элемента.
+            /// </summary>
+            string Value { get; }
+            /// <summary>
+            /// Индекс элемента в родительской коллекции.
+            /// </summary>
+            int Index { get; }
+        }
+
+        /// <summary>
         /// Базовый элемент алгебраического действия.
         /// </summary>
-        public abstract class BaseUnit
+        private abstract class BaseUnit: IUnit
         {
             private UnitCollection parent;
             /// <summary>
@@ -298,7 +333,7 @@ namespace ExpressionsLibrary
                 IsLogic = logic;
             }
 
-            public static BaseUnit Create(UnitCollection parent, BaseUnit unit)
+            public static BaseUnit Create(UnitCollection parent, IUnit unit)
             {
                 switch (unit.UnitType)
                 {
@@ -421,7 +456,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Ошибочный знак.(-1)
         /// </summary>
-        class ErrorUnit : BaseUnit
+        private class ErrorUnit : BaseUnit, IUnit
         {
             public ErrorUnit(UnitCollection parent, string value) : 
                 base(parent: parent, value: value, 
@@ -431,7 +466,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Ссылка на ячейку.(0)
         /// </summary>
-        class CellUnit : BaseUnit
+        private class CellUnit : BaseUnit, IUnit
         {
             public CellUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -441,7 +476,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Числовой показатель.(0)
         /// </summary>
-        class DecimalUnit : BaseUnit
+        private class DecimalUnit : BaseUnit, IUnit
         {
             public DecimalUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -451,7 +486,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Закрывающаяся скобка.(0)
         /// </summary>
-        class CloseUnit : BaseUnit
+        private class CloseUnit : BaseUnit, IUnit
         {
             public CloseUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -461,7 +496,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Открывающаяся скобка.(0)
         /// </summary>
-        class OpenUnit : BaseUnit
+        private class OpenUnit : BaseUnit, IUnit
         {
             public OpenUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -471,7 +506,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак степени числа.(1)
         /// </summary>
-        class PowerUnit : BaseUnit
+        private class PowerUnit : BaseUnit, IUnit
         {
             public PowerUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -481,7 +516,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак корня числа.(1)
         /// </summary>
-        class SqrtUnit : BaseUnit
+        private class SqrtUnit : BaseUnit, IUnit
         {
             public SqrtUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -491,7 +526,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак отрицательного числа.(2)
         /// </summary>
-        class NegativeUnit : BaseUnit
+        private class NegativeUnit : BaseUnit, IUnit
         {
             public NegativeUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -501,7 +536,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак умножения.(3)
         /// </summary>
-        class MultiplicationUnit : BaseUnit
+        private class MultiplicationUnit : BaseUnit, IUnit
         {
             public MultiplicationUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -511,7 +546,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак деления.(3)
         /// </summary>
-        class DivisionUnit : BaseUnit
+        private class DivisionUnit : BaseUnit, IUnit
         {
             public DivisionUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -521,7 +556,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Вычисление целой части от деления.(4)
         /// </summary>
-        class FixUnit : BaseUnit
+        private class FixUnit : BaseUnit, IUnit
         {
             public FixUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -531,7 +566,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Вычисление остатка от деления.(5)
         /// </summary>
-        class ModUnit : BaseUnit
+        private class ModUnit : BaseUnit, IUnit
         {
             public ModUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -541,7 +576,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак сложения.(6)
         /// </summary>
-        class AdditionUnit : BaseUnit
+        private class AdditionUnit : BaseUnit, IUnit
         {
             public AdditionUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -551,7 +586,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак вычитания.(6)
         /// </summary>
-        class SubtractingUnit : BaseUnit
+        private class SubtractingUnit : BaseUnit, IUnit
         {
             public SubtractingUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -561,7 +596,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак равно.(7)
         /// </summary>
-        class EqualUnit : BaseUnit
+        private class EqualUnit : BaseUnit, IUnit
         {
             public EqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -571,7 +606,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак не равно (!=).(8)
         /// </summary>
-        class NotEqualUnit : BaseUnit
+        private class NotEqualUnit : BaseUnit, IUnit
         {
             public NotEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -581,7 +616,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак меньше (&lt;).(9)
         /// </summary>
-        class LessUnit : BaseUnit
+        private class LessUnit : BaseUnit, IUnit
         {
             public LessUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -591,7 +626,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак больше (>).(10)
         /// </summary>
-        class MoreUnit : BaseUnit
+        private class MoreUnit : BaseUnit, IUnit
         {
             public MoreUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -601,7 +636,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак меньше или равно (&lt;=).(11)
         /// </summary>
-        class LessOrEqualUnit : BaseUnit
+        private class LessOrEqualUnit : BaseUnit, IUnit
         {
             public LessOrEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -611,7 +646,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак больше или равно (>=).(12)
         /// </summary>
-        class MoreOrEqualUnit : BaseUnit
+        private class MoreOrEqualUnit : BaseUnit, IUnit
         {
             public MoreOrEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -621,7 +656,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак положительного логического выражения (True).(0)
         /// </summary>
-        class TrueUnit : BaseUnit
+        private class TrueUnit : BaseUnit, IUnit
         {
             public TrueUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -631,7 +666,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак отрицательного логического выражения (False).(0)
         /// </summary>
-        class FalseUnit : BaseUnit
+        private class FalseUnit : BaseUnit, IUnit
         {
             public FalseUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -641,7 +676,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак логического отрицания (NOT).(13)
         /// </summary>
-        class NotUnit : BaseUnit
+        private class NotUnit : BaseUnit, IUnit
         {
             public NotUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -651,7 +686,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак логического сложения (AND).(14)
         /// </summary>
-        class AndUnit : BaseUnit
+        private class AndUnit : BaseUnit, IUnit
         {
             public AndUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -661,7 +696,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак логического ИЛИ (OR).(15)
         /// </summary>
-        class OrUnit : BaseUnit
+        private class OrUnit : BaseUnit, IUnit
         {
             public OrUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -671,7 +706,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Знак исключающегося ИЛИ (XOR).(16)
         /// </summary>
-        class XorUnit : BaseUnit
+        private class XorUnit : BaseUnit, IUnit
         {
             public XorUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
@@ -685,7 +720,8 @@ namespace ExpressionsLibrary
         /// <param name="match">Класс совпадения регулярного выражения.</param>
         private static MatchType GetMatchType(Match match)
         {
-            if (ArithmeticExpression.regexCell != null && ArithmeticExpression.regexCell.IsMatch(match.Value))
+            if (ArithmeticExpression.regexCell != null && 
+                ArithmeticExpression.regexCell.IsMatch(match.Value))
             {
                 return MatchType.Cell;
             }

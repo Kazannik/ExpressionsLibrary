@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Алгебраическое выражение вычитания.
     /// </summary>
-    class SubtractingExpression : CompoundExpression
+    class SubtractingExpression : CompoundExpression, IExpression
     {
         private SubtractingExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -37,7 +37,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolSubtracting + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static SubtractingExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new SubtractingExpression(ref cells, left, right);
         }

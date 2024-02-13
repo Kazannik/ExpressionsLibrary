@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary
 {
-    public class BooleanExpression : BooleanExpressions.ExpressionBase
+    class BooleanExpression : BooleanExpressions.ExpressionBase, LogicExpressions.ILogicExpression
     {
         private LogicExpressions.ILogicExpression expression;
         private Dictionary<string, ArithmeticExpressions.ICell> collection;
@@ -182,23 +182,31 @@ namespace ExpressionsLibrary
             SymbolStartError = ArithmeticExpression.SymbolStartError;
             SymbolEndError = ArithmeticExpression.SymbolEndError;
 
-            SymbolAnd = @"AND";
-            SymbolOr = @"OR";
-            SymbolXor = @"XOR";
-            SymbolNot = @"NOT";
-            SymbolTrue = "TRUE";
-            SymbolFalse = @"FALSE";
+            SymbolAnd =string.IsNullOrWhiteSpace(SymbolAnd) ? @"AND": SymbolAnd;
+            SymbolOr = string.IsNullOrWhiteSpace(SymbolOr) ? @"OR": SymbolOr;
+            SymbolXor = string.IsNullOrWhiteSpace(SymbolXor) ? @"XOR": SymbolXor;
+            SymbolNot = string.IsNullOrWhiteSpace(SymbolNot) ? @"NOT": SymbolNot;
+            SymbolTrue = string.IsNullOrWhiteSpace(SymbolTrue) ? "TRUE": SymbolTrue;
+            SymbolFalse = string.IsNullOrWhiteSpace(SymbolFalse) ? @"FALSE": SymbolFalse;
         }
 
-        public static BooleanExpression Create(string text)
+
+        public static bool IsExpression(string text)
+        {
+            string context = text.Replace(" ", "");
+            regexAll = new Regex(csBoolean , ArithmeticExpression.options);
+            return regexAll.IsMatch(text);
+        }
+
+        public static LogicExpressions.ILogicExpression Create(string text)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(LogicExpression.csLogic + @"|" + csBoolean + @"|" + ArithmeticExpression.csArithmetic + @"|"  +  ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);
-            UnitCollection collection = UnitCollection.Create(ArithmeticExpression.regexAll.Matches(text));
+            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new BooleanExpression(collection);
         }
 
-        public static BooleanExpression Create(string text, string cellpattern)
+        public static LogicExpressions.ILogicExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(@"(" + cellpattern + @")|" + LogicExpression.csLogic + @"|" + csBoolean + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);

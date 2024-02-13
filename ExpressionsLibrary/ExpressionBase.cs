@@ -3,12 +3,14 @@
     /// <summary>
     /// Базовый класс выражений.
     /// </summary>
-    public abstract class ExpressionBase
+    abstract class ExpressionBase: IExpression
     {
         /// <summary>
         /// Признак содержания ошибки в выражении.
         /// </summary>
         public abstract bool IsError { get; }
+
+        public abstract object objValue { get; }
 
         /// <summary>
         /// Строковое представление выражения.
@@ -30,12 +32,7 @@
         /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
         /// <returns></returns>
         public abstract string ToString(string format);
-
-        /// <summary>
-        /// Определяемые пользователем данные, связанные с этим объектом.
-        /// </summary>
-        public object Tag { get; set; }
-
+        
         /// <summary>
         /// Признак применения формата.
         /// </summary>

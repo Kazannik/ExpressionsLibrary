@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// <summary>
     /// Логическое выражение (МЕНЬШЕ ИЛИ РАВНО).
     /// </summary>
-    class LessOrEqualExpression : CompoundExpression
+    class LessOrEqualExpression : CompoundExpression, ILogicExpression
     {
         private LessOrEqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -36,7 +36,7 @@ namespace ExpressionsLibrary.LogicExpressions
             else
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
-        public static LessOrEqualExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new LessOrEqualExpression(ref cells, left, right);
         }

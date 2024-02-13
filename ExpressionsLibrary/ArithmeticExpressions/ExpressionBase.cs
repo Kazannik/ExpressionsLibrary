@@ -3,12 +3,14 @@
     /// <summary>
     /// Базовый класс алгебраического выражений.
     /// </summary>
-    public abstract class ExpressionBase: ExpressionsLibrary.ExpressionBase
+    abstract class ExpressionBase: ExpressionsLibrary.ExpressionBase, IExpression
     {
         /// <summary>
         /// Значение алгебраического выражения.
         /// </summary>
         public abstract decimal Value { get; }
+
+        public override object objValue { get { return Value; } }
 
         public override string ToString(string format)
         {

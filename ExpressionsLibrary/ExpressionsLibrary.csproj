@@ -56,6 +56,7 @@
     <Compile Include="ArithmeticExpressions\Expression.cs" />
     <Compile Include="ArithmeticExpressions\ExpressionBase.cs" />
     <Compile Include="ArithmeticExpressions\ICell.cs" />
+    <Compile Include="ArithmeticExpressions\IExpression.cs" />
     <Compile Include="ArithmeticExpressions\NegativeExpression.cs" />
     <Compile Include="ArithmeticExpressions\PositiveExpression.cs" />
     <Compile Include="ArithmeticExpressions\ValueExpression.cs" />
@@ -71,7 +72,9 @@
     <Compile Include="BooleanExpressions\FalseExpression.cs" />
     <Compile Include="BooleanExpressions\NotExpression.cs" />
     <Compile Include="BooleanExpressions\TrueExpression.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="ExpressionBase.cs" />
+    <Compile Include="IExpression.cs" />
     <Compile Include="LogicExpression.cs" />
     <Compile Include="LogicExpressions\CompoundExpression.cs" />
     <Compile Include="LogicExpressions\EqualExpression.cs" />

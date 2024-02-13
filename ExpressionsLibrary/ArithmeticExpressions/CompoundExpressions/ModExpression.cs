@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Остаток от деления одного числа на другое.
     /// </summary>
-    class ModExpression : CompoundExpression
+    class ModExpression : CompoundExpression, IExpression
     {
         private ModExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -53,7 +53,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolMod + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static ModExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new ModExpression(ref cells, left, right);
         }

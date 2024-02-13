@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Составное алгебраическое выражение (Например, сложение, вычитание, умножение и т.д.)
     /// </summary>
-    abstract class CompoundExpression : ExpressionBase
+    abstract class CompoundExpression : ExpressionBase, IExpression
     {
        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
@@ -56,14 +56,14 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// <summary>
         /// Левая часть алгебраического выражения.
         /// </summary>
-        public ExpressionBase LeftExpression { get; }
+        public IExpression LeftExpression { get; }
 
         /// <summary>
         /// Правая часть алгебраического выражения.
         /// </summary>
-        public ExpressionBase RightExpression { get; }
+        public IExpression RightExpression { get; }
 
-        public static ExpressionBase Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             int i = array.GetLastIndex();
             if (i > 0)

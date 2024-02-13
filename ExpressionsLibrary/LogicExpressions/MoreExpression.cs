@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// <summary>
     /// Логическое выражение (БОЛЬШЕ).
     /// </summary>
-    class MoreExpression : CompoundExpression
+    class MoreExpression : CompoundExpression, ILogicExpression
     {
         private MoreExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -37,7 +37,7 @@ namespace ExpressionsLibrary.LogicExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolMore + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static MoreExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new MoreExpression(ref cells, left, right);
         }

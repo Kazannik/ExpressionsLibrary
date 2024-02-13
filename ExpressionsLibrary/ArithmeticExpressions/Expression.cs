@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// </summary>
     abstract class Expression
     {
-        public static ExpressionBase Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             if (array.Count == 0 || array.IsError)
             { // Элементы отсуствуют.
@@ -22,11 +22,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions
                 string key = array[0].Value;
                 if (cells.ContainsKey(key))
                 {
-                    return (ExpressionBase)cells[key];
+                    return cells[key];
                 }
                 else
                 {
-                    ExpressionBase cell = CellExpression.Create(key);
+                    IExpression cell = CellExpression.Create(key);
                     cells.Add(key, (ICell)cell);
                     return cell;
                 }

@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
+
 namespace ExpressionsLibrary
 {
     /// <summary>
     /// Алгебраическое выражение.
     /// </summary>
-    public class ArithmeticExpression : ArithmeticExpressions.ExpressionBase
+    class ArithmeticExpression : ArithmeticExpressions.ExpressionBase, ArithmeticExpressions.IExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
@@ -133,10 +134,9 @@ namespace ExpressionsLibrary
         internal static Regex regexCellValue = new Regex(csCellValue, options); // "{value}"
         #endregion
 
-        private ArithmeticExpressions.ExpressionBase expression;
+        private ArithmeticExpressions.IExpression expression;
         private Dictionary<string, ArithmeticExpressions.ICell> collection;
-
-
+        
         /// <summary>
         /// Пробел ' '.
         /// </summary>
@@ -244,22 +244,29 @@ namespace ExpressionsLibrary
 
         internal static void InitializeSymbols()
         {
-            SymbolSpace = @" ";
+            SymbolSpace = string.IsNullOrWhiteSpace(SymbolSpace) ? @" ": SymbolSpace;
 
-            SymbolStartError = @"[Error:";
-            SymbolEndError = @"]";
+            SymbolStartError = string.IsNullOrWhiteSpace(SymbolStartError) ? @"[Error:": SymbolStartError;
+            SymbolEndError = string.IsNullOrWhiteSpace(SymbolEndError) ? @"]": SymbolEndError;
 
-            SymbolAddition = @"+";
-            SymbolDivision = @"/";
-            SymbolFix = @"\";
-            SymbolMod = @"%";
-            SymbolMultiplication = "x";
-            SymbolPower = @"^";
-            SymbolSqrt = @"√";
-            SymbolSubtracting = @"-";
+            SymbolAddition = string.IsNullOrWhiteSpace(SymbolAddition) ? @"+": SymbolAddition;
+            SymbolDivision = string.IsNullOrWhiteSpace(SymbolDivision) ? @"/": SymbolDivision;
+            SymbolFix = string.IsNullOrWhiteSpace(SymbolFix) ? @"\": SymbolFix;
+            SymbolMod = string.IsNullOrWhiteSpace(SymbolMod) ? @"%": SymbolMod;
+            SymbolMultiplication = string.IsNullOrWhiteSpace(SymbolMultiplication) ? "x": SymbolMultiplication;
+            SymbolPower = string.IsNullOrWhiteSpace(SymbolPower) ? @"^": SymbolPower;
+            SymbolSqrt = string.IsNullOrWhiteSpace(SymbolSqrt) ? @"√": SymbolSqrt;
+            SymbolSubtracting = string.IsNullOrWhiteSpace(SymbolSubtracting) ? @"-": SymbolSubtracting;
         }
 
-        public static ArithmeticExpression Create(string text)
+        public static bool IsExpression(string text)
+        {
+            string context = text.Replace(" ", "");
+            regexAll = new Regex(csArithmetic + @"|" + csOpen + @"|" + csClose, options);
+            return regexAll.IsMatch(text);
+        }
+
+        public static IExpression Create(string text)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(csArithmetic + @"|" + csOpen + @"|" + csClose, options);
@@ -267,7 +274,7 @@ namespace ExpressionsLibrary
             return new ArithmeticExpression(collection);
         }
 
-        public static ArithmeticExpression Create(string text, string cellpattern)
+        public static IExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
             regexAll = new Regex(@"(" + cellpattern + @")|" + csArithmetic + @"|" + csOpen + @"|" + csClose, options);

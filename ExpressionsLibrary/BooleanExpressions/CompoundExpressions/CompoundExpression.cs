@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Составное логическое выражение (Например, равенство, сравнение и т.д.)
     /// </summary>
-    abstract class CompoundExpression : ExpressionBase
+    abstract class CompoundExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
         protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {

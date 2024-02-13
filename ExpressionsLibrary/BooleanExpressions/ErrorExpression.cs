@@ -3,7 +3,7 @@
     /// <summary>
     /// Ошибочное выражение.
     /// </summary>
-    class ErrorExpression : ExpressionBase
+    class ErrorExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
         private string formula;
 
@@ -12,7 +12,7 @@
             IsError = true;
             Value = false;
             formula = BooleanExpression.SymbolStartError;
-            foreach (UnitCollection.BaseUnit u in array)
+            foreach (UnitCollection.IUnit u in array)
             {
                 if (formula.Length > 0) { this.formula += ArithmeticExpression.SymbolSpace; }
                 formula += u.Value;
@@ -47,12 +47,12 @@
             return Formula();
         }
 
-        public static ErrorExpression Create(UnitCollection.BaseUnit unit)
+        public static LogicExpressions.ILogicExpression Create(UnitCollection.IUnit unit)
         {
             return new ErrorExpression(UnitCollection.Create(unit));
         }
 
-        public static ErrorExpression Create(UnitCollection array)
+        public static LogicExpressions.ILogicExpression Create(UnitCollection array)
         {
             return new ErrorExpression(array);
         }

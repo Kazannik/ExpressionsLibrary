@@ -125,12 +125,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             this.value = value;
         }
                
-        public static CellExpression Create(string key)
+        public static IExpression Create(string key)
         {
             return new CellExpression(key);
         }
 
-        struct CellRegex
+        private struct CellRegex
         {
             public CellRegex(Match match, GetArgDelegate fun)
             {

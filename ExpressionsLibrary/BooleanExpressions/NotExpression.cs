@@ -5,18 +5,18 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// <summary>
     /// Противоположное логическое выражение.
     /// </summary>
-    class NotExpression : ExpressionBase
+    class NotExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
         private LogicExpressions.ILogicExpression expression;
 
-        public static NotExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
             return new NotExpression(ref cells, UnitCollection.Create(array));
         }
 
         private NotExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
-            this.expression = Expression.Create(ref cells, array);
+            expression = Expression.Create(ref cells, array);
         }
 
         /// <summary>

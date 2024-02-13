@@ -1,0 +1,8 @@
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.exe.config
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.exe
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.pdb
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionsLibrary.dll
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionsLibrary.pdb
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.csprojResolveAssemblyReference.cache
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.exe
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.pdb

@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// <summary>
     /// Логическое выражение, заключенное в скобки.
     /// </summary>
-    class AssociationExpression : ExpressionBase
+    class AssociationExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
         private LogicExpressions.ILogicExpression expression;
 
@@ -38,7 +38,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             return @"(" + expression.Formula() + @")";
         }
 
-        public static AssociationExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
             return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
         }

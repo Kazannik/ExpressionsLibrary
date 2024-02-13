@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// <summary>
     /// Логическое выражение (НЕ РАВНО).
     /// </summary>
-    class NotEqualExpression : CompoundExpression
+    class NotEqualExpression : CompoundExpression, ILogicExpression
     {
         private NotEqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
         
@@ -37,7 +37,7 @@ namespace ExpressionsLibrary.LogicExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static NotEqualExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new NotEqualExpression(ref cells, left, right);
         }

@@ -7,14 +7,14 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     abstract class Expression
     {  
-        public static ExpressionBase Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
             if (array.Count > 2 && array.IsLogic)
             { // Составное выражение.
                 return CompoundExpression.Create(ref cells, array);
             }
             else
-            { // Два и меньше елементов является ошибкой.
+            { // Два и меньше элементов является ошибкой.
                 return ErrorExpression.Create(array);
             }
         }     

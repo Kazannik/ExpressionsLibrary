@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// <summary>
     /// Логическое выражение (МЕНЬШЕ).
     /// </summary>
-    class LessExpression : CompoundExpression
+    class LessExpression : CompoundExpression, ILogicExpression
     {
         private LessExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -41,7 +41,7 @@ namespace ExpressionsLibrary.LogicExpressions
             }
         }
 
-        public static LessExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new LessExpression(ref cells, left, right);
         }

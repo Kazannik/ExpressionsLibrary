@@ -5,9 +5,9 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// <summary>
     /// Алгебраическое выражение, заключенное в скобки.
     /// </summary>
-    class AssociationExpression : ExpressionBase
+    class AssociationExpression : ExpressionBase, IExpression
     {
-        private ExpressionBase expression;
+        private IExpression expression;
 
         private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
@@ -35,10 +35,10 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         /// </summary>
         public override string Formula()
         {
-            return @"(" + this.expression.Formula() + @")";
+            return @"(" + expression.Formula() + @")";
         }
 
-        public static AssociationExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
         }

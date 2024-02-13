@@ -3,12 +3,12 @@
     /// <summary>
     /// Ячейка с фиксированным значением
     /// </summary>
-    class ValueExpression : ExpressionBase
+    class ValueExpression : ExpressionBase, IExpression
     {
         private ValueExpression(decimal value)
         {
-            this.IsError = false;
-            this.Value = value;
+            IsError = false;
+            Value = value;
         }
 
         /// <summary>
@@ -26,15 +26,15 @@
         /// </summary>
         public override string Formula()
         {
-            return this.Value.ToString();
+            return Value.ToString();
         }
 
-        public static ValueExpression Create(decimal value)
+        public static IExpression Create(decimal value)
         {
             return new ValueExpression(value);
         }
 
-        public static ValueExpression Create(string stringVal)
+        public static IExpression Create(string stringVal)
         {
             decimal decimalVal = 0;
             try

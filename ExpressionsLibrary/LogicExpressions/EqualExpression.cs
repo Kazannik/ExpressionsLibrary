@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// <summary>
     /// Логическое выражение (РАВНО).
     /// </summary>
-    class EqualExpression : CompoundExpression
+    class EqualExpression : CompoundExpression, ILogicExpression
     {
         private EqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
         
@@ -37,7 +37,7 @@ namespace ExpressionsLibrary.LogicExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static EqualExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new EqualExpression(ref cells, left, right);
         }

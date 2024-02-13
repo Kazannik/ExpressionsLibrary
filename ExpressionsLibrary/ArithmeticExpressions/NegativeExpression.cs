@@ -5,13 +5,13 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// <summary>
     /// Элемент отрицательного алгебраического выражения.
     /// </summary>
-    class NegativeExpression : ExpressionBase
+    class NegativeExpression : ExpressionBase, IExpression
     {
-        private ExpressionBase expression;
+        private IExpression expression;
 
         private NegativeExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
-            this.expression = Expression.Create(ref cells, array);
+            expression = Expression.Create(ref cells, array);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             return @"-" + expression.Formula();
         }
 
-        public static NegativeExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new NegativeExpression(ref cells, UnitCollection.Create(array));
         }
