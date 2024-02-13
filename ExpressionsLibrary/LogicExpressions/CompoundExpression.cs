@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     abstract class CompoundExpression : ExpressionBase, ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right): base()
         {
             LeftExpression = ArithmeticExpressions.Expression.Create(ref cells, left);
             RightExpression = ArithmeticExpressions.Expression.Create(ref cells, right);

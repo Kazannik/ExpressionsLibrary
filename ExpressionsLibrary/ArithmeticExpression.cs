@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-
 
 namespace ExpressionsLibrary
 {
@@ -134,9 +132,6 @@ namespace ExpressionsLibrary
         internal static Regex regexCellValue = new Regex(csCellValue, options); // "{value}"
         #endregion
 
-        private ArithmeticExpressions.IExpression expression;
-        private Dictionary<string, ArithmeticExpressions.ICell> collection;
-        
         /// <summary>
         /// Пробел ' '.
         /// </summary>
@@ -189,7 +184,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override decimal Value
         {
-            get { return expression.Value; }
+            get { return ((ArithmeticExpressions.IExpression) expression).Value; }
         }
 
         /// <summary>
@@ -207,38 +202,10 @@ namespace ExpressionsLibrary
         {
             return expression.Formula();
         }
-
-        public bool Contains(string key)
-        {
-            return collection.ContainsKey(key);
-        }
-
-        public string[] Keys
-        {
-            get { return collection.Keys.ToArray(); }
-        }
-
-        public ArithmeticExpressions.ICell this[string key]
-        {
-            get { return collection[key]; }
-        }
-
-        public int Count
-        {
-            get { return collection.Count; }
-        }
-
-        private ArithmeticExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        
+        private ArithmeticExpression(UnitCollection array): base()
         {
             InitializeSymbols();
-            collection = cells;
-            expression = ArithmeticExpressions.Expression.Create(ref collection, array);
-        }
-
-        private ArithmeticExpression(UnitCollection array)
-        {
-            InitializeSymbols();
-            collection = new Dictionary<string, ArithmeticExpressions.ICell>();
             expression = ArithmeticExpressions.Expression.Create(ref collection, array);
         }
 

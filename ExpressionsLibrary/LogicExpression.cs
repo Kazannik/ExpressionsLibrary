@@ -9,9 +9,6 @@ namespace ExpressionsLibrary
     /// </summary>
     class LogicExpression : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
     {
-        private LogicExpressions.ILogicExpression expression;
-        private Dictionary<string, ArithmeticExpressions.ICell> collection;
-
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
                 
         /// <summary>
@@ -114,7 +111,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return expression.Value; }
+            get { return ((LogicExpressions.ILogicExpression) expression).Value; }
         }
 
         /// <summary>
@@ -142,38 +139,10 @@ namespace ExpressionsLibrary
             return expression.ToString(format: format);
         }
 
-        public bool Contains(string key)
-        {
-            return collection.ContainsKey(key);
-        }
-
-        public string[] Keys
-        {
-            get { return collection.Keys.ToArray(); }
-        }
-
-        public ArithmeticExpressions.ICell this[string key]
-        {
-            get { return collection[key]; }
-        }
-
-        public int Count
-        {
-            get { return collection.Count; }
-        }
-
-        private LogicExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        private LogicExpression(UnitCollection array): base()
         {
             InitializeSymbols();
-            this.collection = cells;
-            this.expression = LogicExpressions.Expression.Create(ref this.collection, array);
-        }
-
-        private LogicExpression(UnitCollection array)
-        {
-            InitializeSymbols();
-            this.collection = new Dictionary<string, ArithmeticExpressions.ICell>();
-            this.expression = LogicExpressions.Expression.Create(ref this.collection, array);
+            expression = LogicExpressions.Expression.Create(ref this.collection, array);
         }
 
         internal static void InitializeSymbols()

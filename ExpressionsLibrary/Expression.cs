@@ -2,6 +2,9 @@
 
 namespace ExpressionsLibrary
 {
+    /// <summary>
+    /// Математическое выражение.
+    /// </summary>
     public class Expression : IExpression
     {
         private IExpression expression;
@@ -40,6 +43,43 @@ namespace ExpressionsLibrary
         public string ToString(string format)
         {
             return expression.ToString(format: format);
+        }
+
+
+        /// <summary>
+        /// Определяет содержится ли ячейка с указанным ключем в выражении.
+        /// </summary>
+        /// <param name="key">Ключ ячейки.</param>
+        /// <returns></returns>
+        public bool Contains(string key)
+        {
+            return expression.Contains(key);
+        }
+
+        /// <summary>
+        /// Коллекция ключей ячеек.
+        /// </summary>
+        public string[] Keys
+        {
+            get { return expression.Keys; }
+        }
+
+        /// <summary>
+        /// Ячейка, используемая при расчете.
+        /// </summary>
+        /// <param name="key">Ключ ячейки.</param>
+        /// <returns></returns>
+        public ArithmeticExpressions.ICell this[string key]
+        {
+            get { return expression[key]; }
+        }
+
+        /// <summary>
+        /// Количество ячеек, используемых при расчете.
+        /// </summary>
+        public int Count
+        {
+            get { return expression.Count; }
         }
 
         public static IExpression Create(string text)

@@ -6,9 +6,6 @@ namespace ExpressionsLibrary
 {
     class BooleanExpression : BooleanExpressions.ExpressionBase, LogicExpressions.ILogicExpression
     {
-        private LogicExpressions.ILogicExpression expression;
-        private Dictionary<string, ArithmeticExpressions.ICell> collection;
-
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
         /// <summary>
@@ -113,7 +110,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return expression.Value; }
+            get { return ((LogicExpressions.ILogicExpression) expression).Value; }
         }
 
         /// <summary>
@@ -140,39 +137,11 @@ namespace ExpressionsLibrary
         {
             return expression.ToString(format: format);
         }
-
-        public bool Contains(string key)
-        {
-            return collection.ContainsKey(key);
-        }
-
-        public string[] Keys
-        {
-            get { return collection.Keys.ToArray(); }
-        }
-
-        public ArithmeticExpressions.ICell this[string key]
-        {
-            get { return collection[key]; }
-        }
-
-        public int Count
-        {
-            get { return collection.Count; }
-        }
-        
-        private BooleanExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+                
+        private BooleanExpression(UnitCollection array): base()
         {
             InitializeSymbols();
-            collection = cells;
             expression = BooleanExpressions.Expression.Create(ref collection, array);
-        }
-
-        private BooleanExpression(UnitCollection array)
-        {
-            InitializeSymbols();
-            collection = new Dictionary<string, ArithmeticExpressions.ICell>();
-            expression = BooleanExpressions.Expression.Create(ref this.collection, array);
         }
 
         internal static void InitializeSymbols()

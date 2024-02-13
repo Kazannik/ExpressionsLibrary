@@ -1,5 +1,8 @@
 ﻿namespace ExpressionsLibrary
 {
+    /// <summary>
+    /// Математическое выражение.
+    /// </summary>
     public interface IExpression
     {
         /// <summary>
@@ -29,5 +32,29 @@
         /// Значение выражения.
         /// </summary>
         object objValue { get; }
+
+        /// <summary>
+        /// Определяет содержится ли ячейка с указанным ключем в выражении.
+        /// </summary>
+        /// <param name="key">Ключ ячейки.</param>
+        /// <returns></returns>
+        bool Contains(string key);
+        
+        /// <summary>
+        /// Коллекция ключей ячеек.
+        /// </summary>
+        string[] Keys { get; }
+        
+        /// <summary>
+        /// Ячейка, используемая при расчете.
+        /// </summary>
+        /// <param name="key">Ключ ячейки.</param>
+        /// <returns></returns>
+        ArithmeticExpressions.ICell this[string key] { get; }
+        
+        /// <summary>
+        /// Количество ячеек, используемых при расчете.
+        /// </summary>
+        int Count { get; }
     }
 }
