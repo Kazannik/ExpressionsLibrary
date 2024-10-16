@@ -88,8 +88,8 @@ namespace ExpressionsLibrary
         public static IExpression Create(string text)
         {
             bool isArithmetic = ArithmeticExpression.IsExpression(text: text);
-            bool isBoolean = BooleanExpression.IsExpression(text: text);
             bool isLogic = LogicExpression.IsExpression(text: text);
+            bool isBoolean = BooleanExpression.IsExpression(text: text);
 
             if (isBoolean)
                 return new Expression(BooleanExpression.Create(text));

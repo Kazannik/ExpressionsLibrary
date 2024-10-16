@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.LogicExpressions
 {
@@ -7,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     abstract class Expression
     {
-        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             if (array.Count > 2 && array.IsLogic)
             { // Составное выражение.

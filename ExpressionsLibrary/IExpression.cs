@@ -1,4 +1,6 @@
-﻿namespace ExpressionsLibrary
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+
+namespace ExpressionsLibrary
 {
     /// <summary>
     /// Интерфейс математического выражения.
@@ -50,7 +52,7 @@
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
         /// <returns></returns>
-        ArithmeticExpressions.ICell this[string key] { get; }
+        ICell this[string key] { get; }
 
         /// <summary>
         /// Количество ячеек, используемых при расчете.

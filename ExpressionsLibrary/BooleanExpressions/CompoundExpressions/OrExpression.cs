@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 {
     /// <summary>
     /// Логическое "ИЛИ" (OR).
     /// </summary>
-    class OrExpression : CompoundExpression, LogicExpressions.ILogicExpression
+    class OrExpression : CompoundExpression, ILogicExpression
     {
-        private OrExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
+        private OrExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolOr + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new OrExpression(ref cells, left, right);
         }

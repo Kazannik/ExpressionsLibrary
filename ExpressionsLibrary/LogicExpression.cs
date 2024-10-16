@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using ExpressionsLibrary.LogicExpressions;
 using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary
@@ -7,7 +6,7 @@ namespace ExpressionsLibrary
     /// <summary>
     /// Логическое выражение.
     /// </summary>
-    class LogicExpression : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
+    class LogicExpression : LogicExpressions.ExpressionBase, ILogicExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
@@ -49,27 +48,27 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Регулярное выражение для поиска знака равно [=].
         /// </summary>
-        internal static Regex regexEqual = new Regex(EQUAL, ArithmeticExpression.OPTIONS); // "="
+        internal static readonly Regex regexEqual = new Regex(EQUAL, ArithmeticExpression.OPTIONS); // "="
         /// <summary>
         /// Регулярное выражение для поиска знака не равно [&lt;>].
         /// </summary>
-        internal static Regex regexNotEqual = new Regex(NOT_EQUAL, ArithmeticExpression.OPTIONS); // "<>" / "!="
+        internal static readonly Regex regexNotEqual = new Regex(NOT_EQUAL, ArithmeticExpression.OPTIONS); // "<>" / "!="
         /// <summary>
         /// Регулярное выражение для поиска знака меньше [&lt;].
         /// </summary>
-        internal static Regex regexLess = new Regex(LESS, ArithmeticExpression.OPTIONS); // "<"
+        internal static readonly Regex regexLess = new Regex(LESS, ArithmeticExpression.OPTIONS); // "<"
         /// <summary>
         /// Регулярное выражение для поиска знака больше [>].
         /// </summary>
-        internal static Regex regexMore = new Regex(MORE, ArithmeticExpression.OPTIONS); // ">"
+        internal static readonly Regex regexMore = new Regex(MORE, ArithmeticExpression.OPTIONS); // ">"
         /// <summary>
         /// Регулярное выражение для поиска знака меньше или равно [&lt;=].
         /// </summary>
-        internal static Regex regexLessOrEqual = new Regex(LESS_OR_EQUAL, ArithmeticExpression.OPTIONS); // "<="
+        internal static readonly Regex regexLessOrEqual = new Regex(LESS_OR_EQUAL, ArithmeticExpression.OPTIONS); // "<="
         /// <summary>
         /// Регулярное выражение для поиска знака больше или равно [>=].
         /// </summary>
-        internal static Regex regexMoreOrEqual = new Regex(MORE_OR_EQUAL, ArithmeticExpression.OPTIONS); // ">="
+        internal static readonly Regex regexMoreOrEqual = new Regex(MORE_OR_EQUAL, ArithmeticExpression.OPTIONS); // ">="
 
         #endregion
 
@@ -111,7 +110,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return ((LogicExpressions.ILogicExpression)expression).Value; }
+            get { return ((ILogicExpression)expression).Value; }
         }
 
         /// <summary>
@@ -142,7 +141,7 @@ namespace ExpressionsLibrary
         private LogicExpression(UnitCollection array) : base()
         {
             InitializeSymbols();
-            expression = LogicExpressions.Expression.Create(ref this.collection, array);
+            expression = LogicExpressions.Expression.Create(ref collection, array);
         }
 
         internal static void InitializeSymbols()
@@ -164,22 +163,30 @@ namespace ExpressionsLibrary
         public static bool IsExpression(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(LOGIC, ArithmeticExpression.OPTIONS);
-            return regexAll.IsMatch(text);
+            Match matchNot = BooleanExpression.regexNot.Match(context);
+            if (matchNot.Length > 0 && matchNot.Index == 0)
+            {
+                return false;
+            }
+            else
+            {
+                regexAll = new Regex(LOGIC, ArithmeticExpression.OPTIONS);
+                return regexAll.IsMatch(text);
+            }
         }
 
-        public static LogicExpressions.ILogicExpression Create(string text)
+        public static ILogicExpression Create(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(LOGIC + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            regexAll = new Regex(LOGIC + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new LogicExpression(collection);
         }
 
-        public static LogicExpressions.ILogicExpression Create(string text, string cellpattern)
+        public static ILogicExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + LOGIC + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            regexAll = new Regex(@"(" + cellpattern + @")|" + LOGIC + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
             ArithmeticExpression.regexCell = new Regex(@"(" + cellpattern + @")", ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new LogicExpression(collection);

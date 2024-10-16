@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ExpressionsLibrary;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace UnitTestExpressions
@@ -15,7 +16,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '+' + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + '+' + y.ToString());
                 Assert.AreEqual(expression.objValue, x + y, "Значение должно быть равно " + (x + y).ToString());
             }
 
@@ -24,7 +25,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '-' + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + '-' + y.ToString());
                 Assert.AreEqual(expression.objValue, x - y, "Значение должно быть равно " + (x - y).ToString());
             }
 
@@ -33,7 +34,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '*' + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + '*' + y.ToString());
                 Assert.AreEqual(expression.objValue, x * y, "Значение должно быть равно " + (x * y).ToString());
             }
 
@@ -42,7 +43,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100) + 1;
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '/' + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + '/' + y.ToString());
                 Assert.AreEqual(expression.objValue, x / y, "Значение должно быть равно " + (x / y).ToString());
             }
 
@@ -56,7 +57,7 @@ namespace UnitTestExpressions
                 decimal d5 = (decimal)(rnd.NextDouble() * 100);
                 decimal d6 = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + d1 + " + " + d2 + ") /" + d3 + "+" + d4 + "*" + d5 + "-" + d6);
+                IExpression expression = Expression.Create("(" + d1 + " + " + d2 + ") /" + d3 + "+" + d4 + "*" + d5 + "-" + d6);
                 Assert.AreEqual(expression.objValue, (d1 + d2) / d3 + d4 * d5 - d6, "Значение должно быть равно " + ((d1 + d2) / d3 + d4 * d5 - d6).ToString());
             }
 
@@ -71,7 +72,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '=' + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + '=' + y.ToString());
                 Assert.AreEqual(expression.objValue, x == y, "Значение должно быть " + (x == y).ToString());
             }
 
@@ -81,26 +82,16 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<>" + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + @"<>" + y.ToString());
                 Assert.AreEqual(expression.objValue, x != y, "Значение должно быть " + (x != y).ToString());
             }
-
-
+                       
             for (int i = 0; i < 100; i++)
             {
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"!=" + y.ToString());
-                Assert.AreEqual(expression.objValue, x != y, "Значение должно быть " + (x != y).ToString());
-            }
-
-            for (int i = 0; i < 100; i++)
-            {
-                decimal x = (decimal)(rnd.NextDouble() * 100);
-                decimal y = (decimal)(rnd.NextDouble() * 100);
-
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @">" + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + @">" + y.ToString());
                 Assert.AreEqual(expression.objValue, x > y, "Значение должно быть " + (x > y).ToString());
             }
 
@@ -109,7 +100,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<" + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + @"<" + y.ToString());
                 Assert.AreEqual(expression.objValue, x < y, "Значение должно быть " + (x < y).ToString());
             }
 
@@ -118,7 +109,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @">=" + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + @">=" + y.ToString());
                 Assert.AreEqual(expression.objValue, x >= y, "Значение должно быть " + (x >= y).ToString());
             }
 
@@ -127,7 +118,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<=" + y.ToString());
+                IExpression expression = Expression.Create(x.ToString() + @"<=" + y.ToString());
                 Assert.AreEqual(expression.objValue, x <= y, "Значение должно быть " + (x <= y).ToString());
             }
         }
@@ -142,7 +133,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("Not (" + x.ToString() + '=' + y.ToString() + ")");
+                IExpression expression = Expression.Create("Not (" + x.ToString() + '=' + y.ToString() + ")");
                 Assert.AreEqual(expression.objValue, x != y, "Значение должно быть " + (x != y).ToString());
             }
 
@@ -151,7 +142,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + x.ToString() + '=' + y.ToString() + ") AND (" + x.ToString() + '>' + y.ToString() + ")");
+                IExpression expression = Expression.Create("(" + x.ToString() + '=' + y.ToString() + ") AND (" + x.ToString() + '>' + y.ToString() + ")");
                 Assert.AreEqual(expression.objValue, (x == y && x > y), "Значение должно быть " + (x == y && x > y).ToString());
             }
 
@@ -160,8 +151,8 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + x.ToString() + '=' + y.ToString() + ") OR (" + x.ToString() + '>' + y.ToString() + ")");
-                Assert.AreEqual(expression.objValue, (x == y || x > y), "Значение должно быть " + (x == y || x > y).ToString());
+                IExpression expression = Expression.Create("NOT ((" + x.ToString() + '=' + y.ToString() + ") OR (" + x.ToString() + '>' + y.ToString() + "))");
+                Assert.AreEqual(expression.objValue, (!(x == y || x > y)), "Значение должно быть " + (!(x == y || x > y)).ToString() + " => " + expression.Formula());
             }
         }
 
@@ -174,7 +165,7 @@ namespace UnitTestExpressions
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("[1] + [2] * [1] - [1]", @"\[\d+\]");
+                IExpression expression = Expression.Create("[1] + [2] * [1] - [1]", @"\[\d+\]");
                 Assert.AreEqual(expression.Count, 2, "Значение должно быть " + 2);
 
                 expression["[1]"].SetValue(x);
@@ -191,7 +182,7 @@ namespace UnitTestExpressions
                 decimal d4 = (decimal)(rnd.NextDouble() * 100) + 1;
                 decimal d5 = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("[1] + [2] * [1] - [3] / [4] - [5]", @"\[\d+\]");
+                IExpression expression = Expression.Create("[1] + [2] * [1] - [3] / [4] - [5]", @"\[\d+\]");
                 Assert.AreEqual(expression.Count, 5, "Значение должно быть " + 5);
 
                 expression["[1]"].SetValue(d1);

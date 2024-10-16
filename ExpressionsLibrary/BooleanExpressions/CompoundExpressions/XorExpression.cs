@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 {
     /// <summary>
     /// Исключающее ИЛИ (XOR).
     /// </summary>
-    class XorExpression : CompoundExpression, LogicExpressions.ILogicExpression
+    class XorExpression : CompoundExpression, ILogicExpression
     {
-        private XorExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
+        private XorExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
         /// <summary>
         /// Положительное значение логического выражения.
@@ -45,7 +47,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new XorExpression(ref cells, left, right);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.LogicExpressions
 {
@@ -7,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     class LessExpression : CompoundExpression, ILogicExpression
     {
-        private LessExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
+        private LessExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
         /// <summary>
         /// Положительное значение логического выражения.
@@ -22,7 +23,7 @@ namespace ExpressionsLibrary.LogicExpressions
         /// </summary>
         public override string Formula()
         {
-            return this.LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLess + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+            return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLess + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace ExpressionsLibrary.LogicExpressions
             }
         }
 
-        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new LessExpression(ref cells, left, right);
         }

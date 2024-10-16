@@ -1,11 +1,13 @@
-﻿namespace ExpressionsLibrary.BooleanExpressions
+﻿using ExpressionsLibrary.LogicExpressions;
+
+namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Положительное логическое выражение.
     /// </summary>
-    class TrueExpression : ExpressionBase, LogicExpressions.ILogicExpression
+    class TrueExpression : ExpressionBase, ILogicExpression
     {
-        public static LogicExpressions.ILogicExpression Create()
+        public static ILogicExpression Create()
         {
             return new TrueExpression();
         }

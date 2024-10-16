@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ExpressionsLibrary
@@ -10,11 +11,11 @@ namespace ExpressionsLibrary
     {
         protected IExpression expression;
 
-        protected Dictionary<string, ArithmeticExpressions.ICell> collection;
+        protected Dictionary<string, ICell> collection;
 
         protected ExpressionBase()
         {
-            collection = new Dictionary<string, ArithmeticExpressions.ICell>();
+            collection = new Dictionary<string, ICell>();
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace ExpressionsLibrary
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
         /// <returns></returns>
-        public ArithmeticExpressions.ICell this[string key]
+        public ICell this[string key]
         {
             get { return collection[key]; }
         }

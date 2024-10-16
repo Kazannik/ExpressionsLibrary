@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.LogicExpressions
 {
@@ -7,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     abstract class CompoundExpression : ExpressionBase, ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base()
+        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
             LeftExpression = ArithmeticExpressions.Expression.Create(ref cells, left);
             RightExpression = ArithmeticExpressions.Expression.Create(ref cells, right);
@@ -62,7 +63,7 @@ namespace ExpressionsLibrary.LogicExpressions
         /// Правая часть алгебраического выражения.
         /// </summary>
         public ArithmeticExpressions.IExpression RightExpression { get; }
-        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             int i = array.GetLastIndex();
             if (i > 0)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.LogicExpressions
 {
@@ -7,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     class EqualExpression : CompoundExpression, ILogicExpression
     {
-        private EqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
+        private EqualExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
         /// <summary>
         /// Положительное значение логического выражения.
@@ -37,7 +38,7 @@ namespace ExpressionsLibrary.LogicExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new EqualExpression(ref cells, left, right);
         }

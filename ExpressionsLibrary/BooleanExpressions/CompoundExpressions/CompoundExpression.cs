@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 {
     /// <summary>
     /// Составное логическое выражение (Например, равенство, сравнение и т.д.)
     /// </summary>
-    abstract class CompoundExpression : ExpressionBase, LogicExpressions.ILogicExpression
+    abstract class CompoundExpression : ExpressionBase, ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base()
+        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
             LeftExpression = Expression.Create(ref cells, left);
             RightExpression = Expression.Create(ref cells, right);
@@ -56,14 +58,14 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
         /// <summary>
         /// Левая часть алгебраического выражения.
         /// </summary>
-        public LogicExpressions.ILogicExpression LeftExpression { get; }
+        public ILogicExpression LeftExpression { get; }
 
         /// <summary>
         /// Правая часть алгебраического выражения.
         /// </summary>
-        public LogicExpressions.ILogicExpression RightExpression { get; }
+        public ILogicExpression RightExpression { get; }
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             int i = array.GetLastIndex();
             if (i > 0)

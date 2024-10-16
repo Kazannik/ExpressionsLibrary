@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Логическое выражение, заключенное в скобки.
     /// </summary>
-    class AssociationExpression : ExpressionBase, LogicExpressions.ILogicExpression
+    class AssociationExpression : ExpressionBase, ILogicExpression
     {
-        private new LogicExpressions.ILogicExpression expression;
+        private new ILogicExpression expression;
 
-        private AssociationExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             expression = Expression.Create(ref cells, array);
         }
@@ -38,7 +40,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             return @"(" + expression.Formula() + @")";
         }
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
         }

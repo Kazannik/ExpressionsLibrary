@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 {
@@ -7,7 +8,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// </summary>
     class AndExpression : CompoundExpression
     {
-        private AndExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
+        private AndExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
         /// <summary>
         /// Положительное значение логического выражения.
@@ -37,7 +38,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolAnd + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static AndExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right)
+        public static AndExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new AndExpression(ref cells, left, right);
         }

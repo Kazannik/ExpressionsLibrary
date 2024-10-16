@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions
 {
@@ -7,7 +9,7 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// </summary>
     abstract class Expression
     {
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             if (array.Count == 0)
             { // Элементы отсуствуют.
@@ -39,7 +41,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             }
             else if (array.Count > 2 && array.IsBoolean)
             { // Составное выражение.
-                return CompoundExpressions.CompoundExpression.Create(ref cells, array);
+                return BooleanExpressions.CompoundExpressions.CompoundExpression.Create(ref cells, array);
             }
             else
             { // Может это логическое выражение.

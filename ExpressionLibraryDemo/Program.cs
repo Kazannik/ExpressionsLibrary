@@ -18,7 +18,7 @@ namespace ExpressionLibraryDemo
                 Console.WriteLine(expression.Formula() + " " + expression.objValue);
             }
 
-            expression = ExpressionsLibrary.Expression.Create(@"2/0");
+            expression = ExpressionsLibrary.Expression.Create(@"!(2=0)");
             Console.WriteLine(expression.Formula() + " = " + expression.objValue);
 
             Console.ReadKey();

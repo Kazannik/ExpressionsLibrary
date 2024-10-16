@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.ArithmeticExpressions;
+using ExpressionsLibrary.LogicExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Противоположное логическое выражение.
     /// </summary>
-    class NotExpression : ExpressionBase, LogicExpressions.ILogicExpression
+    class NotExpression : ExpressionBase, ILogicExpression
     {
-        private new LogicExpressions.ILogicExpression expression;
+        private new ILogicExpression expression;
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new NotExpression(ref cells, UnitCollection.Create(array));
         }
 
-        private NotExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
+        private NotExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             expression = Expression.Create(ref cells, array);
         }

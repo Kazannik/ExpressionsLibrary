@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionsLibrary.LogicExpressions;
 
 namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Отрицательное логическое выражение.
     /// </summary>
-    class FalseExpression : ExpressionBase, LogicExpressions.ILogicExpression
+    class FalseExpression : ExpressionBase, ILogicExpression
     {
-        public static LogicExpressions.ILogicExpression Create()
+        public static ILogicExpression Create()
         {
             return new FalseExpression();
         }

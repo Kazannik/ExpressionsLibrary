@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using ExpressionsLibrary.LogicExpressions;
 using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary
 {
-    class BooleanExpression : BooleanExpressions.ExpressionBase, LogicExpressions.ILogicExpression
+    class BooleanExpression : BooleanExpressions.ExpressionBase, ILogicExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
@@ -39,7 +38,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Коллекция логических знаков.
         /// </summary>
-        private const string csBoolean = AND + @"|" + NOT + @"|" + OR + @"|" + XOR + @"|" + TRUE + @"|" + FALSE;
+        private const string BOOLEAN = AND + @"|" + NOT + @"|" + OR + @"|" + XOR + @"|" + TRUE + @"|" + FALSE;
 
         /// <summary>
         /// Регулярное выражение для поиска всех компонентов, включая ячейки.
@@ -48,27 +47,27 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Регулярное выражение для поиска знака логического отрицания [NOT].
         /// </summary>
-        internal static Regex regexNot = new Regex(NOT, ArithmeticExpression.OPTIONS); // "not"
+        internal static readonly Regex regexNot = new Regex(NOT, ArithmeticExpression.OPTIONS); // "not"
         /// <summary>
         /// Регулярное выражение для поиска знака логического сложения [AND].
         /// </summary>
-        internal static Regex regexAnd = new Regex(AND, ArithmeticExpression.OPTIONS); // "and"
+        internal static readonly Regex regexAnd = new Regex(AND, ArithmeticExpression.OPTIONS); // "and"
         /// <summary>
         /// Регулярное выражение для поиска знака логического или [OR].
         /// </summary>
-        internal static Regex regexOr = new Regex(OR, ArithmeticExpression.OPTIONS); // "or"
+        internal static readonly Regex regexOr = new Regex(OR, ArithmeticExpression.OPTIONS); // "or"
         /// <summary>
         /// Регулярное выражение для поиска знака исключающего или [XOR].
         /// </summary>
-        internal static Regex regexXor = new Regex(XOR, ArithmeticExpression.OPTIONS); // "xor"
+        internal static readonly Regex regexXor = new Regex(XOR, ArithmeticExpression.OPTIONS); // "xor"
         /// <summary>
         /// Регулярное выражение для поиска знака положительного выражения [True].
         /// </summary>
-        internal static Regex regexTrue = new Regex(TRUE, ArithmeticExpression.OPTIONS); // "true"
+        internal static readonly Regex regexTrue = new Regex(TRUE, ArithmeticExpression.OPTIONS); // "true"
         /// <summary>
         /// Регулярное выражение для поиска знака отрицательного выражения [False].
         /// </summary>
-        internal static Regex regexFalse = new Regex(FALSE, ArithmeticExpression.OPTIONS); // "false"
+        internal static readonly Regex regexFalse = new Regex(FALSE, ArithmeticExpression.OPTIONS); // "false"
 
         #endregion
 
@@ -110,7 +109,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return ((LogicExpressions.ILogicExpression)expression).Value; }
+            get { return ((ILogicExpression)expression).Value; }
         }
 
         /// <summary>
@@ -163,22 +162,22 @@ namespace ExpressionsLibrary
         public static bool IsExpression(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csBoolean, ArithmeticExpression.OPTIONS);
+            regexAll = new Regex(BOOLEAN, ArithmeticExpression.OPTIONS);
             return regexAll.IsMatch(text);
         }
 
-        public static LogicExpressions.ILogicExpression Create(string text)
+        public static ILogicExpression Create(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(LogicExpression.LOGIC + @"|" + csBoolean + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            regexAll = new Regex(LogicExpression.LOGIC + @"|" + BOOLEAN + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new BooleanExpression(collection);
         }
 
-        public static LogicExpressions.ILogicExpression Create(string text, string cellpattern)
+        public static ILogicExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + LogicExpression.LOGIC + @"|" + csBoolean + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            regexAll = new Regex(@"(" + cellpattern + @")|" + LogicExpression.LOGIC + @"|" + BOOLEAN + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
             ArithmeticExpression.regexCell = new Regex(@"(" + cellpattern + @")", ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new BooleanExpression(collection);

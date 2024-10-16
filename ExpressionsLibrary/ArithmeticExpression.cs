@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary
 {
@@ -66,7 +65,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Коллекция арифметических знаков.
         /// </summary>
-        internal const string csArithmetic = DECIMAL + @"|" + ADDITION + @"|" + DIVISION + @"|" + FIX + @"|" + MOD + @"|" + MULTIPLICATION + @"|" + POWER + @"|" + SQRT + @"|" + SUBTRACTION;
+        internal const string ARITHMETIC = DECIMAL + @"|" + ADDITION + @"|" + DIVISION + @"|" + FIX + @"|" + MOD + @"|" + MULTIPLICATION + @"|" + POWER + @"|" + SQRT + @"|" + SUBTRACTION;
 
         internal const RegexOptions OPTIONS = RegexOptions.IgnoreCase | RegexOptions.Compiled;
 
@@ -81,55 +80,55 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Регулярное выражение для поиска цифр.
         /// </summary>
-        internal static Regex regexDecimal = new Regex(DECIMAL, OPTIONS);
+        internal static readonly Regex regexDecimal = new Regex(DECIMAL, OPTIONS);
         /// <summary>
         /// Регулярное выражение для поиска знака pow (возведение в степень).
         /// </summary>
-        internal static Regex regexPower = new Regex(POWER, OPTIONS); // "pow" / "^"
+        internal static readonly Regex regexPower = new Regex(POWER, OPTIONS); // "pow" / "^"
         /// <summary>
         /// Регулярное выражение для поиска знака sqrt (корень).
         /// </summary>
-        internal static Regex regexSqrt = new Regex(SQRT, OPTIONS); // "sqrt / "√"
+        internal static readonly Regex regexSqrt = new Regex(SQRT, OPTIONS); // "sqrt / "√"
         /// <summary>
         /// Регулярное выражение для поиска знака умножения [*].
         /// </summary>
-        internal static Regex regexMultiplication = new Regex(MULTIPLICATION, OPTIONS); // "*"
+        internal static readonly Regex regexMultiplication = new Regex(MULTIPLICATION, OPTIONS); // "*"
         /// <summary>
         /// Регулярное выражение для поиска знака деления [/].
         /// </summary>
-        internal static Regex regexDivision = new Regex(DIVISION, OPTIONS); // "/"
+        internal static readonly Regex regexDivision = new Regex(DIVISION, OPTIONS); // "/"
         /// <summary>
         /// Регулярное выражение для поиска знака fix (целое от деления).
         /// </summary>
-        internal static Regex regexFix = new Regex(FIX, OPTIONS);// "fix" / "\"
+        internal static readonly Regex regexFix = new Regex(FIX, OPTIONS);// "fix" / "\"
         /// <summary>
         /// Регулярное выражение для поиска знака mod (остаток от деления).
         /// </summary>
-        internal static Regex regexMod = new Regex(MOD, OPTIONS); // "mod" / "%"
+        internal static readonly Regex regexMod = new Regex(MOD, OPTIONS); // "mod" / "%"
         /// <summary>
         /// Регулярное выражение для поиска знака сложения [+].
         /// </summary>
-        internal static Regex regexAddition = new Regex(ADDITION, OPTIONS); // "+"
+        internal static readonly Regex regexAddition = new Regex(ADDITION, OPTIONS); // "+"
         /// <summary>
         /// Регулярное выражение для поиска знака вычитания [-].
         /// </summary>
-        internal static Regex regexSubtracting = new Regex(SUBTRACTION, OPTIONS); // "-"
+        internal static readonly Regex regexSubtracting = new Regex(SUBTRACTION, OPTIONS); // "-"
         /// <summary>
         /// Регулярное выражение для поиска знака открывающейся скобки [(].
         /// </summary>
-        internal static Regex regexOpen = new Regex(OPEN, OPTIONS); // "("
+        internal static readonly Regex regexOpen = new Regex(OPEN, OPTIONS); // "("
         /// <summary>
         /// Регулярное выражение для поиска знака закрывающейся скобки [)].
         /// </summary>
-        internal static Regex regexClose = new Regex(CLOSE, OPTIONS); // ")"
+        internal static readonly Regex regexClose = new Regex(CLOSE, OPTIONS); // ")"
         /// <summary>
         /// Ключ ячейки в формате формулы.
         /// </summary>
-        internal static Regex regexCellKey = new Regex(CELL_KEY, OPTIONS); // "{key}"
+        internal static readonly Regex regexCellKey = new Regex(CELL_KEY, OPTIONS); // "{key}"
         /// <summary>
         /// Значение ячейки в формате формулы.
         /// </summary>
-        internal static Regex regexCellValue = new Regex(CELL_VALUE, OPTIONS); // "{value}"
+        internal static readonly Regex regexCellValue = new Regex(CELL_VALUE, OPTIONS); // "{value}"
         #endregion
 
         /// <summary>
@@ -229,14 +228,14 @@ namespace ExpressionsLibrary
         public static bool IsExpression(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
+            regexAll = new Regex(ARITHMETIC + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
             return regexAll.IsMatch(text);
         }
 
         public static IExpression Create(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
+            regexAll = new Regex(ARITHMETIC + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new ArithmeticExpression(collection);
         }
@@ -244,7 +243,7 @@ namespace ExpressionsLibrary
         public static IExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
+            regexAll = new Regex(@"(" + cellpattern + @")|" + ARITHMETIC + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
             regexCell = new Regex(@"(" + cellpattern + @")", OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new ArithmeticExpression(collection);
