@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// </summary>
     class AssociationExpression : ExpressionBase, IExpression
     {
-        private IExpression expression;
+        private new IExpression expression;
 
         private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {

@@ -12,11 +12,11 @@ namespace UnitTestExpressions
             Random rnd = new Random(0);
             for (int i = 0; i < 100; i++)
             {
-                decimal x = (decimal)(rnd.NextDouble() * 100) ;
+                decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create( x.ToString() + '+' + y.ToString());
-                Assert.AreEqual(expression.objValue, x + y, "Значение должно быть равно " + (x+y).ToString());
+                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + '+' + y.ToString());
+                Assert.AreEqual(expression.objValue, x + y, "Значение должно быть равно " + (x + y).ToString());
             }
 
             for (int i = 0; i < 100; i++)
@@ -57,7 +57,7 @@ namespace UnitTestExpressions
                 decimal d6 = (decimal)(rnd.NextDouble() * 100);
 
                 ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + d1 + " + " + d2 + ") /" + d3 + "+" + d4 + "*" + d5 + "-" + d6);
-                Assert.AreEqual(expression.objValue, (d1+ d2)/d3 + d4 * d5 - d6, "Значение должно быть равно " + ((d1 + d2) / d3 + d4 * d5 - d6).ToString());
+                Assert.AreEqual(expression.objValue, (d1 + d2) / d3 + d4 * d5 - d6, "Значение должно быть равно " + ((d1 + d2) / d3 + d4 * d5 - d6).ToString());
             }
 
         }

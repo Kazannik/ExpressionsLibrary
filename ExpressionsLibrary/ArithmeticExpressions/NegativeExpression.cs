@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// </summary>
     class NegativeExpression : ExpressionBase, IExpression
     {
-        private IExpression expression;
+        private new IExpression expression;
 
         private NegativeExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {

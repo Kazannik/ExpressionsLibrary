@@ -1,7 +1,7 @@
 ﻿namespace ExpressionsLibrary
 {
     /// <summary>
-    /// Математическое выражение.
+    /// Интерфейс математического выражения.
     /// </summary>
     public interface IExpression
     {
@@ -20,7 +20,7 @@
         /// </summary>
         /// <returns></returns>
         string ToString();
-        
+
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
@@ -39,19 +39,19 @@
         /// <param name="key">Ключ ячейки.</param>
         /// <returns></returns>
         bool Contains(string key);
-        
+
         /// <summary>
         /// Коллекция ключей ячеек.
         /// </summary>
         string[] Keys { get; }
-        
+
         /// <summary>
         /// Ячейка, используемая при расчете.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
         /// <returns></returns>
         ArithmeticExpressions.ICell this[string key] { get; }
-        
+
         /// <summary>
         /// Количество ячеек, используемых при расчете.
         /// </summary>

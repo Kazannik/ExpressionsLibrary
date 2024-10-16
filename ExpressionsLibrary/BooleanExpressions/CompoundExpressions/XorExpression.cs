@@ -19,9 +19,9 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 if (LeftExpression.Value || RightExpression.Value)
                     return true;
                 else if (LeftExpression.Value == RightExpression.Value)
-                    return false; 
+                    return false;
                 else
-                    return true; 
+                    return true;
             }
         }
 

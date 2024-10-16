@@ -8,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     class NotEqualExpression : CompoundExpression, ILogicExpression
     {
         private NotEqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
-        
+
         /// <summary>
         /// Положительное значение логического выражения.
         /// </summary>

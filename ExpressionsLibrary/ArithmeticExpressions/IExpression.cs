@@ -1,6 +1,9 @@
 ﻿namespace ExpressionsLibrary.ArithmeticExpressions
 {
-    public interface IExpression: ExpressionsLibrary.IExpression
+    /// <summary>
+    /// Интерфейс алгебраического выражения.
+    /// </summary>
+    public interface IExpression : ExpressionsLibrary.IExpression
     {
         /// <summary>
         /// Значение алгебраического выражения.

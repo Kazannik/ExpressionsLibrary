@@ -36,7 +36,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         {
             return GetStringValue.Invoke(Value);
         }
-        
+
         delegate string GetValueDelegate(decimal value);
         GetValueDelegate GetStringValue;
         string ClearFormat(decimal value)
@@ -47,7 +47,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         {
             return value.ToString(this.Format);
         }
-                
+
         /// <summary>
         /// Признак содержания ошибки в выражении.
         /// </summary>
@@ -63,9 +63,10 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         /// </summary>
         public override decimal Value { get { return value; } }
         /// <summary>
-        /// Формат отображения формулы числа.
+        /// Формат отображения формулы числа. Описатели стандартного формата.
         /// </summary>
-        public string Format {
+        public string Format
+        {
             get { return format; }
             set
             {
@@ -73,7 +74,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
                 if (string.IsNullOrWhiteSpace(format))
                     GetStringValue = ClearFormat;
                 else
-                    GetStringValue = DecimalFormat;                
+                    GetStringValue = DecimalFormat;
             }
         }
         /// <summary>
@@ -104,7 +105,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
                 return formulaformat;
             else
             {
-                string result=string.Empty;
+                string result = string.Empty;
                 int LastLength = 0;
                 for (int i = 0; i < cellFormat.Count; i++)
                 {
@@ -113,7 +114,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
                 }
                 result += formulaformat.Substring(LastLength);
                 return result;
-            }            
+            }
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         {
             this.value = value;
         }
-               
+
         public static IExpression Create(string key)
         {
             return new CellExpression(key);

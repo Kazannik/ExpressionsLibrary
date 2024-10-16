@@ -14,7 +14,7 @@
             formula = LogicExpression.SymbolStartError;
             foreach (UnitCollection.IUnit u in array)
             {
-                if (formula.Length>0) { formula += ArithmeticExpression.SymbolSpace; }
+                if (formula.Length > 0) { formula += ArithmeticExpression.SymbolSpace; }
                 formula += u.Value;
             }
             formula += LogicExpression.SymbolEndError;

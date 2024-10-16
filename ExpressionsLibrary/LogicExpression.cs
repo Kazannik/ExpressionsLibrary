@@ -10,66 +10,66 @@ namespace ExpressionsLibrary
     class LogicExpression : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
-                
+
         /// <summary>
         /// Равно [=].
         /// </summary>
-        internal const string csEqual = @"\x3d"; // "="
+        internal const string EQUAL = @"\x3d"; // "="
         /// <summary>
         /// Не равно [&lt;>],[!=].
         /// </summary>
-        internal const string csNotEqual = @"((\x3c\x3e)|(\x21\x3d))"; // "<>" / "!="
+        internal const string NOT_EQUAL = @"((\x3c\x3e)|(\x21\x3d))"; // "<>" / "!="
         /// <summary>
         /// Меньше [&lt;].
         /// </summary>
-        internal const string csLess = @"\x3c"; // "<"
+        internal const string LESS = @"\x3c"; // "<"
         /// <summary>
         /// Больше (>).
         /// </summary>
-        internal const string csMore = @"\x3e"; // ">"
+        internal const string MORE = @"\x3e"; // ">"
         /// <summary>
         /// Меньше или равно(&lt;=).
         /// </summary>
-        internal const string csLessOrEqual = @"\x3c\x3d"; // "<="
+        internal const string LESS_OR_EQUAL = @"\x3c\x3d"; // "<="
         /// <summary>
         /// Больше или равно (>=).
         /// </summary>
-        internal const string csMoreOrEqual = @"\x3e\x3d"; // ">="
+        internal const string MORE_OR_EQUAL = @"\x3e\x3d"; // ">="
 
         /// <summary>
         /// Коллекция логических знаков.
         /// </summary>
-        internal const string csLogic = csLessOrEqual + @"|" + csMoreOrEqual + @"|" + csNotEqual + @"|" + csEqual + @"|" + csLess  + @"|" + csMore ;
+        internal const string LOGIC = LESS_OR_EQUAL + @"|" + MORE_OR_EQUAL + @"|" + NOT_EQUAL + @"|" + EQUAL + @"|" + LESS + @"|" + MORE;
 
         /// <summary>
         /// Регулярное выражение для поиска всех компонентов, включая ячейки.
         /// </summary>
         internal static Regex regexAll;
-         
+
         /// <summary>
         /// Регулярное выражение для поиска знака равно [=].
         /// </summary>
-        internal static Regex regexEqual = new Regex(csEqual, ArithmeticExpression.options); // "="
+        internal static Regex regexEqual = new Regex(EQUAL, ArithmeticExpression.OPTIONS); // "="
         /// <summary>
         /// Регулярное выражение для поиска знака не равно [&lt;>].
         /// </summary>
-        internal static Regex regexNotEqual = new Regex(csNotEqual, ArithmeticExpression.options); // "<>" / "!="
+        internal static Regex regexNotEqual = new Regex(NOT_EQUAL, ArithmeticExpression.OPTIONS); // "<>" / "!="
         /// <summary>
         /// Регулярное выражение для поиска знака меньше [&lt;].
         /// </summary>
-        internal static Regex regexLess = new Regex(csLess, ArithmeticExpression.options); // "<"
+        internal static Regex regexLess = new Regex(LESS, ArithmeticExpression.OPTIONS); // "<"
         /// <summary>
         /// Регулярное выражение для поиска знака больше [>].
         /// </summary>
-        internal static Regex regexMore = new Regex(csMore, ArithmeticExpression.options); // ">"
+        internal static Regex regexMore = new Regex(MORE, ArithmeticExpression.OPTIONS); // ">"
         /// <summary>
         /// Регулярное выражение для поиска знака меньше или равно [&lt;=].
         /// </summary>
-        internal static Regex regexLessOrEqual = new Regex(csLessOrEqual, ArithmeticExpression.options); // "<="
+        internal static Regex regexLessOrEqual = new Regex(LESS_OR_EQUAL, ArithmeticExpression.OPTIONS); // "<="
         /// <summary>
         /// Регулярное выражение для поиска знака больше или равно [>=].
         /// </summary>
-        internal static Regex regexMoreOrEqual = new Regex(csMoreOrEqual, ArithmeticExpression.options); // ">="
+        internal static Regex regexMoreOrEqual = new Regex(MORE_OR_EQUAL, ArithmeticExpression.OPTIONS); // ">="
 
         #endregion
 
@@ -111,7 +111,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return ((LogicExpressions.ILogicExpression) expression).Value; }
+            get { return ((LogicExpressions.ILogicExpression)expression).Value; }
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace ExpressionsLibrary
             return expression.ToString(format: format);
         }
 
-        private LogicExpression(UnitCollection array): base()
+        private LogicExpression(UnitCollection array) : base()
         {
             InitializeSymbols();
             expression = LogicExpressions.Expression.Create(ref this.collection, array);
@@ -152,26 +152,26 @@ namespace ExpressionsLibrary
             SymbolStartError = ArithmeticExpression.SymbolStartError;
             SymbolEndError = ArithmeticExpression.SymbolEndError;
 
-            SymbolEqual = string.IsNullOrWhiteSpace(SymbolEqual) ? @"=": SymbolEqual;
-            SymbolNotEqual = string.IsNullOrWhiteSpace(SymbolNotEqual) ? @"<>": SymbolNotEqual;
-            SymbolLess = string.IsNullOrWhiteSpace(SymbolLess) ? @"<": SymbolLess;
-            SymbolMore = string.IsNullOrWhiteSpace(SymbolMore) ? @">": SymbolMore;
-            SymbolLessOrEqual = string.IsNullOrWhiteSpace(SymbolLessOrEqual) ? "<=": SymbolLessOrEqual;
-            SymbolMoreOrEqual = string.IsNullOrWhiteSpace(SymbolMoreOrEqual) ? @">=": SymbolMoreOrEqual;
+            SymbolEqual = string.IsNullOrWhiteSpace(SymbolEqual) ? @"=" : SymbolEqual;
+            SymbolNotEqual = string.IsNullOrWhiteSpace(SymbolNotEqual) ? @"<>" : SymbolNotEqual;
+            SymbolLess = string.IsNullOrWhiteSpace(SymbolLess) ? @"<" : SymbolLess;
+            SymbolMore = string.IsNullOrWhiteSpace(SymbolMore) ? @">" : SymbolMore;
+            SymbolLessOrEqual = string.IsNullOrWhiteSpace(SymbolLessOrEqual) ? "<=" : SymbolLessOrEqual;
+            SymbolMoreOrEqual = string.IsNullOrWhiteSpace(SymbolMoreOrEqual) ? @">=" : SymbolMoreOrEqual;
         }
 
 
         public static bool IsExpression(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csLogic, ArithmeticExpression.options);
+            regexAll = new Regex(LOGIC, ArithmeticExpression.OPTIONS);
             return regexAll.IsMatch(text);
         }
 
         public static LogicExpressions.ILogicExpression Create(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csLogic + @"|" + ArithmeticExpression.csArithmetic + @"|" +  ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);
+            regexAll = new Regex(LOGIC + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new LogicExpression(collection);
         }
@@ -179,8 +179,8 @@ namespace ExpressionsLibrary
         public static LogicExpressions.ILogicExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + csLogic + @"|" + ArithmeticExpression.csArithmetic + @"|"  + ArithmeticExpression.csOpen + @"|" + ArithmeticExpression.csClose, ArithmeticExpression.options);
-            ArithmeticExpression.regexCell = new Regex(@"(" + cellpattern + @")", ArithmeticExpression.options);
+            regexAll = new Regex(@"(" + cellpattern + @")|" + LOGIC + @"|" + ArithmeticExpression.csArithmetic + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            ArithmeticExpression.regexCell = new Regex(@"(" + cellpattern + @")", ArithmeticExpression.OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new LogicExpression(collection);
         }

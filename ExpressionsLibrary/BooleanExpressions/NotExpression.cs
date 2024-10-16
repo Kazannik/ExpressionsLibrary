@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// </summary>
     class NotExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
-        private LogicExpressions.ILogicExpression expression;
+        private new LogicExpressions.ILogicExpression expression;
 
         public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
