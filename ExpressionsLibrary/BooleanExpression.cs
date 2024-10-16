@@ -128,6 +128,11 @@ namespace ExpressionsLibrary
             return expression.Formula();
         }
 
+        public override string Formula(string format)
+        {
+            return expression.Formula(format: format);
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>

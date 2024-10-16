@@ -1,6 +1,8 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ExpressionsLibrary
 {
@@ -32,6 +34,12 @@ namespace ExpressionsLibrary
         /// Строковое представление выражения.
         /// </summary>
         public abstract string Formula();
+
+        /// <summary>
+        /// Строковое представление выражения.
+        /// </summary>
+        /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
+        public abstract string Formula(string format);
 
         /// <summary>
         /// Короткое строковое представление выражения.
@@ -93,6 +101,16 @@ namespace ExpressionsLibrary
         public int Count
         {
             get { return collection.Count; }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<ICell> GetEnumerator()
+        {
+            return collection.Values.GetEnumerator();
         }
     }
 }

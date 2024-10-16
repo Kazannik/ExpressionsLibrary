@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Целая часть от деления одного числа на другое.
     /// </summary>
-    class FixExpression : CompoundExpression, IExpression
+    class FixExpression : Expression, IExpression
     {
         private FixExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -40,6 +40,14 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolFix + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolStartError + RightExpression.Formula() + ArithmeticExpression.SymbolEndError;
             else
                 return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolFix + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+        }
+
+        public override string Formula(string format)
+        {
+            if (RightExpression.Value == 0 && !RightExpression.IsError)
+                return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolFix + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolStartError + RightExpression.Formula(format: format) + ArithmeticExpression.SymbolEndError;
+            else
+                return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolFix + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>

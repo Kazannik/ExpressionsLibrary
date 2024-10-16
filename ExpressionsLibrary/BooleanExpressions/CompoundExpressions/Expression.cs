@@ -7,12 +7,12 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Составное логическое выражение (Например, равенство, сравнение и т.д.)
     /// </summary>
-    abstract class CompoundExpression : ExpressionBase, ILogicExpression
+    abstract class Expression : ExpressionBase, ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
+        protected Expression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
-            LeftExpression = Expression.Create(ref cells, left);
-            RightExpression = Expression.Create(ref cells, right);
+            LeftExpression = BooleanExpressions.Expression.Create(ref cells, left);
+            RightExpression = BooleanExpressions.Expression.Create(ref cells, right);
         }
 
         protected string GetLeftFormula()
@@ -91,7 +91,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
             else if (i == -2)
                 return ErrorExpression.Create(array);
             else
-                return Expression.Create(ref cells, array);
+                return BooleanExpressions.Expression.Create(ref cells, array);
         }
     }
 }

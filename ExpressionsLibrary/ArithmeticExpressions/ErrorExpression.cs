@@ -38,6 +38,11 @@
             return formula;
         }
 
+        public override string Formula(string format)
+        {
+            return formula;
+        }
+
         public static IExpression Create(UnitCollection.IUnit unit)
         {
             return new ErrorExpression(UnitCollection.Create(unit));

@@ -202,6 +202,14 @@ namespace ExpressionsLibrary
             return expression.Formula();
         }
 
+        /// <summary>
+        /// Строковое представление алгебраического выражения.
+        /// </summary>
+        public override string Formula(string format)
+        {
+            return expression.Formula(format: format);
+        }
+
         private ArithmeticExpression(UnitCollection array) : base()
         {
             InitializeSymbols();

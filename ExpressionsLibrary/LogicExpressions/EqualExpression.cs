@@ -26,6 +26,11 @@ namespace ExpressionsLibrary.LogicExpressions
             return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
         }
 
+        public override string Formula(string format)
+        {
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>

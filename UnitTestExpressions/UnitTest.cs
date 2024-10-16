@@ -85,7 +85,7 @@ namespace UnitTestExpressions
                 IExpression expression = Expression.Create(x.ToString() + @"<>" + y.ToString());
                 Assert.AreEqual(expression.objValue, x != y, "Значение должно быть " + (x != y).ToString());
             }
-                       
+
             for (int i = 0; i < 100; i++)
             {
                 decimal x = (decimal)(rnd.NextDouble() * 100);
@@ -192,6 +192,36 @@ namespace UnitTestExpressions
                 expression["[5]"].SetValue(d5);
 
                 Assert.AreEqual(expression.objValue, d1 + d2 * d1 - d3 / d4 - d5, "Значение должно быть " + (d1 + d2 * d1 - d3 / d4 - d5).ToString());
+            }
+        }
+
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+            Random rnd = new Random(0);
+
+            for (int i = 0; i < 100; i++)
+            {
+                decimal[] d = {
+                    (decimal)(rnd.NextDouble() * 100) + 1,
+                    (decimal)(rnd.NextDouble() * 100) + 1,
+                    (decimal)(rnd.NextDouble() * 100) + 1,
+                    (decimal)(rnd.NextDouble() * 100) + 1,
+                    (decimal)(rnd.NextDouble() * 100) + 1
+                };
+
+                IExpression expression = Expression.Create("[1] + [2] * [1] - [3] / [4] - [5]", @"\[\d+\]");
+                Assert.AreEqual(expression.Count, 5, "Значение должно быть " + 5);
+
+                int t = 0;
+                foreach (ExpressionsLibrary.ArithmeticExpressions.ICell cell in expression)
+                {
+                    cell.SetValue(d[t]);
+                    t++;
+                }
+
+                Assert.AreEqual(expression.objValue, d[0] + d[1] * d[0] - d[2] / d[3] - d[4], "Значение должно быть " + (d[0] + d[1] * d[0] - d[2] / d[3] - d[4]).ToString());
             }
         }
     }

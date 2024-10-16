@@ -1,11 +1,12 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
+using System.Collections.Generic;
 
 namespace ExpressionsLibrary
 {
     /// <summary>
     /// Интерфейс математического выражения.
     /// </summary>
-    public interface IExpression
+    public interface IExpression : IEnumerable<ICell>
     {
         /// <summary>
         /// Признак содержания ошибки в выражении.
@@ -16,6 +17,13 @@ namespace ExpressionsLibrary
         /// Строковое представление выражения.
         /// </summary>
         string Formula();
+
+        /// <summary>
+        /// Строковое представление выражения.
+        /// </summary>
+        /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
+
+        string Formula(string format);
 
         /// <summary>
         /// Короткое строковое представление выражения.

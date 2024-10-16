@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Исключающее ИЛИ (XOR).
     /// </summary>
-    class XorExpression : CompoundExpression, ILogicExpression
+    class XorExpression : Expression, ILogicExpression
     {
         private XorExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -33,6 +33,11 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
         public override string Formula()
         {
             return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+        }
+
+        public override string Formula(string format)
+        {
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>

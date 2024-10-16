@@ -275,6 +275,10 @@ namespace ExpressionsLibrary
             /// </summary>
             bool IsLogic { get; }
             /// <summary>
+            /// Признак оператора ветвления.
+            /// </summary>
+            bool IsSelect { get; }
+            /// <summary>
             /// Строковое значение элемента.
             /// </summary>
             string Value { get; }
@@ -310,6 +314,10 @@ namespace ExpressionsLibrary
             /// Признак оператора логического выражения.
             /// </summary>
             public bool IsLogic { get; }
+            /// <summary>
+            /// Признак оператора ветвления.
+            /// </summary>
+            public bool IsSelect { get; }
             /// <summary>
             /// Строковое значение элемента.
             /// </summary>
@@ -945,7 +953,19 @@ namespace ExpressionsLibrary
             /// <summary>
             /// Исключающее ИЛИ [xor].
             /// </summary>
-            Xor = 24
+            Xor = 24,
+            /// <summary>
+            /// Условие ЕСЛИ [IF()]
+            /// </summary>
+            Select = 25,
+            /// <summary>
+            /// Условие ТОГДА [THEN{}]
+            /// </summary>
+            Then = 26,
+            /// <summary>
+            /// Условие ИНАЧЕ [ELSE{}]
+            /// </summary>
+            Else = 27
         }
     }
 }

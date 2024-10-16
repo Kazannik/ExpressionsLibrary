@@ -41,7 +41,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             }
             else if (array.Count > 2 && array.IsBoolean)
             { // Составное выражение.
-                return BooleanExpressions.CompoundExpressions.CompoundExpression.Create(ref cells, array);
+                return CompoundExpressions.Expression.Create(ref cells, array);
             }
             else
             { // Может это логическое выражение.

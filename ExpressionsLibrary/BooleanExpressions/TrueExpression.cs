@@ -35,6 +35,12 @@ namespace ExpressionsLibrary.BooleanExpressions
         {
             return BooleanExpression.SymbolTrue;
         }
+
+        public override string Formula(string format)
+        {
+            return BooleanExpression.SymbolTrue;
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>

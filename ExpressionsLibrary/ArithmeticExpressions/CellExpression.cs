@@ -117,6 +117,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             }
         }
 
+        public override string Formula(string format)
+        {
+            return Formula();
+        }
+
         /// <summary>
         /// Присвоить значение ячейке.
         /// </summary>

@@ -44,7 +44,7 @@
     <Compile Include="ArithmeticExpressions\AssociationExpression.cs" />
     <Compile Include="ArithmeticExpressions\CellExpression.cs" />
     <Compile Include="ArithmeticExpressions\CompoundExpressions\AdditionExpression.cs" />
-    <Compile Include="ArithmeticExpressions\CompoundExpressions\CompoundExpression.cs" />
+    <Compile Include="ArithmeticExpressions\CompoundExpressions\Expression.cs" />
     <Compile Include="ArithmeticExpressions\CompoundExpressions\DivisionExpression.cs" />
     <Compile Include="ArithmeticExpressions\CompoundExpressions\FixExpression.cs" />
     <Compile Include="ArithmeticExpressions\CompoundExpressions\ModExpression.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="BooleanExpression.cs" />
     <Compile Include="BooleanExpressions\AssociationExpression.cs" />
     <Compile Include="BooleanExpressions\CompoundExpressions\AndExpression.cs" />
-    <Compile Include="BooleanExpressions\CompoundExpressions\CompoundExpression.cs" />
+    <Compile Include="BooleanExpressions\CompoundExpressions\Expression.cs" />
     <Compile Include="BooleanExpressions\CompoundExpressions\OrExpression.cs" />
     <Compile Include="BooleanExpressions\CompoundExpressions\XorExpression.cs" />
     <Compile Include="BooleanExpressions\ErrorExpression.cs" />
@@ -88,8 +88,12 @@
     <Compile Include="LogicExpressions\MoreOrEqualExpression.cs" />
     <Compile Include="LogicExpressions\NotEqualExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectExpression\CompoundExpression.cs" />
+    <Compile Include="SelectExpression\Expression.cs" />
+    <Compile Include="SelectExpression\ExpressionBase.cs" />
     <Compile Include="UnitCollection.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

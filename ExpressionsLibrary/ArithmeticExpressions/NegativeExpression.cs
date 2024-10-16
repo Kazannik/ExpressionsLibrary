@@ -38,6 +38,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             return @"-" + expression.Formula();
         }
 
+        public override string Formula(string format)
+        {
+            return @"-" + expression.Formula(format: format);
+        }
+
         public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new NegativeExpression(ref cells, UnitCollection.Create(array));

@@ -29,6 +29,11 @@
             return Value.ToString();
         }
 
+        public override string Formula(string format)
+        {
+            return Value.ToString(format: format);
+        }
+
         public static IExpression Create(decimal value)
         {
             return new ValueExpression(value);

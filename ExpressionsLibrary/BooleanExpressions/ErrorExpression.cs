@@ -16,7 +16,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             formula = BooleanExpression.SymbolStartError;
             foreach (UnitCollection.IUnit u in array)
             {
-                if (formula.Length > 0) { this.formula += ArithmeticExpression.SymbolSpace; }
+                if (formula.Length > 0) { formula += ArithmeticExpression.SymbolSpace; }
                 formula += u.Value;
             }
             formula += BooleanExpression.SymbolEndError;
@@ -40,13 +40,18 @@ namespace ExpressionsLibrary.BooleanExpressions
             return formula;
         }
 
+        public override string Formula(string format)
+        {
+            return formula;
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>
         /// <param name="format">Формат отображения результата алгебраического выражения.</param>
         public override string ToString(string format)
         {
-            return Formula();
+            return Formula(format: format);
         }
 
         public static ILogicExpression Create(UnitCollection.IUnit unit)

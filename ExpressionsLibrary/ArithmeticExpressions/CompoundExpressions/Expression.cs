@@ -5,12 +5,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Составное алгебраическое выражение (Например, сложение, вычитание, умножение и т.д.)
     /// </summary>
-    abstract class CompoundExpression : ExpressionBase, IExpression
+    abstract class Expression : ExpressionBase, IExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
+        protected Expression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
-            LeftExpression = Expression.Create(ref cells, left);
-            RightExpression = Expression.Create(ref cells, right);
+            LeftExpression = ArithmeticExpressions.Expression.Create(ref cells, left);
+            RightExpression = ArithmeticExpressions.Expression.Create(ref cells, right);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
             }
             else
             {
-                return Expression.Create(ref cells, array);
+                return ArithmeticExpressions.Expression.Create(ref cells, array);
             }
         }
     }

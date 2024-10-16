@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Число, возведенное в степень.
     /// </summary>
-    class PowerExpression : CompoundExpression, IExpression
+    class PowerExpression : Expression, IExpression
     {
         private PowerExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -24,6 +24,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         public override string Formula()
         {
             return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolPower + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+        }
+
+        public override string Formula(string format)
+        {
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolPower + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>

@@ -45,6 +45,11 @@ namespace ExpressionsLibrary.BooleanExpressions
             return BooleanExpression.SymbolNot + ArithmeticExpression.SymbolSpace + expression.Formula();
         }
 
+        public override string Formula(string format)
+        {
+            return BooleanExpression.SymbolNot + ArithmeticExpression.SymbolSpace + expression.Formula(format: format);
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>

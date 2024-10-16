@@ -40,6 +40,11 @@ namespace ExpressionsLibrary.BooleanExpressions
             return @"(" + expression.Formula() + @")";
         }
 
+        public override string Formula(string format)
+        {
+            return @"(" + expression.Formula(format: format) + @")";
+        }
+
         public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));

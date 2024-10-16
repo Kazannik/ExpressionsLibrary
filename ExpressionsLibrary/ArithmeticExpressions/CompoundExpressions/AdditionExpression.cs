@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Алгебраическое выражение сложения.
     /// </summary>
-    class AdditionExpression : CompoundExpression, IExpression
+    class AdditionExpression : Expression, IExpression
     {
         private AdditionExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -23,6 +23,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         public override string Formula()
         {
             return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolAddition + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+        }
+
+        public override string Formula(string format)
+        {
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolAddition + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>

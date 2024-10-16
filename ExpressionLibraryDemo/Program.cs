@@ -15,7 +15,7 @@ namespace ExpressionLibraryDemo
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
                 expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<>" + y.ToString());
-                Console.WriteLine(expression.Formula() + " " + expression.objValue);
+                Console.WriteLine(expression.Formula("00.000") + " = " + expression.objValue);
             }
 
             expression = ExpressionsLibrary.Expression.Create(@"!(2=0)");

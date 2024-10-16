@@ -42,5 +42,10 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         {
             return @"+" + expression.Formula();
         }
+
+        public override string Formula(string format)
+        {
+            return @"+" + expression.Formula(format: format);
+        }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using ExpressionsLibrary.ArithmeticExpressions;
 
 namespace ExpressionsLibrary
 {
@@ -41,6 +44,11 @@ namespace ExpressionsLibrary
         public string Formula()
         {
             return expression.Formula();
+        }
+
+        public string Formula(string format)
+        {
+            return expression.Formula(format: format);
         }
 
         public string ToString(string format)
@@ -116,6 +124,16 @@ namespace ExpressionsLibrary
                 return new Expression(ArithmeticExpression.Create(text, cellpattern: cellpattern));
             else
                 throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
+        }
+
+        IEnumerator<ICell> IEnumerable<ICell>.GetEnumerator()
+        {
+            return expression.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return expression.GetEnumerator();
         }
     }
 }

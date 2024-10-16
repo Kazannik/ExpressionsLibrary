@@ -38,6 +38,11 @@
             return formula;
         }
 
+        public override string Formula(string format)
+        {
+            return formula;
+        }
+
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>

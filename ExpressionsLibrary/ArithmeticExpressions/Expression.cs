@@ -64,7 +64,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             }
             else
             { // Составное выражение.
-                return CompoundExpressions.CompoundExpression.Create(ref cells, array);
+                return CompoundExpressions.Expression.Create(ref cells, array);
             }
         }
     }
