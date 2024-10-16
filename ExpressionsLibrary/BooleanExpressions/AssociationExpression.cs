@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// </summary>
     class AssociationExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
-        private LogicExpressions.ILogicExpression expression;
+        private new LogicExpressions.ILogicExpression expression;
 
         private AssociationExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {

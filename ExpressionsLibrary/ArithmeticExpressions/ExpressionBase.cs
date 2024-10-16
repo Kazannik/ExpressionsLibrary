@@ -3,7 +3,7 @@
     /// <summary>
     /// Базовый класс алгебраического выражений.
     /// </summary>
-    abstract class ExpressionBase: ExpressionsLibrary.ExpressionBase, IExpression
+    abstract class ExpressionBase : ExpressionsLibrary.ExpressionBase, IExpression
     {
         /// <summary>
         /// Значение алгебраического выражения.

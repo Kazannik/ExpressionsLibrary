@@ -7,36 +7,54 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// </summary>
     abstract class CompoundExpression : ExpressionBase, IExpression
     {
-       protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right): base()
+        protected CompoundExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
             LeftExpression = Expression.Create(ref cells, left);
             RightExpression = Expression.Create(ref cells, right);
         }
 
+        /// <summary>
+        /// Формула левого алгебраического выражения.
+        /// </summary>
+        /// <returns></returns>
         protected string GetLeftFormula()
         {
             if (LeftExpression.IsError)
                 return LeftExpression.ToString();
             else
-                return LeftExpression.Value.ToString(); 
+                return LeftExpression.Value.ToString();
         }
 
+        /// <summary>
+        /// Формула левого алгебраического выражения.
+        /// </summary>
+        /// <param name="format">Описатели стандартного формата.</param>
+        /// <returns></returns>
         protected string GetLeftFormula(string format)
         {
             if (LeftExpression.IsError)
                 return LeftExpression.ToString(format: format);
             else
-                return LeftExpression.Value.ToString(format: format); 
+                return LeftExpression.Value.ToString(format: format);
         }
 
+        /// <summary>
+        /// Формула правого алгебраического выражения.
+        /// </summary>
+        /// <param name="format">Описатели стандартного формата.</param>
+        /// <returns></returns>
         protected string GetRightFormula(string format)
         {
             if (RightExpression.IsError)
                 return RightExpression.Formula();
             else
-                return RightExpression.Value.ToString(format: format); 
+                return RightExpression.Value.ToString(format: format);
         }
 
+        /// <summary>
+        /// Формула правого алгебраического выражения.
+        /// </summary>
+        /// <returns></returns>
         protected string GetRightFormula()
         {
             if (RightExpression.IsError)
@@ -110,7 +128,10 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
             {
                 return ErrorExpression.Create(array);
             }
-            else { return Expression.Create(ref cells, array); }
+            else
+            {
+                return Expression.Create(ref cells, array);
+            }
         }
     }
 }

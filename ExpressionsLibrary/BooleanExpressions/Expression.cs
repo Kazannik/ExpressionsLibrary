@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// Базовое логическое выражение, объединяющее два алгебраических выражения.
     /// </summary>
     abstract class Expression
-    {  
+    {
         public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
             if (array.Count == 0)
@@ -27,7 +27,7 @@ namespace ExpressionsLibrary.BooleanExpressions
             }
             else if (array.Count > 1 && array.First.UnitType == UnitCollection.MatchType.Not)
             {
-                return NotExpression.Create(ref cells, UnitCollection.Create(array, 1));               
+                return NotExpression.Create(ref cells, UnitCollection.Create(array, 1));
             }
             else if (array.IsAssociation)
             { // Если выражение заключено в скобки.
@@ -41,10 +41,10 @@ namespace ExpressionsLibrary.BooleanExpressions
             { // Составное выражение.
                 return CompoundExpressions.CompoundExpression.Create(ref cells, array);
             }
-            else 
+            else
             { // Может это логическое выражение.
                 return LogicExpressions.Expression.Create(ref cells, array);
-            }            
+            }
         }
     }
 }

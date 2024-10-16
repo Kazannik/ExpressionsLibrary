@@ -7,18 +7,18 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// </summary>
     abstract class CompoundExpression : ExpressionBase, LogicExpressions.ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right): base()
+        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
             LeftExpression = Expression.Create(ref cells, left);
             RightExpression = Expression.Create(ref cells, right);
         }
-        
+
         protected string GetLeftFormula()
         {
             if (LeftExpression.IsError)
                 return LeftExpression.Formula();
             else
-                return LeftExpression.Value.ToString(); 
+                return LeftExpression.Value.ToString();
         }
 
         protected string GetLeftFormula(string format)
@@ -26,7 +26,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
             if (LeftExpression.IsError)
                 return LeftExpression.Formula();
             else
-                return LeftExpression.ToString(format: format); 
+                return LeftExpression.ToString(format: format);
         }
 
         protected string GetRightFormula(string format)
@@ -34,7 +34,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
             if (RightExpression.IsError)
                 return RightExpression.Formula();
             else
-                return RightExpression.ToString(format: format); 
+                return RightExpression.ToString(format: format);
         }
 
         protected string GetRightFormula()
@@ -42,7 +42,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
             if (RightExpression.IsError)
                 return RightExpression.Formula();
             else
-                return RightExpression.Value.ToString(); 
+                return RightExpression.Value.ToString();
         }
 
         /// <summary>
@@ -86,8 +86,10 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                         return ErrorExpression.Create(array);
                 }
             }
-            else if (i == -2) { return ErrorExpression.Create(array); }
-            else { return Expression.Create(ref cells, array); }
+            else if (i == -2)
+                return ErrorExpression.Create(array);
+            else
+                return Expression.Create(ref cells, array);
         }
     }
 }

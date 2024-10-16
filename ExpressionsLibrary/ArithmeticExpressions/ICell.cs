@@ -3,7 +3,7 @@
     /// <summary>
     /// Ячейка, используемая при расчете.
     /// </summary>
-    public interface ICell: IExpression
+    public interface ICell : IExpression
     {
         /// <summary>
         /// Формат отображения формулы числа.
@@ -14,7 +14,7 @@
         /// Формат отображения формулы ячейки.
         /// </summary>
         string FormulaFormat { get; set; }
-                
+
         /// <summary>
         /// Ключ для доступа к ячеке расчетов.
         /// </summary>
@@ -24,7 +24,7 @@
         /// Присвоить значение ячейке.
         /// </summary>
         /// <param name="value">Значение ячейки.</param>
-        void SetValue(decimal value);      
-        
+        void SetValue(decimal value);
+
     }
 }

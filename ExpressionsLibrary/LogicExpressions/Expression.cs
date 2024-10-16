@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.LogicExpressions
     /// Базовое логическое выражение, объединяющее два алгебраических выражения.
     /// </summary>
     abstract class Expression
-    {  
+    {
         public static ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
         {
             if (array.Count > 2 && array.IsLogic)
@@ -17,6 +17,6 @@ namespace ExpressionsLibrary.LogicExpressions
             { // Два и меньше элементов является ошибкой.
                 return ErrorExpression.Create(array);
             }
-        }     
+        }
     }
 }

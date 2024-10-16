@@ -20,7 +20,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 if (right != 0)
                     return (LeftExpression.Value % RightExpression.Value);
                 else
-                    return 0; 
+                    return 0;
             }
         }
         /// <summary>
@@ -44,7 +44,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
-        /// <param name="format">Формат отображения результата алгебраического выражения.</param>
+        /// <param name="format">Формат отображения результата алгебраического выражения. Описатели стандартного формата.</param>
         public override string ToString(string format)
         {
             if (IsFormat(format: format))

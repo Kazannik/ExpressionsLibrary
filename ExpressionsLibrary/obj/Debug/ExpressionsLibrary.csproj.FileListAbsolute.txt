@@ -6,3 +6,4 @@ C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLi
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.pdb
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb
+C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csprojResolveAssemblyReference.cache

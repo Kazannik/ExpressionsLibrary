@@ -8,7 +8,7 @@ namespace ExpressionsLibrary
     public class Expression : IExpression
     {
         private IExpression expression;
-        
+
         private Expression(IExpression expression)
         {
             this.expression = expression;
@@ -27,6 +27,9 @@ namespace ExpressionsLibrary
         /// </summary>
         public object Tag { get; set; }
 
+        /// <summary>
+        /// Значение выражения.
+        /// </summary>
         public object objValue
         {
             get
@@ -96,7 +99,7 @@ namespace ExpressionsLibrary
                 return new Expression(ArithmeticExpression.Create(text));
             else
                 throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
-            
+
         }
 
         public static IExpression Create(string text, string cellpattern)
@@ -113,6 +116,6 @@ namespace ExpressionsLibrary
                 return new Expression(ArithmeticExpression.Create(text, cellpattern: cellpattern));
             else
                 throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
-        }        
+        }
     }
 }

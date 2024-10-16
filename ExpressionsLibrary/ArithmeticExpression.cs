@@ -13,62 +13,62 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Цифры.
         /// </summary>
-        internal const string csDecimal = @"((\d{1,}[.]\d{1,})|(\d{1,}[,]\d{1,})|(\d{1,}))";
+        internal const string DECIMAL = @"((\d{1,}[.]\d{1,})|(\d{1,}[,]\d{1,})|(\d{1,}))";
         /// <summary>
         /// Возведение в степень [pow],[^].
         /// </summary>
-        internal const string csPower = @"((\x5e)|(pow))"; // "pow" / "^"
+        internal const string POWER = @"((\x5e)|(pow))"; // "pow" / "^"
         /// <summary>
         /// Корень [sqrt].
         /// </summary>
-        internal const string csSqrt = @"((\u221a)|(sqrt))"; // "sqrt" / "√"
+        internal const string SQRT = @"((\u221a)|(sqrt))"; // "sqrt" / "√"
         /// <summary>
         /// Умножение [*].
         /// </summary>
-        internal const string csMultiplication = @"((\x78)|(\x2a))"; // "*" / "x"
+        internal const string MULTIPLICATION = @"((\x78)|(\x2a))"; // "*" / "x"
         /// <summary>
         /// Деление [/].
         /// </summary>
-        internal const string csDivision = @"(\x2f)"; // "/"
+        internal const string DIVISION = @"(\x2f)"; // "/"
         /// <summary>
         /// Целочисленное деление [fix],[\].
         /// </summary>
-        internal const string csFix = @"((\x5c)|(fix))";// "fix" / "\"
+        internal const string FIX = @"((\x5c)|(fix))";// "fix" / "\"
         /// <summary>
         /// Остаток от деления [mod],[%].
         /// </summary>
-        internal const string csMod = @"((\x25)|(mod))"; // "mod" / "%"
+        internal const string MOD = @"((\x25)|(mod))"; // "mod" / "%"
         /// <summary>
         /// Сложение [+].
         /// </summary>
-        internal const string csAddition = @"(\x2b)"; // "+"
+        internal const string ADDITION = @"(\x2b)"; // "+"
         /// <summary>
         /// Вычитание [-].
         /// </summary>
-        internal const string csSubtracting = @"(\x2d)"; // "-"
+        internal const string SUBTRACTION = @"(\x2d)"; // "-"
         /// <summary>
         /// Открывающаяся скобка [(].
         /// </summary>
-        internal const string csOpen = @"(\x28)"; // "("
+        internal const string OPEN = @"(\x28)"; // "("
         /// <summary>
         /// Закрывающаяся скобка [)].
         /// </summary>
-        internal const string csClose = @"(\x29)"; // ")"        
+        internal const string CLOSE = @"(\x29)"; // ")"        
         /// <summary>
         /// Ключ ячейки в формате формулы.
         /// </summary>
-        private const string csCellKey = @"\x7b(key)\x7d"; // "{key}"
+        private const string CELL_KEY = @"\x7b(key)\x7d"; // "{key}"
         /// <summary>
         /// Значение ячейки в формате формулы.
         /// </summary>
-        private const string csCellValue = @"\x7b(value)\x7d"; // "{value}"
+        private const string CELL_VALUE = @"\x7b(value)\x7d"; // "{value}"
 
         /// <summary>
         /// Коллекция арифметических знаков.
         /// </summary>
-        internal const string csArithmetic = csDecimal + @"|" + csAddition + @"|" + csDivision + @"|" + csFix + @"|" + csMod + @"|" + csMultiplication + @"|" + csPower + @"|" + csSqrt + @"|" + csSubtracting;
+        internal const string csArithmetic = DECIMAL + @"|" + ADDITION + @"|" + DIVISION + @"|" + FIX + @"|" + MOD + @"|" + MULTIPLICATION + @"|" + POWER + @"|" + SQRT + @"|" + SUBTRACTION;
 
-        internal const RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
+        internal const RegexOptions OPTIONS = RegexOptions.IgnoreCase | RegexOptions.Compiled;
 
         /// <summary>
         /// Регулярное выражение для поиска всех компонентов, включая ячейки.
@@ -81,55 +81,55 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Регулярное выражение для поиска цифр.
         /// </summary>
-        internal static Regex regexDecimal = new Regex(csDecimal, options);
+        internal static Regex regexDecimal = new Regex(DECIMAL, OPTIONS);
         /// <summary>
         /// Регулярное выражение для поиска знака pow (возведение в степень).
         /// </summary>
-        internal static Regex regexPower = new Regex(csPower, options); // "pow" / "^"
+        internal static Regex regexPower = new Regex(POWER, OPTIONS); // "pow" / "^"
         /// <summary>
         /// Регулярное выражение для поиска знака sqrt (корень).
         /// </summary>
-        internal static Regex regexSqrt = new Regex(csSqrt, options); // "sqrt / "√"
+        internal static Regex regexSqrt = new Regex(SQRT, OPTIONS); // "sqrt / "√"
         /// <summary>
         /// Регулярное выражение для поиска знака умножения [*].
         /// </summary>
-        internal static Regex regexMultiplication = new Regex(csMultiplication, options); // "*"
+        internal static Regex regexMultiplication = new Regex(MULTIPLICATION, OPTIONS); // "*"
         /// <summary>
         /// Регулярное выражение для поиска знака деления [/].
         /// </summary>
-        internal static Regex regexDivision = new Regex(csDivision, options); // "/"
+        internal static Regex regexDivision = new Regex(DIVISION, OPTIONS); // "/"
         /// <summary>
         /// Регулярное выражение для поиска знака fix (целое от деления).
         /// </summary>
-        internal static Regex regexFix = new Regex(csFix, options);// "fix" / "\"
+        internal static Regex regexFix = new Regex(FIX, OPTIONS);// "fix" / "\"
         /// <summary>
         /// Регулярное выражение для поиска знака mod (остаток от деления).
         /// </summary>
-        internal static Regex regexMod = new Regex(csMod, options); // "mod" / "%"
+        internal static Regex regexMod = new Regex(MOD, OPTIONS); // "mod" / "%"
         /// <summary>
         /// Регулярное выражение для поиска знака сложения [+].
         /// </summary>
-        internal static Regex regexAddition = new Regex(csAddition, options); // "+"
+        internal static Regex regexAddition = new Regex(ADDITION, OPTIONS); // "+"
         /// <summary>
         /// Регулярное выражение для поиска знака вычитания [-].
         /// </summary>
-        internal static Regex regexSubtracting = new Regex(csSubtracting, options); // "-"
+        internal static Regex regexSubtracting = new Regex(SUBTRACTION, OPTIONS); // "-"
         /// <summary>
         /// Регулярное выражение для поиска знака открывающейся скобки [(].
         /// </summary>
-        internal static Regex regexOpen = new Regex(csOpen, options); // "("
+        internal static Regex regexOpen = new Regex(OPEN, OPTIONS); // "("
         /// <summary>
         /// Регулярное выражение для поиска знака закрывающейся скобки [)].
         /// </summary>
-        internal static Regex regexClose = new Regex(csClose, options); // ")"
+        internal static Regex regexClose = new Regex(CLOSE, OPTIONS); // ")"
         /// <summary>
         /// Ключ ячейки в формате формулы.
         /// </summary>
-        internal static Regex regexCellKey = new Regex(csCellKey, options); // "{key}"
+        internal static Regex regexCellKey = new Regex(CELL_KEY, OPTIONS); // "{key}"
         /// <summary>
         /// Значение ячейки в формате формулы.
         /// </summary>
-        internal static Regex regexCellValue = new Regex(csCellValue, options); // "{value}"
+        internal static Regex regexCellValue = new Regex(CELL_VALUE, OPTIONS); // "{value}"
         #endregion
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override decimal Value
         {
-            get { return ((ArithmeticExpressions.IExpression) expression).Value; }
+            get { return ((ArithmeticExpressions.IExpression)expression).Value; }
         }
 
         /// <summary>
@@ -202,8 +202,8 @@ namespace ExpressionsLibrary
         {
             return expression.Formula();
         }
-        
-        private ArithmeticExpression(UnitCollection array): base()
+
+        private ArithmeticExpression(UnitCollection array) : base()
         {
             InitializeSymbols();
             expression = ArithmeticExpressions.Expression.Create(ref collection, array);
@@ -211,32 +211,32 @@ namespace ExpressionsLibrary
 
         internal static void InitializeSymbols()
         {
-            SymbolSpace = string.IsNullOrWhiteSpace(SymbolSpace) ? @" ": SymbolSpace;
+            SymbolSpace = string.IsNullOrWhiteSpace(SymbolSpace) ? @" " : SymbolSpace;
 
-            SymbolStartError = string.IsNullOrWhiteSpace(SymbolStartError) ? @"[Error:": SymbolStartError;
-            SymbolEndError = string.IsNullOrWhiteSpace(SymbolEndError) ? @"]": SymbolEndError;
+            SymbolStartError = string.IsNullOrWhiteSpace(SymbolStartError) ? @"[Error:" : SymbolStartError;
+            SymbolEndError = string.IsNullOrWhiteSpace(SymbolEndError) ? @"]" : SymbolEndError;
 
-            SymbolAddition = string.IsNullOrWhiteSpace(SymbolAddition) ? @"+": SymbolAddition;
-            SymbolDivision = string.IsNullOrWhiteSpace(SymbolDivision) ? @"/": SymbolDivision;
-            SymbolFix = string.IsNullOrWhiteSpace(SymbolFix) ? @"\": SymbolFix;
-            SymbolMod = string.IsNullOrWhiteSpace(SymbolMod) ? @"%": SymbolMod;
-            SymbolMultiplication = string.IsNullOrWhiteSpace(SymbolMultiplication) ? "x": SymbolMultiplication;
-            SymbolPower = string.IsNullOrWhiteSpace(SymbolPower) ? @"^": SymbolPower;
-            SymbolSqrt = string.IsNullOrWhiteSpace(SymbolSqrt) ? @"√": SymbolSqrt;
-            SymbolSubtracting = string.IsNullOrWhiteSpace(SymbolSubtracting) ? @"-": SymbolSubtracting;
+            SymbolAddition = string.IsNullOrWhiteSpace(SymbolAddition) ? @"+" : SymbolAddition;
+            SymbolDivision = string.IsNullOrWhiteSpace(SymbolDivision) ? @"/" : SymbolDivision;
+            SymbolFix = string.IsNullOrWhiteSpace(SymbolFix) ? @"\" : SymbolFix;
+            SymbolMod = string.IsNullOrWhiteSpace(SymbolMod) ? @"%" : SymbolMod;
+            SymbolMultiplication = string.IsNullOrWhiteSpace(SymbolMultiplication) ? "x" : SymbolMultiplication;
+            SymbolPower = string.IsNullOrWhiteSpace(SymbolPower) ? @"^" : SymbolPower;
+            SymbolSqrt = string.IsNullOrWhiteSpace(SymbolSqrt) ? @"√" : SymbolSqrt;
+            SymbolSubtracting = string.IsNullOrWhiteSpace(SymbolSubtracting) ? @"-" : SymbolSubtracting;
         }
 
         public static bool IsExpression(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csArithmetic + @"|" + csOpen + @"|" + csClose, options);
+            regexAll = new Regex(csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
             return regexAll.IsMatch(text);
         }
 
         public static IExpression Create(string text)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(csArithmetic + @"|" + csOpen + @"|" + csClose, options);
+            regexAll = new Regex(csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new ArithmeticExpression(collection);
         }
@@ -244,8 +244,8 @@ namespace ExpressionsLibrary
         public static IExpression Create(string text, string cellpattern)
         {
             string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + csArithmetic + @"|" + csOpen + @"|" + csClose, options);
-            regexCell = new Regex(@"(" + cellpattern + @")", options);
+            regexAll = new Regex(@"(" + cellpattern + @")|" + csArithmetic + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
+            regexCell = new Regex(@"(" + cellpattern + @")", OPTIONS);
             UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
             return new ArithmeticExpression(collection);
         }

@@ -182,8 +182,8 @@ namespace ExpressionsLibrary
                     if (List[i].UnitType == MatchType.Open) { A++; }
                     if (A == 0) { association = true; }
                 }
-                return association & (A!=0);
-            }          
+                return association & (A != 0);
+            }
         }
 
         public int Count
@@ -231,7 +231,7 @@ namespace ExpressionsLibrary
             bool association = false;
             for (int i = Count - 1; i >= 0; i--)
             {
-                if (List[i].UnitType == MatchType.Close) { A--; association = true;}
+                if (List[i].UnitType == MatchType.Close) { A--; association = true; }
                 if (List[i].UnitType == MatchType.Open) { A++; association = true; }
                 if (A == 0 && List[i].Action == action) { return i; }
             }
@@ -287,7 +287,7 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Базовый элемент алгебраического действия.
         /// </summary>
-        private abstract class BaseUnit: IUnit
+        private abstract class BaseUnit : IUnit
         {
             private UnitCollection parent;
             /// <summary>
@@ -309,7 +309,7 @@ namespace ExpressionsLibrary
             /// <summary>
             /// Признак оператора логического выражения.
             /// </summary>
-            public bool IsLogic { get; }            
+            public bool IsLogic { get; }
             /// <summary>
             /// Строковое значение элемента.
             /// </summary>
@@ -322,6 +322,16 @@ namespace ExpressionsLibrary
                 get { return parent.List.IndexOf(this); }
             }
 
+            /// <summary>
+            /// Конструктор базового элемента алгебраического действия
+            /// </summary>
+            /// <param name="parent">Родительская коллекция элементов.</param>
+            /// <param name="value">Строковое значение элемента.</param>
+            /// <param name="type">Тип элемента.</param>
+            /// <param name="action">Приоритет математического действия.</param>
+            /// <param name="arithmetic">Признак оператора арифметического выражения.</param>
+            /// <param name="boolean">Признак оператора булевого выражения.</param>
+            /// <param name="logic">Признак оператора логического выражения.</param>
             protected BaseUnit(UnitCollection parent, string value, MatchType type, int action, bool arithmetic, bool boolean, bool logic)
             {
                 this.parent = parent;
@@ -335,120 +345,122 @@ namespace ExpressionsLibrary
 
             public static BaseUnit Create(UnitCollection parent, IUnit unit)
             {
+                string value = unit.Value;
                 switch (unit.UnitType)
                 {
                     case MatchType.Addition:
-                        return new AdditionUnit(parent: parent, value: unit.Value);
+                        return new AdditionUnit(parent: parent, value: value);
                     case MatchType.And:
-                        return new AndUnit(parent: parent, value: unit.Value);
+                        return new AndUnit(parent: parent, value: value);
                     case MatchType.Cell:
-                        return new CellUnit(parent: parent, value: unit.Value);
+                        return new CellUnit(parent: parent, value: value);
                     case MatchType.Close:
-                        return new CloseUnit(parent: parent, value: unit.Value);
+                        return new CloseUnit(parent: parent, value: value);
                     case MatchType.Decimal:
-                        return new DecimalUnit(parent: parent, value: unit.Value);
+                        return new DecimalUnit(parent: parent, value: value);
                     case MatchType.Division:
-                        return new DivisionUnit(parent: parent, value: unit.Value);
+                        return new DivisionUnit(parent: parent, value: value);
                     case MatchType.Equal:
-                        return new EqualUnit(parent: parent, value: unit.Value);
+                        return new EqualUnit(parent: parent, value: value);
                     case MatchType.False:
-                        return new FalseUnit(parent: parent, value: unit.Value);
+                        return new FalseUnit(parent: parent, value: value);
                     case MatchType.Fix:
-                        return new FixUnit(parent: parent, value: unit.Value);
+                        return new FixUnit(parent: parent, value: value);
                     case MatchType.Less:
-                        return new LessUnit(parent: parent, value: unit.Value);
+                        return new LessUnit(parent: parent, value: value);
                     case MatchType.LessOrEqual:
-                        return new LessOrEqualUnit(parent: parent, value: unit.Value);
+                        return new LessOrEqualUnit(parent: parent, value: value);
                     case MatchType.Mod:
-                        return new ModUnit(parent: parent, value: unit.Value);
+                        return new ModUnit(parent: parent, value: value);
                     case MatchType.More:
-                        return new MoreUnit(parent: parent, value: unit.Value);
+                        return new MoreUnit(parent: parent, value: value);
                     case MatchType.MoreOrEqual:
-                        return new MoreOrEqualUnit(parent: parent, value: unit.Value);
+                        return new MoreOrEqualUnit(parent: parent, value: value);
                     case MatchType.Multiplication:
-                        return new MultiplicationUnit(parent: parent, value: unit.Value);
+                        return new MultiplicationUnit(parent: parent, value: value);
                     case MatchType.Negative:
-                        return new NegativeUnit(parent: parent, value: unit.Value);
+                        return new NegativeUnit(parent: parent, value: value);
                     case MatchType.Not:
-                        return new NotUnit(parent: parent, value: unit.Value);
+                        return new NotUnit(parent: parent, value: value);
                     case MatchType.NotEqual:
-                        return new NotEqualUnit(parent: parent, value: unit.Value);
+                        return new NotEqualUnit(parent: parent, value: value);
                     case MatchType.Open:
-                        return new OpenUnit(parent: parent, value: unit.Value);
+                        return new OpenUnit(parent: parent, value: value);
                     case MatchType.Or:
-                        return new OrUnit(parent: parent, value: unit.Value);
+                        return new OrUnit(parent: parent, value: value);
                     case MatchType.Power:
-                        return new PowerUnit(parent: parent, value: unit.Value);
+                        return new PowerUnit(parent: parent, value: value);
                     case MatchType.Sqrt:
-                        return new SqrtUnit(parent: parent, value: unit.Value);
+                        return new SqrtUnit(parent: parent, value: value);
                     case MatchType.Subtracting:
-                        return new SubtractingUnit(parent: parent, value: unit.Value);
+                        return new SubtractingUnit(parent: parent, value: value);
                     case MatchType.True:
-                        return new TrueUnit(parent: parent, value: unit.Value);
+                        return new TrueUnit(parent: parent, value: value);
                     case MatchType.Xor:
-                        return new XorUnit(parent: parent, value: unit.Value);
+                        return new XorUnit(parent: parent, value: value);
                     default:
-                        return new DecimalUnit(parent: parent, value: unit.Value);
+                        return new DecimalUnit(parent: parent, value: value);
                 }
             }
 
             public static BaseUnit Create(UnitCollection parent, Match match)
             {
-                MatchType t = GetMatchType(match);
-                switch (t)
+                MatchType type = GetMatchType(match);
+                string value = match.Value;
+                switch (type)
                 {
                     case MatchType.Addition:
-                        return new AdditionUnit(parent: parent, value: match.Value);
+                        return new AdditionUnit(parent: parent, value: value);
                     case MatchType.And:
-                        return new AndUnit(parent: parent, value: match.Value);
+                        return new AndUnit(parent: parent, value: value);
                     case MatchType.Cell:
-                        return new CellUnit(parent: parent, value: match.Value);
+                        return new CellUnit(parent: parent, value: value);
                     case MatchType.Close:
-                        return new CloseUnit(parent: parent, value: match.Value);
+                        return new CloseUnit(parent: parent, value: value);
                     case MatchType.Decimal:
-                        return new DecimalUnit(parent: parent, value: match.Value);
+                        return new DecimalUnit(parent: parent, value: value);
                     case MatchType.Division:
-                        return new DivisionUnit(parent: parent, value: match.Value);
+                        return new DivisionUnit(parent: parent, value: value);
                     case MatchType.Equal:
-                        return new EqualUnit(parent: parent, value: match.Value);
+                        return new EqualUnit(parent: parent, value: value);
                     case MatchType.False:
-                        return new FalseUnit(parent: parent, value: match.Value);
+                        return new FalseUnit(parent: parent, value: value);
                     case MatchType.Fix:
-                        return new FixUnit(parent: parent, value: match.Value);
+                        return new FixUnit(parent: parent, value: value);
                     case MatchType.Less:
-                        return new LessUnit(parent: parent, value: match.Value);
+                        return new LessUnit(parent: parent, value: value);
                     case MatchType.LessOrEqual:
-                        return new LessOrEqualUnit(parent: parent, value: match.Value);
+                        return new LessOrEqualUnit(parent: parent, value: value);
                     case MatchType.Mod:
-                        return new ModUnit(parent: parent, value: match.Value);
+                        return new ModUnit(parent: parent, value: value);
                     case MatchType.More:
-                        return new MoreUnit(parent: parent, value: match.Value);
+                        return new MoreUnit(parent: parent, value: value);
                     case MatchType.MoreOrEqual:
-                        return new MoreOrEqualUnit(parent: parent, value: match.Value);
+                        return new MoreOrEqualUnit(parent: parent, value: value);
                     case MatchType.Multiplication:
-                        return new MultiplicationUnit(parent: parent, value: match.Value);
+                        return new MultiplicationUnit(parent: parent, value: value);
                     case MatchType.Negative:
-                        return new NegativeUnit(parent: parent, value: match.Value);
+                        return new NegativeUnit(parent: parent, value: value);
                     case MatchType.Not:
-                        return new NotUnit(parent: parent, value: match.Value);
+                        return new NotUnit(parent: parent, value: value);
                     case MatchType.NotEqual:
-                        return new NotEqualUnit(parent: parent, value: match.Value);
+                        return new NotEqualUnit(parent: parent, value: value);
                     case MatchType.Open:
-                        return new OpenUnit(parent: parent, value: match.Value);
+                        return new OpenUnit(parent: parent, value: value);
                     case MatchType.Or:
-                        return new OrUnit(parent: parent, value: match.Value);
+                        return new OrUnit(parent: parent, value: value);
                     case MatchType.Power:
-                        return new PowerUnit(parent: parent, value: match.Value);
+                        return new PowerUnit(parent: parent, value: value);
                     case MatchType.Sqrt:
-                        return new SqrtUnit(parent: parent, value: match.Value);
+                        return new SqrtUnit(parent: parent, value: value);
                     case MatchType.Subtracting:
-                        return new SubtractingUnit(parent: parent, value: match.Value);
+                        return new SubtractingUnit(parent: parent, value: value);
                     case MatchType.True:
-                        return new TrueUnit(parent: parent, value: match.Value);
+                        return new TrueUnit(parent: parent, value: value);
                     case MatchType.Xor:
-                        return new XorUnit(parent: parent, value: match.Value);
+                        return new XorUnit(parent: parent, value: value);
                     default:
-                        return new ErrorUnit(parent: parent, value: match.Value);
+                        return new ErrorUnit(parent: parent, value: value);
                 }
             }
         }
@@ -458,9 +470,9 @@ namespace ExpressionsLibrary
         /// </summary>
         private class ErrorUnit : BaseUnit, IUnit
         {
-            public ErrorUnit(UnitCollection parent, string value) : 
-                base(parent: parent, value: value, 
-                    type: MatchType.Error, action:-1, arithmetic: false, boolean:false, logic: false)
+            public ErrorUnit(UnitCollection parent, string value) :
+                base(parent: parent, value: value,
+                    type: MatchType.Error, action: -1, arithmetic: false, boolean: false, logic: false)
             { }
         }
         /// <summary>
@@ -720,103 +732,105 @@ namespace ExpressionsLibrary
         /// <param name="match">Класс совпадения регулярного выражения.</param>
         private static MatchType GetMatchType(Match match)
         {
-            if (ArithmeticExpression.regexCell != null && 
-                ArithmeticExpression.regexCell.IsMatch(match.Value))
+            string value = match.Value;
+
+            if (ArithmeticExpression.regexCell != null &&
+                ArithmeticExpression.regexCell.IsMatch(value))
             {
                 return MatchType.Cell;
             }
-            else if (BooleanExpression.regexTrue.IsMatch(match.Value))
+            else if (BooleanExpression.regexTrue.IsMatch(value))
             {
                 return MatchType.True;
             }
-            else if (BooleanExpression.regexFalse.IsMatch(match.Value))
+            else if (BooleanExpression.regexFalse.IsMatch(value))
             {
                 return MatchType.False;
             }
-            else if (BooleanExpression.regexAnd.IsMatch(match.Value))
+            else if (BooleanExpression.regexAnd.IsMatch(value))
             {
                 return MatchType.And;
             }
-            else if (BooleanExpression.regexXor.IsMatch(match.Value))
+            else if (BooleanExpression.regexXor.IsMatch(value))
             {
                 return MatchType.Xor;
             }
-            else if (BooleanExpression.regexOr.IsMatch(match.Value))
+            else if (BooleanExpression.regexOr.IsMatch(value))
             {
                 return MatchType.Or;
             }
-            else if (LogicExpression.regexLessOrEqual.IsMatch(match.Value))
+            else if (LogicExpression.regexLessOrEqual.IsMatch(value))
             {
                 return MatchType.LessOrEqual;
             }
-            else if (LogicExpression.regexMoreOrEqual.IsMatch(match.Value))
+            else if (LogicExpression.regexMoreOrEqual.IsMatch(value))
             {
                 return MatchType.MoreOrEqual;
             }
-            else if (LogicExpression.regexNotEqual.IsMatch(match.Value))
+            else if (LogicExpression.regexNotEqual.IsMatch(value))
             {
                 return MatchType.NotEqual;
             }
-            else if (LogicExpression.regexEqual.IsMatch(match.Value))
+            else if (LogicExpression.regexEqual.IsMatch(value))
             {
                 return MatchType.Equal;
             }
-            else if (LogicExpression.regexLess.IsMatch(match.Value))
+            else if (LogicExpression.regexLess.IsMatch(value))
             {
                 return MatchType.Less;
             }
-            else if (LogicExpression.regexMore.IsMatch(match.Value))
+            else if (LogicExpression.regexMore.IsMatch(value))
             {
                 return MatchType.More;
             }
-            else if (BooleanExpression.regexNot.IsMatch(match.Value))
+            else if (BooleanExpression.regexNot.IsMatch(value))
             {
                 return MatchType.Not;
             }
-            else if (ArithmeticExpression.regexDecimal.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexDecimal.IsMatch(value))
             {
                 return MatchType.Decimal;
             }
-            else if (ArithmeticExpression.regexAddition.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexAddition.IsMatch(value))
             {
                 return MatchType.Addition;
             }
-            else if (ArithmeticExpression.regexSubtracting.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexSubtracting.IsMatch(value))
             {
                 return MatchType.Subtracting;
             }
-            else if (ArithmeticExpression.regexMultiplication.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexMultiplication.IsMatch(value))
             {
                 return MatchType.Multiplication;
             }
-            else if (ArithmeticExpression.regexDivision.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexDivision.IsMatch(value))
             {
                 return MatchType.Division;
             }
-            else if (ArithmeticExpression.regexFix.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexFix.IsMatch(value))
             {
                 return MatchType.Fix;
             }
-            else if (ArithmeticExpression.regexMod.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexMod.IsMatch(value))
             {
                 return MatchType.Mod;
             }
-            else if (ArithmeticExpression.regexOpen.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexOpen.IsMatch(value))
             {
                 return MatchType.Open;
             }
-            else if (ArithmeticExpression.regexClose.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexClose.IsMatch(value))
             {
                 return MatchType.Close;
             }
-            else if (ArithmeticExpression.regexPower.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexPower.IsMatch(value))
             {
                 return MatchType.Power;
             }
-            else if (ArithmeticExpression.regexSqrt.IsMatch(match.Value))
+            else if (ArithmeticExpression.regexSqrt.IsMatch(value))
             {
                 return MatchType.Sqrt;
-            }            
+            }
             else
             {
                 return MatchType.Error;

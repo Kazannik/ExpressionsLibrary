@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpressionLibraryDemo
 {
@@ -11,17 +7,21 @@ namespace ExpressionLibraryDemo
         static void Main(string[] args)
         {
             Random rnd = new Random(0);
-
+            ExpressionsLibrary.IExpression expression;
 
             for (int i = 0; i < 100; i++)
             {
                 decimal x = (decimal)(rnd.NextDouble() * 100);
                 decimal y = (decimal)(rnd.NextDouble() * 100);
 
-                ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<>" + y.ToString());
-              Console.WriteLine(expression.Formula());
+                expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<>" + y.ToString());
+                Console.WriteLine(expression.Formula() + " " + expression.objValue);
             }
 
+            expression = ExpressionsLibrary.Expression.Create(@"2/0");
+            Console.WriteLine(expression.Formula() + " = " + expression.objValue);
+
+            Console.ReadKey();
         }
     }
 }

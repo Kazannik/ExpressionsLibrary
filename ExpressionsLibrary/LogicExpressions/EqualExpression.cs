@@ -8,7 +8,7 @@ namespace ExpressionsLibrary.LogicExpressions
     class EqualExpression : CompoundExpression, ILogicExpression
     {
         private EqualExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
-        
+
         /// <summary>
         /// Положительное значение логического выражения.
         /// </summary>

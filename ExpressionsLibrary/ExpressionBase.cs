@@ -6,7 +6,7 @@ namespace ExpressionsLibrary
     /// <summary>
     /// Базовый класс выражений.
     /// </summary>
-    abstract class ExpressionBase: IExpression
+    abstract class ExpressionBase : IExpression
     {
         protected IExpression expression;
 
@@ -22,6 +22,9 @@ namespace ExpressionsLibrary
         /// </summary>
         public abstract bool IsError { get; }
 
+        /// <summary>
+        /// Значение выражения.
+        /// </summary>
         public abstract object objValue { get; }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace ExpressionsLibrary
         /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
         /// <returns></returns>
         public abstract string ToString(string format);
-        
+
         /// <summary>
         /// Признак применения формата.
         /// </summary>

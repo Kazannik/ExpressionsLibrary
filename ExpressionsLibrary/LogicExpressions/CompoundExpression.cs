@@ -7,24 +7,24 @@ namespace ExpressionsLibrary.LogicExpressions
     /// </summary>
     abstract class CompoundExpression : ExpressionBase, ILogicExpression
     {
-        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right): base()
+        protected CompoundExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
             LeftExpression = ArithmeticExpressions.Expression.Create(ref cells, left);
             RightExpression = ArithmeticExpressions.Expression.Create(ref cells, right);
         }
-        
+
         protected string GetLeftFormula()
         {
             if (LeftExpression.IsError)
                 return LeftExpression.ToString();
             else
-                return LeftExpression.Value.ToString(); 
+                return LeftExpression.Value.ToString();
         }
 
         protected string GetLeftFormula(string format)
         {
             if (LeftExpression.IsError)
-                return LeftExpression.ToString(format:format);
+                return LeftExpression.ToString(format: format);
             else
                 return LeftExpression.Value.ToString(format: format);
         }
@@ -34,7 +34,7 @@ namespace ExpressionsLibrary.LogicExpressions
             if (RightExpression.IsError)
                 return RightExpression.Formula();
             else
-                return RightExpression.Value.ToString(format: format); 
+                return RightExpression.Value.ToString(format: format);
         }
 
         protected string GetRightFormula()
@@ -42,7 +42,7 @@ namespace ExpressionsLibrary.LogicExpressions
             if (RightExpression.IsError)
                 return RightExpression.Formula();
             else
-                return RightExpression.Value.ToString(); 
+                return RightExpression.Value.ToString();
         }
 
         /// <summary>
@@ -85,8 +85,14 @@ namespace ExpressionsLibrary.LogicExpressions
                         return ErrorExpression.Create(array);
                 }
             }
-            else if (i == -2) { return ErrorExpression.Create(array); }
-            else { return Expression.Create(ref cells, array); }
+            else if (i == -2)
+            {
+                return ErrorExpression.Create(array);
+            }
+            else
+            {
+                return Expression.Create(ref cells, array);
+            }
         }
     }
 }

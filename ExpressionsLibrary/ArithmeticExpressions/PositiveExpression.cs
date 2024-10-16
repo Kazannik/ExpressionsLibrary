@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// </summary>
     class PositiveExpression : ExpressionBase, IExpression
     {
-        private IExpression expression;
+        private new IExpression expression;
 
         public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
