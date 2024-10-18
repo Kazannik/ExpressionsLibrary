@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Составное алгебраическое выражение (Например, сложение, вычитание, умножение и т.д.)
     /// </summary>
-    abstract class Expression : ExpressionBase, IExpression
+    abstract class Expression : ExpressionBase, IDecimalExpression
     {
         protected Expression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
@@ -16,7 +16,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// <summary>
         /// Формула левого алгебраического выражения.
         /// </summary>
-        /// <returns></returns>
         protected string GetLeftFormula()
         {
             if (LeftExpression.IsError)
@@ -29,7 +28,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// Формула левого алгебраического выражения.
         /// </summary>
         /// <param name="format">Описатели стандартного формата.</param>
-        /// <returns></returns>
         protected string GetLeftFormula(string format)
         {
             if (LeftExpression.IsError)
@@ -42,7 +40,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// Формула правого алгебраического выражения.
         /// </summary>
         /// <param name="format">Описатели стандартного формата.</param>
-        /// <returns></returns>
         protected string GetRightFormula(string format)
         {
             if (RightExpression.IsError)
@@ -54,7 +51,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// <summary>
         /// Формула правого алгебраического выражения.
         /// </summary>
-        /// <returns></returns>
         protected string GetRightFormula()
         {
             if (RightExpression.IsError)
@@ -74,14 +70,14 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
         /// <summary>
         /// Левая часть алгебраического выражения.
         /// </summary>
-        public IExpression LeftExpression { get; }
+        public IDecimalExpression LeftExpression { get; }
 
         /// <summary>
         /// Правая часть алгебраического выражения.
         /// </summary>
-        public IExpression RightExpression { get; }
+        public IDecimalExpression RightExpression { get; }
 
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             int i = array.GetLastIndex();
             if (i > 0)

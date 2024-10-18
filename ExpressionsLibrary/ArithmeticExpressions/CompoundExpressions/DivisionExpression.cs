@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Алгебраическое выражение деления.
     /// </summary>
-    class DivisionExpression : Expression, IExpression
+    class DivisionExpression : Expression, IDecimalExpression
     {
         private DivisionExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -63,7 +63,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolDivision + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new DivisionExpression(ref cells, left, right);
         }

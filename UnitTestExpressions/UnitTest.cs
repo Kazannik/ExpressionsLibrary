@@ -7,6 +7,49 @@ namespace UnitTestExpressions
     [TestClass]
     public class UnitTest
     {
+
+        [TestMethod]
+        public void TestTextReaderMethod()
+        {
+            IExpression expression = Expression.Create(@"1 + 1");
+            Assert.AreEqual(expression.objValue, (decimal)2, "Значение должно быть " + 2);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 / 2");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 * 2");
+            Assert.AreEqual(expression.objValue, 4, "Значение должно быть " + 4);
+
+            expression = Expression.Create(@"2 \ 2");
+            Assert.AreEqual(expression.objValue, 0, "Значение должно быть " + 0);
+
+            expression = Expression.Create(@"(2 - 1) + 2");
+            Assert.AreEqual(expression.objValue, 3, "Значение должно быть " + 3);
+
+            expression = Expression.Create(@"(2 + 1) + 2");
+            Assert.AreEqual(expression.objValue, 5, "Значение должно быть " + 5);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+            expression = Expression.Create(@"2 - 1");
+            Assert.AreEqual(expression.objValue, 1, "Значение должно быть " + 1);
+
+        }
+
+
         [TestMethod]
         public void TestMethod1()
         {
@@ -224,5 +267,8 @@ namespace UnitTestExpressions
                 Assert.AreEqual(expression.objValue, d[0] + d[1] * d[0] - d[2] / d[3] - d[4], "Значение должно быть " + (d[0] + d[1] * d[0] - d[2] / d[3] - d[4]).ToString());
             }
         }
+
+
+        
     }
 }

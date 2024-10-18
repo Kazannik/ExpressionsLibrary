@@ -1,17 +1,10 @@
-﻿using ExpressionsLibrary.LogicExpressions;
-
-namespace ExpressionsLibrary.BooleanExpressions
+﻿namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Отрицательное логическое выражение.
     /// </summary>
-    class FalseExpression : ExpressionBase, ILogicExpression
-    {
-        public static ILogicExpression Create()
-        {
-            return new FalseExpression();
-        }
-
+    class FalseExpression : ExpressionBase, IBooleanExpression
+    {        
         private FalseExpression()
         {
             IsError = false;
@@ -48,6 +41,11 @@ namespace ExpressionsLibrary.BooleanExpressions
         public override string ToString(string format)
         {
             return Formula();
+        }
+
+        public static IBooleanExpression Create()
+        {
+            return new FalseExpression();
         }
     }
 }

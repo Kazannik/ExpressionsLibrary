@@ -1,17 +1,10 @@
-﻿using ExpressionsLibrary.LogicExpressions;
-
-namespace ExpressionsLibrary.BooleanExpressions
+﻿namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Положительное логическое выражение.
     /// </summary>
-    class TrueExpression : ExpressionBase, ILogicExpression
+    class TrueExpression : ExpressionBase, IBooleanExpression
     {
-        public static ILogicExpression Create()
-        {
-            return new TrueExpression();
-        }
-
         private TrueExpression()
         {
             IsError = false;
@@ -48,6 +41,11 @@ namespace ExpressionsLibrary.BooleanExpressions
         public override string ToString(string format)
         {
             return Formula();
+        }
+
+        public static IBooleanExpression Create()
+        {
+            return new TrueExpression();
         }
     }
 }

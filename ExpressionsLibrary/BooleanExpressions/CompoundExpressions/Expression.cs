@@ -1,5 +1,5 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
-using ExpressionsLibrary.LogicExpressions;
+
 using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
@@ -7,7 +7,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Составное логическое выражение (Например, равенство, сравнение и т.д.)
     /// </summary>
-    abstract class Expression : ExpressionBase, ILogicExpression
+    abstract class Expression : ExpressionBase, IBooleanExpression
     {
         protected Expression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base()
         {
@@ -58,14 +58,14 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
         /// <summary>
         /// Левая часть алгебраического выражения.
         /// </summary>
-        public ILogicExpression LeftExpression { get; }
+        public IBooleanExpression LeftExpression { get; }
 
         /// <summary>
         /// Правая часть алгебраического выражения.
         /// </summary>
-        public ILogicExpression RightExpression { get; }
+        public IBooleanExpression RightExpression { get; }
 
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             int i = array.GetLastIndex();
             if (i > 0)

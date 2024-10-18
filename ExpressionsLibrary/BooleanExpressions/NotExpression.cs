@@ -1,5 +1,4 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
-using ExpressionsLibrary.LogicExpressions;
 using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions
@@ -7,15 +6,10 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// <summary>
     /// Противоположное логическое выражение.
     /// </summary>
-    class NotExpression : ExpressionBase, ILogicExpression
+    class NotExpression : ExpressionBase, IBooleanExpression
     {
-        private new ILogicExpression expression;
-
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
-        {
-            return new NotExpression(ref cells, UnitCollection.Create(array));
-        }
-
+        private new IBooleanExpression expression;
+                
         private NotExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             expression = Expression.Create(ref cells, array);
@@ -57,6 +51,11 @@ namespace ExpressionsLibrary.BooleanExpressions
         public override string ToString(string format)
         {
             return Formula();
+        }
+
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        {
+            return new NotExpression(ref cells, UnitCollection.Create(array));
         }
     }
 }

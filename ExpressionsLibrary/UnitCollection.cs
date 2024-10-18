@@ -12,7 +12,7 @@ namespace ExpressionsLibrary
     {
         private List<IUnit> List;
 
-        public UnitCollection()
+        private UnitCollection()
         {
             List = new List<IUnit>();
         }
@@ -49,10 +49,37 @@ namespace ExpressionsLibrary
             return result;
         }
 
-        public static UnitCollection Create(MatchCollection array)
+        public static UnitCollection Create(string text)
+        {
+            string context = text.Replace(" ", "");
+            Regex regexAll = new Regex(
+                SelectExpression.SELECT + @"|" +
+                BooleanExpression.BOOLEAN + @"|" +
+                СomparisonExpression.COMPARISON + @"|" +
+                ArithmeticExpression.ARITHMETIC + @"|" +
+                ArithmeticExpression.OPEN + @"|" +
+                ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            return From(regexAll.Matches(text));
+        }
+        
+        public static UnitCollection Create(string text, string cellpattern)
+        {
+            string context = text.Replace(" ", "");
+            Regex regexAll = new Regex(
+                @"(" + cellpattern + @")|" +
+                SelectExpression.SELECT + @"|" +
+                BooleanExpression.BOOLEAN + @"|" + 
+                СomparisonExpression.COMPARISON + @"|" + 
+                ArithmeticExpression.ARITHMETIC + @"|" + 
+                ArithmeticExpression.OPEN + @"|" + 
+                ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
+            return From(regexAll.Matches(text));
+        }
+
+        private static UnitCollection From(MatchCollection collection)
         {
             UnitCollection result = new UnitCollection();
-            foreach (Match m in array)
+            foreach (Match m in collection)
             {
                 result.List.Add(BaseUnit.Create(result, m));
             }
@@ -62,6 +89,11 @@ namespace ExpressionsLibrary
         public IUnit First
         {
             get { return List.First(); }
+        }
+
+        public IUnit Second
+        {
+            get { return List.Count>1 ? List[1]: null; }
         }
 
         public IUnit Last
@@ -82,26 +114,32 @@ namespace ExpressionsLibrary
             get
             {
                 bool first = IsFirstError();
-                if (first) { return true; }
+                if (first)
+                {
+                    return true;
+                }
                 bool last = IsLastError();
-                if (last) { return true; }
+                if (last)
+                {
+                    return true;
+                }
                 return false;
             }
         }
 
         public bool IsContainsError()
         {
-            bool containsErr = (List.Count(x => x.Action < 0)) > 0;
+            bool containsErr = (List.Count(x => x.PriorityAction < 0)) > 0;
             return containsErr;
         }
         public bool IsFirstError()
         {
-            bool firstErr = List.Count > 0 && First.IsArithmetic || First.IsBoolean || First.IsLogic;
+            bool firstErr = List.Count > 0 && First.Action != ActionType.Non;
             return firstErr;
         }
         public bool IsLastError()
         {
-            bool lastErr = List.Count > 0 && Last.IsArithmetic || Last.IsBoolean || Last.IsLogic;
+            bool lastErr = List.Count > 0 && Last.Action != ActionType.Non;
             return lastErr;
         }
 
@@ -112,7 +150,7 @@ namespace ExpressionsLibrary
         {
             get
             {
-                return !IsLogic && (List.Count(x => x.Action >= 1 && x.Action <= 6)) > 0;
+                return !IsSelect && !IsLogic && !IsBoolean && (List.Count(x => x.PriorityAction >= 1 && x.PriorityAction <= 6)) > 0;
             }
         }
 
@@ -123,7 +161,7 @@ namespace ExpressionsLibrary
         {
             get
             {
-                return !IsBoolean && (List.Count(x => x.Action >= 7 && x.Action <= 12)) > 0;
+                return !IsSelect && !IsBoolean && (List.Count(x => x.PriorityAction >= 7 && x.PriorityAction <= 12)) > 0;
             }
         }
 
@@ -134,7 +172,18 @@ namespace ExpressionsLibrary
         {
             get
             {
-                return (List.Count(x => x.Action >= 13 && x.Action <= 16)) > 0;
+                return !IsSelect && (List.Count(x => x.PriorityAction >= 13 && x.PriorityAction <= 16)) > 0;
+            }
+        }
+
+        /// <summary>
+        /// Выражение ветвления.
+        /// </summary>
+        public bool IsSelect
+        {
+            get
+            {
+                return IsIfAssociation && (List.Count(x => x.PriorityAction >= 17 && x.PriorityAction <= 19)) > 0;
             }
         }
 
@@ -160,6 +209,30 @@ namespace ExpressionsLibrary
         public bool IsNotAssociation
         {
             get { return OpenIndex() == 1 && First.UnitType == MatchType.Not; }
+        }
+
+        /// <summary>
+        /// Условие ветвления, заключенное в скобки IF(... )
+        /// </summary>
+        public bool IsIfAssociation
+        {
+            get { return First.UnitType == MatchType.If && Second !=null && Second.UnitType == MatchType.Open; }
+        }
+
+        /// <summary>
+        /// Результат ветвления, заключенный в скобки THEN(... )
+        /// </summary>
+        public bool IsThenAssociation
+        {
+            get { return OpenIndex() == 1 && First.UnitType == MatchType.Then; }
+        }
+
+        /// <summary>
+        /// Результат ветвления, заключенный в скобки ELSE(... )
+        /// </summary>
+        public bool IsElseAssociation
+        {
+            get { return OpenIndex() == 1 && First.UnitType == MatchType.Else; }
         }
 
         /// <summary>
@@ -191,12 +264,18 @@ namespace ExpressionsLibrary
             get { return List.Count; }
         }
 
+
         private int OpenIndex()
+        {
+            return OpenIndex(lastIndex: List.Count);            
+        }
+
+        private int OpenIndex(int lastIndex)
         {
             if (Last.UnitType == MatchType.Close)
             {
                 int A = 0;
-                for (int i = List.Count - 1; i >= 0; i--)
+                for (int i = lastIndex - 1; i >= 0; i--)
                 {
                     if (List[i].UnitType == MatchType.Close) { A--; }
                     if (List[i].UnitType == MatchType.Open) { A++; }
@@ -210,10 +289,10 @@ namespace ExpressionsLibrary
         public int GetLastIndex()
         {
             IEnumerable<int> array = from IUnit U in List
-                                     where U.Action > 0
-                                     orderby U.Action descending
-                                     group U by U.Action into G
-                                     select G.First().Action;
+                                     where U.PriorityAction > 0
+                                     orderby U.PriorityAction descending
+                                     group U by U.PriorityAction into G
+                                     select G.First().PriorityAction;
             bool association = false;
             foreach (int i in array)
             {
@@ -233,7 +312,7 @@ namespace ExpressionsLibrary
             {
                 if (List[i].UnitType == MatchType.Close) { A--; association = true; }
                 if (List[i].UnitType == MatchType.Open) { A++; association = true; }
-                if (A == 0 && List[i].Action == action) { return i; }
+                if (A == 0 && List[i].PriorityAction == action) { return i; }
             }
             if (association) { return -2; }
             else { return -1; }
@@ -261,23 +340,11 @@ namespace ExpressionsLibrary
             /// <summary>
             /// Приоритет математического действия.
             /// </summary>
-            int Action { get; }
+            int PriorityAction { get; }
             /// <summary>
-            /// Признак оператора арифметического выражения.
+            /// Тип действия.
             /// </summary>
-            bool IsArithmetic { get; }
-            /// <summary>
-            /// Признак оператора булевого выражения.
-            /// </summary>
-            bool IsBoolean { get; }
-            /// <summary>
-            /// Признак оператора логического выражения.
-            /// </summary>
-            bool IsLogic { get; }
-            /// <summary>
-            /// Признак оператора ветвления.
-            /// </summary>
-            bool IsSelect { get; }
+            ActionType Action { get; }
             /// <summary>
             /// Строковое значение элемента.
             /// </summary>
@@ -301,23 +368,11 @@ namespace ExpressionsLibrary
             /// <summary>
             /// Приоритет математического действия.
             /// </summary>
-            public int Action { get; }
+            public int PriorityAction { get; }
             /// <summary>
-            /// Признак оператора арифметического выражения.
+            /// Тип действия.
             /// </summary>
-            public bool IsArithmetic { get; }
-            /// <summary>
-            /// Признак оператора булевого выражения.
-            /// </summary>
-            public bool IsBoolean { get; }
-            /// <summary>
-            /// Признак оператора логического выражения.
-            /// </summary>
-            public bool IsLogic { get; }
-            /// <summary>
-            /// Признак оператора ветвления.
-            /// </summary>
-            public bool IsSelect { get; }
+            public ActionType Action { get; }
             /// <summary>
             /// Строковое значение элемента.
             /// </summary>
@@ -335,20 +390,16 @@ namespace ExpressionsLibrary
             /// </summary>
             /// <param name="parent">Родительская коллекция элементов.</param>
             /// <param name="value">Строковое значение элемента.</param>
-            /// <param name="type">Тип элемента.</param>
-            /// <param name="action">Приоритет математического действия.</param>
-            /// <param name="arithmetic">Признак оператора арифметического выражения.</param>
-            /// <param name="boolean">Признак оператора булевого выражения.</param>
-            /// <param name="logic">Признак оператора логического выражения.</param>
-            protected BaseUnit(UnitCollection parent, string value, MatchType type, int action, bool arithmetic, bool boolean, bool logic)
+            /// <param name="matchType">Тип элемента.</param>
+            /// <param name="priorityAction">Приоритет математического действия.</param>
+            /// <param name="action">Тип операции.</param>
+            protected BaseUnit(UnitCollection parent, string value, MatchType matchType, int priorityAction, ActionType action)
             {
                 this.parent = parent;
                 Value = value;
-                UnitType = type;
+                UnitType = matchType;
+                PriorityAction = priorityAction;
                 Action = action;
-                IsArithmetic = arithmetic;
-                IsBoolean = boolean;
-                IsLogic = logic;
             }
 
             public static BaseUnit Create(UnitCollection parent, IUnit unit)
@@ -406,6 +457,12 @@ namespace ExpressionsLibrary
                         return new TrueUnit(parent: parent, value: value);
                     case MatchType.Xor:
                         return new XorUnit(parent: parent, value: value);
+                    case MatchType.If:
+                        return new IfUnit(parent: parent, value: value);
+                    case MatchType.Then:
+                        return new ThenUnit(parent: parent, value: value);
+                    case MatchType.Else:
+                        return new ElseUnit(parent: parent, value: value);
                     default:
                         return new DecimalUnit(parent: parent, value: value);
                 }
@@ -413,8 +470,8 @@ namespace ExpressionsLibrary
 
             public static BaseUnit Create(UnitCollection parent, Match match)
             {
-                MatchType type = GetMatchType(match);
                 string value = match.Value;
+                MatchType type = GetMatchType(value);
                 switch (type)
                 {
                     case MatchType.Addition:
@@ -467,6 +524,12 @@ namespace ExpressionsLibrary
                         return new TrueUnit(parent: parent, value: value);
                     case MatchType.Xor:
                         return new XorUnit(parent: parent, value: value);
+                    case MatchType.If:
+                        return new IfUnit(parent: parent, value: value);
+                    case MatchType.Then:
+                        return new ThenUnit(parent: parent, value: value);
+                    case MatchType.Else:
+                        return new ElseUnit(parent: parent, value: value);
                     default:
                         return new ErrorUnit(parent: parent, value: value);
                 }
@@ -478,270 +541,440 @@ namespace ExpressionsLibrary
         /// </summary>
         private class ErrorUnit : BaseUnit, IUnit
         {
+            public const int ACTION = -1;
+
             public ErrorUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Error, action: -1, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Error, priorityAction: ACTION, 
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Ссылка на ячейку.(0)
         /// </summary>
         private class CellUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public CellUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Cell, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Cell, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Числовой показатель.(0)
         /// </summary>
         private class DecimalUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public DecimalUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Decimal, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Decimal, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Закрывающаяся скобка.(0)
         /// </summary>
         private class CloseUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public CloseUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Close, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Close, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Открывающаяся скобка.(0)
         /// </summary>
         private class OpenUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public OpenUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Open, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Open, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Знак степени числа.(1)
         /// </summary>
         private class PowerUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 1;
+
             public PowerUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Power, action: 1, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Power, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак корня числа.(1)
         /// </summary>
         private class SqrtUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 1;
+
             public SqrtUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Sqrt, action: 1, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Sqrt, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак отрицательного числа.(2)
         /// </summary>
         private class NegativeUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 2;
+
             public NegativeUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Negative, action: 2, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Negative, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Знак умножения.(3)
         /// </summary>
         private class MultiplicationUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 3;
+
             public MultiplicationUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Multiplication, action: 3, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Multiplication,
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак деления.(3)
         /// </summary>
         private class DivisionUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 3;
+
             public DivisionUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Division, action: 3, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Division, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Вычисление целой части от деления.(4)
         /// </summary>
         private class FixUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 4;
+
             public FixUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Fix, action: 4, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Fix, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Вычисление остатка от деления.(5)
         /// </summary>
         private class ModUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 5;
+
             public ModUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Mod, action: 5, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Mod, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак сложения.(6)
         /// </summary>
         private class AdditionUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 6;
             public AdditionUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Addition, action: 6, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Addition, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак вычитания.(6)
         /// </summary>
         private class SubtractingUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 6;
+
             public SubtractingUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Subtracting, action: 6, arithmetic: true, boolean: false, logic: false)
+                    matchType: MatchType.Subtracting, 
+                    priorityAction: ACTION,
+                    action: ActionType.Arithmetic)
             { }
         }
+        
         /// <summary>
         /// Знак равно.(7)
         /// </summary>
         private class EqualUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 7;
+
             public EqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Equal, action: 7, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.Equal, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак не равно (!=).(8)
         /// </summary>
         private class NotEqualUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 8;
+
             public NotEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.NotEqual, action: 8, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.NotEqual, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак меньше (&lt;).(9)
         /// </summary>
         private class LessUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 9;
+
             public LessUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Less, action: 9, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.Less, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак больше (>).(10)
         /// </summary>
         private class MoreUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 10;
+
             public MoreUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.More, action: 10, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.More, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак меньше или равно (&lt;=).(11)
         /// </summary>
         private class LessOrEqualUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 11;
+
             public LessOrEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.LessOrEqual, action: 11, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.LessOrEqual, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак больше или равно (>=).(12)
         /// </summary>
         private class MoreOrEqualUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 12;
+
             public MoreOrEqualUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.MoreOrEqual, action: 12, arithmetic: false, boolean: false, logic: true)
+                    matchType: MatchType.MoreOrEqual, 
+                    priorityAction: ACTION,
+                    action: ActionType.Сomparison)
             { }
         }
+        
         /// <summary>
         /// Знак положительного логического выражения (True).(0)
         /// </summary>
         private class TrueUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public TrueUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.True, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.True, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Знак отрицательного логического выражения (False).(0)
         /// </summary>
         private class FalseUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 0;
+
             public FalseUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.False, action: 0, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.False, 
+                    priorityAction: ACTION,
+                    action: ActionType.Non)
             { }
         }
+        
         /// <summary>
         /// Знак логического отрицания (NOT).(13)
         /// </summary>
         private class NotUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 13;
+
             public NotUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Not, action: 13, arithmetic: false, boolean: false, logic: false)
+                    matchType: MatchType.Not, 
+                    priorityAction: ACTION,
+                    action: ActionType.Boolean)
             { }
         }
+        
         /// <summary>
         /// Знак логического сложения (AND).(14)
         /// </summary>
         private class AndUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 14;
+
             public AndUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.And, action: 14, arithmetic: false, boolean: true, logic: false)
+                    matchType: MatchType.And, 
+                    priorityAction: ACTION,
+                    action: ActionType.Boolean)
             { }
         }
+        
         /// <summary>
         /// Знак логического ИЛИ (OR).(15)
         /// </summary>
         private class OrUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 15;
+
             public OrUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Or, action: 15, arithmetic: false, boolean: true, logic: false)
+                    matchType: MatchType.Or, 
+                    priorityAction: ACTION,
+                    action: ActionType.Boolean)
             { }
         }
+        
         /// <summary>
         /// Знак исключающегося ИЛИ (XOR).(16)
         /// </summary>
         private class XorUnit : BaseUnit, IUnit
         {
+            public const int ACTION = 16;
+
             public XorUnit(UnitCollection parent, string value) :
                 base(parent: parent, value: value,
-                    type: MatchType.Xor, action: 16, arithmetic: false, boolean: true, logic: false)
+                    matchType: MatchType.Xor, 
+                    priorityAction: ACTION,
+                    action: ActionType.Boolean)
+            { }
+        }
+        
+        /// <summary>
+        /// Знак ветвления ЕСЛИ (IF).(17)
+        /// </summary>
+        private class IfUnit : BaseUnit, IUnit
+        {
+            public const int ACTION = 17;
+
+            public IfUnit(UnitCollection parent, string value) :
+                base(parent: parent, value: value,
+                    matchType: MatchType.If, 
+                    priorityAction: ACTION,
+                    action: ActionType.Select)
             { }
         }
 
         /// <summary>
+        /// Знак ветвления ТОГДА (THEN).(18)
+        /// </summary>
+        private class ThenUnit : BaseUnit, IUnit
+        {
+            public const int ACTION = 18;
+
+            public ThenUnit(UnitCollection parent, string value) :
+                base(parent: parent, value: value,
+                    matchType: MatchType.Then, 
+                    priorityAction: ACTION,
+                    action: ActionType.Select)
+            { }
+        }
+
+        /// <summary>
+        /// Знак ветвления ИНАЧЕ (ELSE).(19)
+        /// </summary>
+        private class ElseUnit : BaseUnit, IUnit
+        {
+            public const int ACTION = 19;
+
+            public ElseUnit(UnitCollection parent, string value) :
+                base(parent: parent, value: value,
+                    matchType: MatchType.Else, 
+                    priorityAction: ACTION,
+                    action: ActionType.Select)
+            { }
+        }
+ 
+        /// <summary>
         /// Определить тип элемента.
         /// </summary>
         /// <param name="match">Класс совпадения регулярного выражения.</param>
-        private static MatchType GetMatchType(Match match)
+        private static MatchType GetMatchType(string value)
         {
-            string value = match.Value;
-
             if (ArithmeticExpression.regexCell != null &&
                 ArithmeticExpression.regexCell.IsMatch(value))
             {
@@ -767,27 +1000,27 @@ namespace ExpressionsLibrary
             {
                 return MatchType.Or;
             }
-            else if (LogicExpression.regexLessOrEqual.IsMatch(value))
+            else if (СomparisonExpression.regexLessOrEqual.IsMatch(value))
             {
                 return MatchType.LessOrEqual;
             }
-            else if (LogicExpression.regexMoreOrEqual.IsMatch(value))
+            else if (СomparisonExpression.regexMoreOrEqual.IsMatch(value))
             {
                 return MatchType.MoreOrEqual;
             }
-            else if (LogicExpression.regexNotEqual.IsMatch(value))
+            else if (СomparisonExpression.regexNotEqual.IsMatch(value))
             {
                 return MatchType.NotEqual;
             }
-            else if (LogicExpression.regexEqual.IsMatch(value))
+            else if (СomparisonExpression.regexEqual.IsMatch(value))
             {
                 return MatchType.Equal;
             }
-            else if (LogicExpression.regexLess.IsMatch(value))
+            else if (СomparisonExpression.regexLess.IsMatch(value))
             {
                 return MatchType.Less;
             }
-            else if (LogicExpression.regexMore.IsMatch(value))
+            else if (СomparisonExpression.regexMore.IsMatch(value))
             {
                 return MatchType.More;
             }
@@ -838,6 +1071,18 @@ namespace ExpressionsLibrary
             else if (ArithmeticExpression.regexSqrt.IsMatch(value))
             {
                 return MatchType.Sqrt;
+            }
+            else if (SelectExpression.regexIf.IsMatch(value))
+            {
+                return MatchType.If;
+            }
+            else if (SelectExpression.regexThen.IsMatch(value))
+            {
+                return MatchType.Then;
+            }
+            else if (SelectExpression.regexElse.IsMatch(value))
+            {
+                return MatchType.Else;
             }
             else
             {
@@ -955,17 +1200,44 @@ namespace ExpressionsLibrary
             /// </summary>
             Xor = 24,
             /// <summary>
-            /// Условие ЕСЛИ [IF()]
+            /// Условие ЕСЛИ [IF]
             /// </summary>
-            Select = 25,
+            If = 25,
             /// <summary>
-            /// Условие ТОГДА [THEN{}]
+            /// Условие ТОГДА [THEN]
             /// </summary>
             Then = 26,
             /// <summary>
-            /// Условие ИНАЧЕ [ELSE{}]
+            /// Условие ИНАЧЕ [ELSE]
             /// </summary>
             Else = 27
+        }
+
+        /// <summary>
+        /// Тип операции.
+        /// </summary>
+        public enum ActionType: int
+        {
+            /// <summary>
+            /// Иной элемент.
+            /// </summary>
+            Non = 0,
+            /// <summary>
+            /// Арифметика.
+            /// </summary>
+            Arithmetic = 1,
+            /// <summary>
+            /// Сравнение.
+            /// </summary>
+            Сomparison = 2,
+            /// <summary>
+            /// Булевая логика.
+            /// </summary>
+            Boolean = 3,
+            /// <summary>
+            /// Ветвление.
+            /// </summary>
+            Select = 4
         }
     }
 }

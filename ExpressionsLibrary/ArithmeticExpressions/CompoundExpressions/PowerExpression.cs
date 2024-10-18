@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Число, возведенное в степень.
     /// </summary>
-    class PowerExpression : Expression, IExpression
+    class PowerExpression : Expression, IDecimalExpression
     {
         private PowerExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -43,7 +43,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolPower + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new PowerExpression(ref cells, left, right);
         }

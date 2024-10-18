@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace ExpressionsLibrary
 {
@@ -13,11 +12,11 @@ namespace ExpressionsLibrary
     {
         protected IExpression expression;
 
-        protected Dictionary<string, ICell> collection;
+        protected Dictionary<string, ICell> cells;
 
         protected ExpressionBase()
         {
-            collection = new Dictionary<string, ICell>();
+            cells = new Dictionary<string, ICell>();
         }
 
         /// <summary>
@@ -38,13 +37,12 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Строковое представление выражения.
         /// </summary>
-        /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
+        /// <param name="format">Строка, описывающая формат отображения результата выражения.</param>
         public abstract string Formula(string format);
 
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return ToString(format: string.Empty);
@@ -53,15 +51,13 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
-        /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
-        /// <returns></returns>
+        /// <param name="format">Строка, описывающая формат отображения результата выражения.</param>
         public abstract string ToString(string format);
 
         /// <summary>
         /// Признак применения формата.
         /// </summary>
-        /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
-        /// <returns></returns>
+        /// <param name="format">Строка, описывающая формат отображения результата выражения.</param>
         protected static bool IsFormat(string format)
         {
             return !string.IsNullOrWhiteSpace(format);
@@ -71,10 +67,9 @@ namespace ExpressionsLibrary
         /// Определяет содержится ли ячейка с указанным ключем в выражении.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
-        /// <returns></returns>
         public bool Contains(string key)
         {
-            return collection.ContainsKey(key);
+            return cells.ContainsKey(key);
         }
 
         /// <summary>
@@ -82,7 +77,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public string[] Keys
         {
-            get { return collection.Keys.ToArray(); }
+            get { return cells.Keys.ToArray(); }
         }
 
         /// <summary>
@@ -92,7 +87,7 @@ namespace ExpressionsLibrary
         /// <returns></returns>
         public ICell this[string key]
         {
-            get { return collection[key]; }
+            get { return cells[key]; }
         }
 
         /// <summary>
@@ -100,7 +95,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public int Count
         {
-            get { return collection.Count; }
+            get { return cells.Count; }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -110,7 +105,7 @@ namespace ExpressionsLibrary
 
         public IEnumerator<ICell> GetEnumerator()
         {
-            return collection.Values.GetEnumerator();
+            return cells.Values.GetEnumerator();
         }
     }
 }

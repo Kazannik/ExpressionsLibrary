@@ -1,5 +1,4 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
-using ExpressionsLibrary.LogicExpressions;
 using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
@@ -7,7 +6,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Исключающее ИЛИ (XOR).
     /// </summary>
-    class XorExpression : Expression, ILogicExpression
+    class XorExpression : Expression, IBooleanExpression
     {
         private XorExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -52,7 +51,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new XorExpression(ref cells, left, right);
         }

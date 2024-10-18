@@ -5,14 +5,9 @@ namespace ExpressionsLibrary.ArithmeticExpressions
     /// <summary>
     /// Элемент положительного алгебраического выражения.
     /// </summary>
-    class PositiveExpression : ExpressionBase, IExpression
+    class PositiveExpression : ExpressionBase, IDecimalExpression
     {
-        private new IExpression expression;
-
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
-        {
-            return new PositiveExpression(ref cells, UnitCollection.Create(array));
-        }
+        private new IDecimalExpression expression;
 
         private PositiveExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
@@ -46,6 +41,11 @@ namespace ExpressionsLibrary.ArithmeticExpressions
         public override string Formula(string format)
         {
             return @"+" + expression.Formula(format: format);
+        }
+
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        {
+            return new PositiveExpression(ref cells, UnitCollection.Create(array));
         }
     }
 }

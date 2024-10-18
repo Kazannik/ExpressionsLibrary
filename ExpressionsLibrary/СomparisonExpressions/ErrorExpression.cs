@@ -1,23 +1,23 @@
-﻿namespace ExpressionsLibrary.ArithmeticExpressions
+﻿namespace ExpressionsLibrary.СomparisonExpressions
 {
     /// <summary>
     /// Ошибочное выражение.
     /// </summary>
-    class ErrorExpression : ExpressionBase, IDecimalExpression
+    class ErrorExpression : ExpressionBase, IBooleanExpression
     {
         private string formula;
 
         private ErrorExpression(UnitCollection array)
         {
             IsError = true;
-            Value = 0;
-            formula = ArithmeticExpression.SymbolStartError;
+            Value = false;
+            formula = СomparisonExpression.SymbolStartError;
             foreach (UnitCollection.IUnit u in array)
             {
                 if (formula.Length > 0) { formula += ArithmeticExpression.SymbolSpace; }
                 formula += u.Value;
             }
-            formula += ArithmeticExpression.SymbolEndError;
+            formula += СomparisonExpression.SymbolEndError;
         }
 
         /// <summary>
@@ -26,12 +26,12 @@
         public override bool IsError { get; }
 
         /// <summary>
-        /// Значение алгебраического выражения.
+        /// Значение логического выражения.
         /// </summary>
-        public override decimal Value { get; }
+        public override bool Value { get; }
 
         /// <summary>
-        /// Строковое представление алгебраического выражения.
+        /// Строковое представление выражения сравнения.
         /// </summary>
         public override string Formula()
         {
@@ -43,12 +43,21 @@
             return formula;
         }
 
-        public static IDecimalExpression Create(UnitCollection.IUnit unit)
+        /// <summary>
+        /// Короткое строковое представление выражения сравнения.
+        /// </summary>
+        /// <param name="format">Формат отображения результата алгебраического выражения.</param>
+        public override string ToString(string format)
+        {
+            return Formula();
+        }
+
+        public static IBooleanExpression Create(UnitCollection.IUnit unit)
         {
             return new ErrorExpression(UnitCollection.Create(unit));
         }
 
-        public static IDecimalExpression Create(UnitCollection array)
+        public static IBooleanExpression Create(UnitCollection array)
         {
             return new ErrorExpression(array);
         }

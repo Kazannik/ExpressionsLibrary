@@ -1,12 +1,12 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
 using System.Collections.Generic;
 
-namespace ExpressionsLibrary.LogicExpressions
+namespace ExpressionsLibrary.СomparisonExpressions
 {
     /// <summary>
     /// Логическое выражение (МЕНЬШЕ ИЛИ РАВНО).
     /// </summary>
-    class LessOrEqualExpression : CompoundExpression, ILogicExpression
+    class LessOrEqualExpression : CompoundExpression, IBooleanExpression
     {
         private LessOrEqualExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -23,12 +23,12 @@ namespace ExpressionsLibrary.LogicExpressions
         /// </summary>
         public override string Formula()
         {
-            return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+            return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
         }
 
         public override string Formula(string format)
         {
-            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>
@@ -38,11 +38,11 @@ namespace ExpressionsLibrary.LogicExpressions
         public override string ToString(string format)
         {
             if (IsFormat(format: format))
-                return GetLeftFormula(format: format) + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula(format: format);
+                return GetLeftFormula(format: format) + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula(format: format);
             else
-                return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
+                return GetLeftFormula() + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new LessOrEqualExpression(ref cells, left, right);
         }

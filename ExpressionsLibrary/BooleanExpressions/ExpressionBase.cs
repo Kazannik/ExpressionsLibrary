@@ -1,10 +1,8 @@
-﻿using ExpressionsLibrary.LogicExpressions;
-
-namespace ExpressionsLibrary.BooleanExpressions
+﻿namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Базовый класс булевого логического выражения.
     /// </summary>
-    abstract class ExpressionBase : LogicExpressions.ExpressionBase, ILogicExpression
+    abstract class ExpressionBase : СomparisonExpressions.ExpressionBase, IBooleanExpression
     { }
 }

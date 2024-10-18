@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using ExpressionsLibrary.ArithmeticExpressions;
+using static ExpressionsLibrary.UnitCollection;
 
 namespace ExpressionsLibrary
 {
     /// <summary>
-    /// Математическое выражение.
+    /// Выражение.
     /// </summary>
     public class Expression : IExpression
     {
@@ -56,12 +57,10 @@ namespace ExpressionsLibrary
             return expression.ToString(format: format);
         }
 
-
         /// <summary>
         /// Определяет содержится ли ячейка с указанным ключем в выражении.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
-        /// <returns></returns>
         public bool Contains(string key)
         {
             return expression.Contains(key);
@@ -79,8 +78,7 @@ namespace ExpressionsLibrary
         /// Ячейка, используемая при расчете.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
-        /// <returns></returns>
-        public ArithmeticExpressions.ICell this[string key]
+        public ICell this[string key]
         {
             get { return expression[key]; }
         }
@@ -93,39 +91,6 @@ namespace ExpressionsLibrary
             get { return expression.Count; }
         }
 
-        public static IExpression Create(string text)
-        {
-            bool isArithmetic = ArithmeticExpression.IsExpression(text: text);
-            bool isLogic = LogicExpression.IsExpression(text: text);
-            bool isBoolean = BooleanExpression.IsExpression(text: text);
-
-            if (isBoolean)
-                return new Expression(BooleanExpression.Create(text));
-            else if (isLogic)
-                return new Expression(LogicExpression.Create(text));
-            else if (isArithmetic)
-                return new Expression(ArithmeticExpression.Create(text));
-            else
-                throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
-
-        }
-
-        public static IExpression Create(string text, string cellpattern)
-        {
-            bool isArithmetic = ArithmeticExpression.IsExpression(text: text);
-            bool isBoolean = BooleanExpression.IsExpression(text: text);
-            bool isLogic = LogicExpression.IsExpression(text: text);
-
-            if (isBoolean)
-                return new Expression(BooleanExpression.Create(text, cellpattern: cellpattern));
-            else if (isLogic)
-                return new Expression(LogicExpression.Create(text, cellpattern: cellpattern));
-            else if (isArithmetic)
-                return new Expression(ArithmeticExpression.Create(text, cellpattern: cellpattern));
-            else
-                throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
-        }
-
         IEnumerator<ICell> IEnumerable<ICell>.GetEnumerator()
         {
             return expression.GetEnumerator();
@@ -134,6 +99,37 @@ namespace ExpressionsLibrary
         IEnumerator IEnumerable.GetEnumerator()
         {
             return expression.GetEnumerator();
+        }
+
+        public static IExpression Create(string text)
+        {
+            UnitCollection collection = UnitCollection.Create(text: text);
+            return Create(collection: collection);                
+        }
+
+        public static IExpression Create(string text, string cellpattern)
+        {
+            UnitCollection collection = UnitCollection.Create(text: text, cellpattern: cellpattern);
+            return Create(collection: collection);
+        }
+
+        internal static IExpression Create(UnitCollection collection)
+        {
+            int i = collection.GetLastIndex();
+            ActionType action = collection[i].Action;
+            switch (action)
+            {
+                case ActionType.Arithmetic:
+                    return new Expression(ArithmeticExpression.Create(collection: collection));
+                case ActionType.Сomparison:
+                    return new Expression(СomparisonExpression.Create(collection: collection));
+                case ActionType.Boolean:
+                    return new Expression(BooleanExpression.Create(collection: collection));
+                case ActionType.Select:
+                    return new Expression(SelectExpression.Create(collection: collection));
+                default:
+                    throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
+            }
         }
     }
 }

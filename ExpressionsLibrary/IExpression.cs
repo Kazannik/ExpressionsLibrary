@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ExpressionsLibrary
 {
     /// <summary>
-    /// Интерфейс математического выражения.
+    /// Интерфейс выражения.
     /// </summary>
     public interface IExpression : IEnumerable<ICell>
     {
@@ -28,14 +28,12 @@ namespace ExpressionsLibrary
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
-        /// <returns></returns>
         string ToString();
 
         /// <summary>
         /// Короткое строковое представление выражения.
         /// </summary>
         /// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
-        /// <returns></returns>
         string ToString(string format);
 
         /// <summary>
@@ -47,7 +45,6 @@ namespace ExpressionsLibrary
         /// Определяет содержится ли ячейка с указанным ключем в выражении.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
-        /// <returns></returns>
         bool Contains(string key);
 
         /// <summary>
@@ -59,7 +56,6 @@ namespace ExpressionsLibrary
         /// Ячейка, используемая при расчете.
         /// </summary>
         /// <param name="key">Ключ ячейки.</param>
-        /// <returns></returns>
         ICell this[string key] { get; }
 
         /// <summary>

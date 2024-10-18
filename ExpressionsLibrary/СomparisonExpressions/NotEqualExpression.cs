@@ -1,12 +1,12 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
 using System.Collections.Generic;
 
-namespace ExpressionsLibrary.LogicExpressions
+namespace ExpressionsLibrary.СomparisonExpressions
 {
     /// <summary>
     /// Логическое выражение (НЕ РАВНО).
     /// </summary>
-    class NotEqualExpression : CompoundExpression, ILogicExpression
+    class NotEqualExpression : CompoundExpression, IBooleanExpression
     {
         private NotEqualExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -23,12 +23,12 @@ namespace ExpressionsLibrary.LogicExpressions
         /// </summary>
         public override string Formula()
         {
-            return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+            return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
         }
 
         public override string Formula(string format)
         {
-            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
+            return LeftExpression.Formula(format: format) + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula(format: format);
         }
 
         /// <summary>
@@ -38,12 +38,12 @@ namespace ExpressionsLibrary.LogicExpressions
         public override string ToString(string format)
         {
             if (IsFormat(format: format))
-                return GetLeftFormula(format: format) + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + GetRightFormula(format: format);
+                return GetLeftFormula(format: format) + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + GetRightFormula(format: format);
             else
-                return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
+                return GetLeftFormula() + ArithmeticExpression.SymbolSpace + СomparisonExpression.SymbolNotEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new NotEqualExpression(ref cells, left, right);
         }

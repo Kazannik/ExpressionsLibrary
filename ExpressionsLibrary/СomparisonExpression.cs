@@ -1,12 +1,11 @@
-﻿using ExpressionsLibrary.LogicExpressions;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary
 {
     /// <summary>
     /// Логическое выражение.
     /// </summary>
-    class LogicExpression : LogicExpressions.ExpressionBase, ILogicExpression
+    class СomparisonExpression : СomparisonExpressions.ExpressionBase, IBooleanExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
@@ -36,9 +35,9 @@ namespace ExpressionsLibrary
         internal const string MORE_OR_EQUAL = @"\x3e\x3d"; // ">="
 
         /// <summary>
-        /// Коллекция логических знаков.
+        /// Коллекция знаков сравнения.
         /// </summary>
-        internal const string LOGIC = LESS_OR_EQUAL + @"|" + MORE_OR_EQUAL + @"|" + NOT_EQUAL + @"|" + EQUAL + @"|" + LESS + @"|" + MORE;
+        internal const string COMPARISON = LESS_OR_EQUAL + @"|" + MORE_OR_EQUAL + @"|" + NOT_EQUAL + @"|" + EQUAL + @"|" + LESS + @"|" + MORE;
 
         /// <summary>
         /// Регулярное выражение для поиска всех компонентов, включая ячейки.
@@ -110,7 +109,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override bool Value
         {
-            get { return ((ILogicExpression)expression).Value; }
+            get { return ((IBooleanExpression)expression).Value; }
         }
 
         /// <summary>
@@ -143,10 +142,10 @@ namespace ExpressionsLibrary
             return expression.ToString(format: format);
         }
 
-        private LogicExpression(UnitCollection array) : base()
+        private СomparisonExpression(UnitCollection array) : base()
         {
             InitializeSymbols();
-            expression = LogicExpressions.Expression.Create(ref collection, array);
+            expression = СomparisonExpressions.Expression.Create(ref cells, array);
         }
 
         internal static void InitializeSymbols()
@@ -175,26 +174,26 @@ namespace ExpressionsLibrary
             }
             else
             {
-                regexAll = new Regex(LOGIC, ArithmeticExpression.OPTIONS);
+                regexAll = new Regex(COMPARISON, ArithmeticExpression.OPTIONS);
                 return regexAll.IsMatch(text);
             }
         }
 
-        public static ILogicExpression Create(string text)
+        public static IBooleanExpression Create(string text)
         {
-            string context = text.Replace(" ", "");
-            regexAll = new Regex(LOGIC + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
-            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
-            return new LogicExpression(collection);
+            UnitCollection collection = UnitCollection.Create(text: text);
+            return Create(collection: collection);
         }
 
-        public static ILogicExpression Create(string text, string cellpattern)
+        public static IBooleanExpression Create(string text, string cellpattern)
         {
-            string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + LOGIC + @"|" + ArithmeticExpression.ARITHMETIC + @"|" + ArithmeticExpression.OPEN + @"|" + ArithmeticExpression.CLOSE, ArithmeticExpression.OPTIONS);
-            ArithmeticExpression.regexCell = new Regex(@"(" + cellpattern + @")", ArithmeticExpression.OPTIONS);
-            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
-            return new LogicExpression(collection);
+            UnitCollection collection = UnitCollection.Create(text: text, cellpattern: cellpattern);
+            return Create(collection: collection);
+        }
+
+        public static IBooleanExpression Create(UnitCollection collection)
+        {
+            return new СomparisonExpression(collection);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace ExpressionsLibrary.LogicExpressions
+﻿namespace ExpressionsLibrary
 {
     /// <summary>
     /// Интерфейс логического выражения.
     /// </summary>
-    public interface ILogicExpression : IExpression
+    public interface IBooleanExpression : IExpression
     {
         /// <summary>
         /// Значение логического выражения.

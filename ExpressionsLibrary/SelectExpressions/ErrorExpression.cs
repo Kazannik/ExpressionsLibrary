@@ -1,23 +1,23 @@
-﻿namespace ExpressionsLibrary.LogicExpressions
+﻿namespace ExpressionsLibrary.SelectExpressions
 {
     /// <summary>
     /// Ошибочное выражение.
     /// </summary>
-    class ErrorExpression : ExpressionBase, ILogicExpression
+    class ErrorExpression : ExpressionBase, ISelectExpression
     {
         private string formula;
 
         private ErrorExpression(UnitCollection array)
         {
             IsError = true;
-            Value = false;
-            formula = LogicExpression.SymbolStartError;
+            IsTrue = false;
+            formula = SelectExpression.SymbolStartError;
             foreach (UnitCollection.IUnit u in array)
             {
                 if (formula.Length > 0) { formula += ArithmeticExpression.SymbolSpace; }
                 formula += u.Value;
             }
-            formula += LogicExpression.SymbolEndError;
+            formula += SelectExpression.SymbolEndError;
         }
 
         /// <summary>
@@ -26,12 +26,23 @@
         public override bool IsError { get; }
 
         /// <summary>
-        /// Значение логического выражения.
+        /// Значение секции Select выражения ветвления.
         /// </summary>
-        public override bool Value { get; }
+        public override bool IsTrue { get; }
 
         /// <summary>
-        /// Строковое представление логического выражения.
+        /// Значение выражения ветвления.
+        /// </summary>
+        public override object objValue
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Строковое представление выражения ветвления.
         /// </summary>
         public override string Formula()
         {
@@ -44,7 +55,7 @@
         }
 
         /// <summary>
-        /// Короткое строковое представление логического выражения.
+        /// Короткое строковое представление выражения ветвления.
         /// </summary>
         /// <param name="format">Формат отображения результата алгебраического выражения.</param>
         public override string ToString(string format)
@@ -52,12 +63,12 @@
             return Formula();
         }
 
-        public static ILogicExpression Create(UnitCollection.IUnit unit)
+        public static ISelectExpression Create(UnitCollection.IUnit unit)
         {
             return new ErrorExpression(UnitCollection.Create(unit));
         }
 
-        public static ILogicExpression Create(UnitCollection array)
+        public static ISelectExpression Create(UnitCollection array)
         {
             return new ErrorExpression(array);
         }

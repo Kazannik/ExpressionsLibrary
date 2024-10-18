@@ -3,7 +3,7 @@
     /// <summary>
     /// Ячейка, используемая при расчете.
     /// </summary>
-    public interface ICell : IExpression
+    public interface ICell : IDecimalExpression
     {
         /// <summary>
         /// Формат отображения формулы числа.

@@ -3,11 +3,11 @@
 namespace ExpressionsLibrary.ArithmeticExpressions
 {
     /// <summary>
-    /// Алгебраическое выражение, заключенное в скобки.
+    /// Алгебраическое выражение, целиком заключенное в скобки.
     /// </summary>
-    class AssociationExpression : ExpressionBase, IExpression
+    class AssociationExpression : ExpressionBase, IDecimalExpression
     {
-        private new IExpression expression;
+        private new IDecimalExpression expression;
 
         private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
@@ -43,7 +43,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
             return @"(" + expression.Formula(format: format) + @")";
         }
 
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
             return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
         }

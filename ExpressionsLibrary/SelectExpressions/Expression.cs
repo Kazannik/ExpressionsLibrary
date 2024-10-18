@@ -1,7 +1,7 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
 using System.Collections.Generic;
 
-namespace ExpressionsLibrary.SelectExpression
+namespace ExpressionsLibrary.SelectExpressions
 {
     /// <summary>
     /// Базовое выражение ветвения.
@@ -10,7 +10,7 @@ namespace ExpressionsLibrary.SelectExpression
     {
         public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
-            if (array.Count > 2 && array.IsLogic)
+            if (array.Count >= 8 && array.IsSelect)
             { 
                 return CompoundExpression.Create(ref cells, array);
             }

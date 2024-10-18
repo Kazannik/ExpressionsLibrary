@@ -6,7 +6,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
     /// <summary>
     /// Логическое "И" (AND).
     /// </summary>
-    class AndExpression : Expression
+    class AndExpression : Expression, IBooleanExpression
     {
         private AndExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -43,7 +43,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolAnd + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static AndExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new AndExpression(ref cells, left, right);
         }

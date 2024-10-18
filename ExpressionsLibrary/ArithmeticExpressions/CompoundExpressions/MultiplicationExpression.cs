@@ -5,7 +5,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
     /// <summary>
     /// Алгебраическое выражение умножения.
     /// </summary>
-    class MultiplicationExpression : Expression, IExpression
+    class MultiplicationExpression : Expression, IDecimalExpression
     {
         private MultiplicationExpression(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) : base(ref cells, left, right) { }
 
@@ -42,7 +42,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
                 return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolMultiplication + ArithmeticExpression.SymbolSpace + GetRightFormula();
         }
 
-        public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
+        public static IDecimalExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
         {
             return new MultiplicationExpression(ref cells, left, right);
         }

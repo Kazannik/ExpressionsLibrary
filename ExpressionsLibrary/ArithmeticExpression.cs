@@ -5,7 +5,7 @@ namespace ExpressionsLibrary
     /// <summary>
     /// Алгебраическое выражение.
     /// </summary>
-    class ArithmeticExpression : ArithmeticExpressions.ExpressionBase, ArithmeticExpressions.IExpression
+    class ArithmeticExpression : ArithmeticExpressions.ExpressionBase, IDecimalExpression
     {
         #region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 
@@ -183,7 +183,7 @@ namespace ExpressionsLibrary
         /// </summary>
         public override decimal Value
         {
-            get { return ((ArithmeticExpressions.IExpression)expression).Value; }
+            get { return ((IDecimalExpression)expression).Value; }
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace ExpressionsLibrary
         private ArithmeticExpression(UnitCollection array) : base()
         {
             InitializeSymbols();
-            expression = ArithmeticExpressions.Expression.Create(ref collection, array);
+            expression = ArithmeticExpressions.Expression.Create(ref cells, array);
         }
 
         internal static void InitializeSymbols()
@@ -242,18 +242,18 @@ namespace ExpressionsLibrary
 
         public static IExpression Create(string text)
         {
-            string context = text.Replace(" ", "");
-            regexAll = new Regex(ARITHMETIC + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
-            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
-            return new ArithmeticExpression(collection);
+            UnitCollection collection = UnitCollection.Create(text: text);
+            return Create(collection: collection);
         }
 
         public static IExpression Create(string text, string cellpattern)
         {
-            string context = text.Replace(" ", "");
-            regexAll = new Regex(@"(" + cellpattern + @")|" + ARITHMETIC + @"|" + OPEN + @"|" + CLOSE, OPTIONS);
-            regexCell = new Regex(@"(" + cellpattern + @")", OPTIONS);
-            UnitCollection collection = UnitCollection.Create(regexAll.Matches(text));
+            UnitCollection collection = UnitCollection.Create(text: text, cellpattern: cellpattern);
+            return Create(collection: collection);
+        }
+
+        public static IExpression Create(UnitCollection collection)
+        {
             return new ArithmeticExpression(collection);
         }
     }

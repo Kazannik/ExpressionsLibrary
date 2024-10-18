@@ -1,5 +1,4 @@
 ﻿using ExpressionsLibrary.ArithmeticExpressions;
-using ExpressionsLibrary.LogicExpressions;
 using System.Collections.Generic;
 
 namespace ExpressionsLibrary.BooleanExpressions
@@ -7,9 +6,9 @@ namespace ExpressionsLibrary.BooleanExpressions
     /// <summary>
     /// Логическое выражение, заключенное в скобки.
     /// </summary>
-    class AssociationExpression : ExpressionBase, ILogicExpression
+    class AssociationExpression : ExpressionBase, IBooleanExpression
     {
-        private new ILogicExpression expression;
+        private new IBooleanExpression expression;
 
         private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
         {
@@ -44,12 +43,7 @@ namespace ExpressionsLibrary.BooleanExpressions
         {
             return @"(" + expression.Formula(format: format) + @")";
         }
-
-        public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
-        {
-            return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
-        }
-
+                
         /// <summary>
         /// Короткое строковое представление логического выражения.
         /// </summary>
@@ -57,6 +51,11 @@ namespace ExpressionsLibrary.BooleanExpressions
         public override string ToString(string format)
         {
             return Formula();
+        }
+
+        public static IBooleanExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+        {
+            return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
         }
     }
 }

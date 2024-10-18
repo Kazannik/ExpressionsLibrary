@@ -3,7 +3,7 @@
     /// <summary>
     /// Ячейка с фиксированным значением
     /// </summary>
-    class ValueExpression : ExpressionBase, IExpression
+    class ValueExpression : ExpressionBase, IDecimalExpression
     {
         private ValueExpression(decimal value)
         {
@@ -34,12 +34,12 @@
             return Value.ToString(format: format);
         }
 
-        public static IExpression Create(decimal value)
+        public static IDecimalExpression Create(decimal value)
         {
             return new ValueExpression(value);
         }
 
-        public static IExpression Create(string stringVal)
+        public static IDecimalExpression Create(string stringVal)
         {
             decimal decimalVal = 0;
             try

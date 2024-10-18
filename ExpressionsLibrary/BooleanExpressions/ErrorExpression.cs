@@ -1,11 +1,9 @@
-﻿using ExpressionsLibrary.LogicExpressions;
-
-namespace ExpressionsLibrary.BooleanExpressions
+﻿namespace ExpressionsLibrary.BooleanExpressions
 {
     /// <summary>
     /// Ошибочное выражение.
     /// </summary>
-    class ErrorExpression : ExpressionBase, ILogicExpression
+    class ErrorExpression : ExpressionBase, IBooleanExpression
     {
         private string formula;
 
@@ -54,12 +52,12 @@ namespace ExpressionsLibrary.BooleanExpressions
             return Formula(format: format);
         }
 
-        public static ILogicExpression Create(UnitCollection.IUnit unit)
+        public static IBooleanExpression Create(UnitCollection.IUnit unit)
         {
             return new ErrorExpression(UnitCollection.Create(unit));
         }
 
-        public static ILogicExpression Create(UnitCollection array)
+        public static IBooleanExpression Create(UnitCollection array)
         {
             return new ErrorExpression(array);
         }
