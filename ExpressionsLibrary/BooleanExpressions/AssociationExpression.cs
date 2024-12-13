@@ -2,54 +2,54 @@
 
 namespace ExpressionsLibrary.BooleanExpressions
 {
-    /// <summary>
-    /// Логическое выражение, заключенное в скобки.
-    /// </summary>
-    class AssociationExpression : ExpressionBase, LogicExpressions.ILogicExpression
-    {
-        private new LogicExpressions.ILogicExpression expression;
+	/// <summary>
+	/// Логическое выражение, заключенное в скобки.
+	/// </summary>
+	class AssociationExpression : ExpressionBase, LogicExpressions.ILogicExpression
+	{
+		private new readonly LogicExpressions.ILogicExpression expression;
 
-        private AssociationExpression(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
-        {
-            expression = Expression.Create(ref cells, array);
-        }
+		private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
+		{
+			expression = Expression.Create(ref cells, array);
+		}
 
-        /// <summary>
-        /// Признак содержания ошибки в выражении.
-        /// </summary>
-        public override bool IsError
-        {
-            get { return expression.IsError; }
-        }
+		/// <summary>
+		/// Признак содержания ошибки в выражении.
+		/// </summary>
+		public override bool IsError
+		{
+			get { return expression.IsError; }
+		}
 
-        /// <summary>
-        /// Значение логического выражения.
-        /// </summary>
-        public override bool Value
-        {
-            get { return (expression.Value); }
-        }
+		/// <summary>
+		/// Значение логического выражения.
+		/// </summary>
+		public override bool Value
+		{
+			get { return (expression.Value); }
+		}
 
-        /// <summary>
-        /// Строковое представление логического выражения.
-        /// </summary>
-        public override string Formula()
-        {
-            return @"(" + expression.Formula() + @")";
-        }
+		/// <summary>
+		/// Строковое представление логического выражения.
+		/// </summary>
+		public override string Formula()
+		{
+			return @"(" + expression.Formula() + @")";
+		}
 
-        public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ArithmeticExpressions.ICell> cells, UnitCollection array)
-        {
-            return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
-        }
+		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
+		{
+			return new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
+		}
 
-        /// <summary>
-        /// Короткое строковое представление логического выражения.
-        /// </summary>
-        /// <param name="format">Формат отображения результата алгебраического выражения.</param>
-        public override string ToString(string format)
-        {
-            return Formula();
-        }
-    }
+		/// <summary>
+		/// Короткое строковое представление логического выражения.
+		/// </summary>
+		/// <param name="format">Формат отображения результата алгебраического выражения.</param>
+		public override string ToString(string format)
+		{
+			return Formula();
+		}
+	}
 }

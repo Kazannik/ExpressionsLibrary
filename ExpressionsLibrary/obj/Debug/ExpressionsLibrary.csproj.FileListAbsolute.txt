@@ -7,3 +7,9 @@ C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLi
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb
 C:\Users\kazannik.m\Documents\Visual Studio 2015\Projects\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csprojResolveAssemblyReference.cache
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.dll
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.pdb
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csproj.AssemblyReference.cache
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csproj.CoreCompileInputs.cache
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
+D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb

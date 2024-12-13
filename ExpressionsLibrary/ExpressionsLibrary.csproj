@@ -55,7 +55,7 @@
     <Compile Include="ArithmeticExpressions\ErrorExpression.cs" />
     <Compile Include="ArithmeticExpressions\Expression.cs" />
     <Compile Include="ArithmeticExpressions\ExpressionBase.cs" />
-    <Compile Include="ArithmeticExpressions\ICell.cs" />
+    <Compile Include="ICell.cs" />
     <Compile Include="ArithmeticExpressions\IExpression.cs" />
     <Compile Include="ArithmeticExpressions\NegativeExpression.cs" />
     <Compile Include="ArithmeticExpressions\PositiveExpression.cs" />
@@ -89,6 +89,10 @@
     <Compile Include="LogicExpressions\NotEqualExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitCollection.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="XmlDocs\CommonXmlDocComments.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
