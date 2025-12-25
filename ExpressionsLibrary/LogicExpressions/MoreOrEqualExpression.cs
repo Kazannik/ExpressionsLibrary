@@ -20,7 +20,7 @@ namespace ExpressionsLibrary.LogicExpressions
 		public override string Formula() =>
 			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolMoreOrEqual +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.

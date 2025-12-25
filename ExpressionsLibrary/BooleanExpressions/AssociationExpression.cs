@@ -11,7 +11,7 @@ namespace ExpressionsLibrary.BooleanExpressions
 
 		private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			expression = Expression.Create(ref cells, array);
-		
+
 
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
@@ -30,7 +30,7 @@ namespace ExpressionsLibrary.BooleanExpressions
 
 		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.

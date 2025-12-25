@@ -18,9 +18,9 @@ namespace ExpressionsLibrary.LogicExpressions
 		/// Строковое представление логического выражения.
 		/// </summary>
 		public override string Formula() =>
-			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual + 
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolEqual +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
@@ -35,6 +35,6 @@ namespace ExpressionsLibrary.LogicExpressions
 		}
 
 		public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
-			new EqualExpression(ref cells, left, right);		
+			new EqualExpression(ref cells, left, right);
 	}
 }

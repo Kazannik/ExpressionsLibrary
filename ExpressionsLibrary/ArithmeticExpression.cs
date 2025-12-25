@@ -218,12 +218,12 @@ namespace ExpressionsLibrary
 		/// <summary>
 		/// Значение алгебраического выражения.
 		/// </summary>
-		public override decimal Value => ((ArithmeticExpressions.IExpression)expression).Value; 
+		public override decimal Value => ((ArithmeticExpressions.IExpression)expression).Value;
 
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError => expression.IsError; 
+		public override bool IsError => expression.IsError;
 
 		/// <summary>
 		/// Строковое представление алгебраического выражения.

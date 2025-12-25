@@ -6,7 +6,7 @@ namespace ExpressionsLibrary
 	/// <summary>
 	/// Базовый класс выражений.
 	/// </summary>
-	public abstract class ExpressionBase : IExpression
+	abstract class ExpressionBase : IExpression
 	{
 		protected IExpression expression;
 
@@ -37,7 +37,7 @@ namespace ExpressionsLibrary
 		/// </summary>
 		/// <returns></returns>
 		public override string ToString() => ToString(format: string.Empty);
-		
+
 		/// <summary>
 		/// Короткое строковое представление выражения.
 		/// </summary>
@@ -51,30 +51,30 @@ namespace ExpressionsLibrary
 		/// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
 		/// <returns></returns>
 		protected static bool IsFormat(string format) => !string.IsNullOrWhiteSpace(format);
-		
+
 		/// <summary>
 		/// Определяет содержится ли ячейка с указанным ключем в выражении.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
 		public bool Contains(string key) => collection.ContainsKey(key);
-		
+
 		/// <summary>
 		/// Коллекция ключей ячеек.
 		/// </summary>
-		public string[] Keys => collection.Keys.ToArray(); 
+		public string[] Keys => collection.Keys.ToArray();
 
 		/// <summary>
 		/// Ячейка, используемая при расчете.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
-		public ICell this[string key] => collection[key]; 
+		public ICell this[string key] => collection[key];
 
 		/// <summary>
 		/// Количество ячеек, используемых при расчете.
 		/// </summary>
-		public int Count => collection.Count; 
+		public int Count => collection.Count;
 
 		protected static string ClearText(string text)
 		{

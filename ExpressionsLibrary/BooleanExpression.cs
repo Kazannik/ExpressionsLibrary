@@ -2,7 +2,7 @@
 
 namespace ExpressionsLibrary
 {
-	public class BooleanExpression : BooleanExpressions.ExpressionBase, LogicExpressions.ILogicExpression
+	class BooleanExpression : BooleanExpressions.ExpressionBase, LogicExpressions.ILogicExpression
 	{
 		#region РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 

@@ -19,9 +19,9 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 		/// Строковое представление логического выражения.
 		/// </summary>
 		public override string Formula() =>
-			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolOr + 
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolOr +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
@@ -36,6 +36,6 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 		}
 
 		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
-			new OrExpression(ref cells, left, right);		
+			new OrExpression(ref cells, left, right);
 	}
 }

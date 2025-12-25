@@ -6,7 +6,7 @@
 	class FalseExpression : ExpressionBase, LogicExpressions.ILogicExpression
 	{
 		public static LogicExpressions.ILogicExpression Create() => new FalseExpression();
-		
+
 		private FalseExpression()
 		{
 			IsError = false;

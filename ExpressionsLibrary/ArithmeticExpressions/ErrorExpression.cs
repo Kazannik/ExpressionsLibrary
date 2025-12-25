@@ -36,8 +36,8 @@
 		public override string Formula() => formula;
 
 		public static IExpression Create(UnitCollection.IUnit unit) => new ErrorExpression(UnitCollection.Create(unit));
-		
+
 		public static IExpression Create(UnitCollection array) => new ErrorExpression(array);
-		
+
 	}
 }

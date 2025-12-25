@@ -11,7 +11,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 
 		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			new PositiveExpression(ref cells, UnitCollection.Create(array));
-		
+
 
 		private PositiveExpression(ref Dictionary<string, ICell> cells, UnitCollection array)
 		{
@@ -21,13 +21,13 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError => expression.IsError; 
+		public override bool IsError => expression.IsError;
 
 		/// <summary>
 		/// Положительное значение алгебраического выражения.
 		/// </summary>
-		public override decimal Value => +1 * expression.Value; 
-		
+		public override decimal Value => +1 * expression.Value;
+
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>

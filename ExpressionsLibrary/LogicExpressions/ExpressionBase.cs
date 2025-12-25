@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Базовый класс логического выражений.
 	/// </summary>
-	public abstract class ExpressionBase : ExpressionsLibrary.ExpressionBase, ILogicExpression
+	abstract class ExpressionBase : ExpressionsLibrary.ExpressionBase, ILogicExpression
 	{
 		/// <summary>
 		/// Значение логического выражения.

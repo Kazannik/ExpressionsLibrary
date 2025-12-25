@@ -19,9 +19,9 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
 		public override string Formula() =>
-			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolPower + 
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolPower +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление выражения.

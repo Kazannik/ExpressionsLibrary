@@ -152,7 +152,7 @@ namespace UnitTestExpressions
 				decimal y = (decimal)(rnd.NextDouble() * 100);
 
 				ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + x.ToString() + '=' + y.ToString() + ") AND (" + x.ToString() + '>' + y.ToString() + ")");
-				Assert.AreEqual(expression.ObjValue, (x == y && x > y), "Значение должно быть " + (x == y && x > y).ToString());
+				Assert.AreEqual(expression.ObjValue, x == y && x > y, "Значение должно быть " + (x == y && x > y).ToString());
 			}
 
 			for (int i = 0; i < 100; i++)
@@ -161,7 +161,7 @@ namespace UnitTestExpressions
 				decimal y = (decimal)(rnd.NextDouble() * 100);
 
 				ExpressionsLibrary.IExpression expression = ExpressionsLibrary.Expression.Create("(" + x.ToString() + '=' + y.ToString() + ") OR (" + x.ToString() + '>' + y.ToString() + ")");
-				Assert.AreEqual(expression.ObjValue, (x == y || x > y), "Значение должно быть " + (x == y || x > y).ToString());
+				Assert.AreEqual(expression.ObjValue, x == y || x > y, "Значение должно быть " + (x == y || x > y).ToString());
 			}
 		}
 

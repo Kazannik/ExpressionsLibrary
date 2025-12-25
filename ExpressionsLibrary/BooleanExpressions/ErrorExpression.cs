@@ -14,7 +14,7 @@
 			formula = BooleanExpression.SymbolStartError;
 			foreach (UnitCollection.IUnit u in array)
 			{
-				if (formula.Length > 0) { this.formula += ArithmeticExpression.SymbolSpace; }
+				if (formula.Length > 0) formula += ArithmeticExpression.SymbolSpace; 
 				formula += u.Value;
 			}
 			formula += BooleanExpression.SymbolEndError;
@@ -43,9 +43,9 @@
 
 		public static LogicExpressions.ILogicExpression Create(UnitCollection.IUnit unit) =>
 			new ErrorExpression(UnitCollection.Create(unit));
-		
+
 
 		public static LogicExpressions.ILogicExpression Create(UnitCollection array) =>
-			new ErrorExpression(array);		
+			new ErrorExpression(array);
 	}
 }

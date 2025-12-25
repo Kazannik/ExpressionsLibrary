@@ -11,12 +11,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 
 		private AssociationExpression(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			expression = Expression.Create(ref cells, array);
-		
+
 
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError => expression.IsError; 
+		public override bool IsError => expression.IsError;
 
 		/// <summary>
 		/// Значение алгебраического выражения.
@@ -29,6 +29,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		public override string Formula() => @"(" + expression.Formula() + @")";
 
 		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array) =>
-			new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));		
+			new AssociationExpression(ref cells, UnitCollection.Create(array, 1, array.Count - 2));
 	}
 }

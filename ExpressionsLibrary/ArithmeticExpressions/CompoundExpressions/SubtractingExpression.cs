@@ -17,9 +17,9 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
-		public override string Formula() => LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + 
+		public override string Formula() => LeftExpression.Formula() + ArithmeticExpression.SymbolSpace +
 			ArithmeticExpression.SymbolSubtracting + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 		/// <summary>
 		/// Короткое строковое представление выражения.
 		/// </summary>
@@ -33,6 +33,6 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 		}
 
 		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
-			new SubtractingExpression(ref cells, left, right);		
+			new SubtractingExpression(ref cells, left, right);
 	}
 }

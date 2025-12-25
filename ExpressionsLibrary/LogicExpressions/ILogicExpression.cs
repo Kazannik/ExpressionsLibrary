@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Интерфейс логического выражения.
 	/// </summary>
-	public interface ILogicExpression : IExpression
+	interface ILogicExpression : IExpression
 	{
 		/// <summary>
 		/// Значение логического выражения.

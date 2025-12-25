@@ -33,9 +33,9 @@ namespace ExpressionsLibrary
 			return result;
 		}
 
-		public static UnitCollection Create(UnitCollection array, int start) => 
+		public static UnitCollection Create(UnitCollection array, int start) =>
 			Create(array, start, array.List.Count - start);
-		
+
 		public static UnitCollection Create(UnitCollection array, int start, int length)
 		{
 			UnitCollection result = new UnitCollection();
@@ -56,68 +56,58 @@ namespace ExpressionsLibrary
 			return result;
 		}
 
-		public IUnit First => List.First(); 
+		public IUnit First => List.First();
 
-		public IUnit Last => List.Last(); 
+		public IUnit Last => List.Last();
 
-		public IUnit this[int index] => List[index]; 
+		public IUnit this[int index] => List[index];
 
 		/// <summary>
 		/// Выражение содержит ошибку.
 		/// </summary>
-		public bool IsError
-		{
-			get
-			{
-				bool first = IsFirstError();
-				if (first) { return true; }
-				bool last = IsLastError();
-				if (last) { return true; }
-				return false;
-			}
-		}
+		public bool IsError => IsFirstError() || IsLastError();
 
 		public bool IsContainsError() => List.Any(x => x.Action < 0);
-			
+
 		public bool IsFirstError() => List.Any() && First.IsArithmetic || First.IsBoolean || First.IsLogic;
-			
+
 		public bool IsLastError() => List.Any() && Last.IsArithmetic || Last.IsBoolean || Last.IsLogic;
-		
+
 		/// <summary>
 		/// Алгебраическое выражение.
 		/// </summary>
 		public bool IsArithmetic => !IsLogic && List.Any(x => x.Action >= 1 && x.Action <= 6);
-				
+
 		/// <summary>
 		/// Логическое выражение.
 		/// </summary>
 		public bool IsLogic => !IsBoolean && List.Any(x => x.Action >= 7 && x.Action <= 12);
-			
+
 		/// <summary>
 		/// Булево логическое выражение.
 		/// </summary>
 		public bool IsBoolean => List.Any(x => x.Action >= 13 && x.Action <= 16);
-			
+
 
 		/// <summary>
 		/// Выражение целиком заключено в скобки (X+Y).
 		/// </summary>
-		public bool IsAssociation => OpenIndex() == 0; 
+		public bool IsAssociation => OpenIndex() == 0;
 
 		/// <summary>
 		/// Отрицательное выражение заключенное в скобки -(X+Y)
 		/// </summary>
-		public bool IsNegativeAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Subtracting; 
+		public bool IsNegativeAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Subtracting;
 
 		/// <summary>
 		/// Отрицательное выражение заключенное в скобки Not(... )
 		/// </summary>
-		public bool IsNotAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Not; 
+		public bool IsNotAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Not;
 
 		/// <summary>
 		/// Положительное выражение заключенное в скобки +(X+Y)
 		/// </summary>
-		public bool IsPositiveAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Addition; 
+		public bool IsPositiveAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Addition;
 
 		public bool IsAssociationError
 		{
@@ -127,15 +117,15 @@ namespace ExpressionsLibrary
 				bool association = false;
 				for (int i = List.Count - 1; i >= 0; i--)
 				{
-					if (List[i].UnitType == MatchType.Close) { A--; }
-					if (List[i].UnitType == MatchType.Open) { A++; }
-					if (A == 0) { association = true; }
+					if (List[i].UnitType == MatchType.Close) A--;
+					if (List[i].UnitType == MatchType.Open) A++;
+					if (A == 0) association = true;
 				}
 				return association & (A != 0);
 			}
 		}
 
-		public int Count => List.Count; 
+		public int Count => List.Count;
 
 		private int OpenIndex()
 		{
@@ -144,13 +134,13 @@ namespace ExpressionsLibrary
 				int A = 0;
 				for (int i = List.Count - 1; i >= 0; i--)
 				{
-					if (List[i].UnitType == MatchType.Close) { A--; }
-					if (List[i].UnitType == MatchType.Open) { A++; }
-					if (A == 0) { return i; }
+					if (List[i].UnitType == MatchType.Close) A--;
+					if (List[i].UnitType == MatchType.Open) A++;
+					if (A == 0) return i;
 				}
 				return -1;
 			}
-			else { return -1; }
+			else return -1;
 		}
 
 		public int GetLastIndex()
@@ -164,11 +154,11 @@ namespace ExpressionsLibrary
 			foreach (int i in array)
 			{
 				int F = GetLastIndex(i);
-				if (F == -2) { association = true; }
-				if (F >= 0) { return F; }
+				if (F == -2) association = true;
+				if (F >= 0) return F;
 			}
-			if (association) { return -2; }
-			else { return -1; }
+			if (association) return -2;
+			else return -1;
 		}
 
 		public int GetLastIndex(int action)
@@ -177,18 +167,18 @@ namespace ExpressionsLibrary
 			bool association = false;
 			for (int i = Count - 1; i >= 0; i--)
 			{
-				if (List[i].UnitType == MatchType.Close) { A--; association = true; }
-				if (List[i].UnitType == MatchType.Open) { A++; association = true; }
-				if (A == 0 && List[i].Action == action) { return i; }
+				if (List[i].UnitType == MatchType.Close) A--;
+				if (List[i].UnitType == MatchType.Open) A++; association = true;
+				if (A == 0 && List[i].Action == action) return i;
 			}
-			if (association) { return -2; }
-			else { return -1; }
+			if (association) return -2;
+			else return -1;
 		}
 
 		IEnumerator<IUnit> IEnumerable<IUnit>.GetEnumerator() => List.GetEnumerator();
-		
+
 		public IEnumerator GetEnumerator() => List.GetEnumerator();
-		
+
 		/// <summary>
 		/// Интерфейс базового алгебраического действия.
 		/// </summary>
@@ -271,7 +261,7 @@ namespace ExpressionsLibrary
 			/// Индекс элемента в родительской коллекции.
 			/// </summary>
 			public int Index => parent.List.IndexOf(this);
-			
+
 			/// <summary>
 			/// Конструктор базового элемента алгебраического действия
 			/// </summary>

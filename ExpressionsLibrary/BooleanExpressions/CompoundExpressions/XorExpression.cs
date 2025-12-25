@@ -29,9 +29,9 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 		/// Строковое представление логического выражения.
 		/// </summary>
 		public override string Formula() =>
-			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + 
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.

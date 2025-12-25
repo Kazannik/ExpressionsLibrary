@@ -16,6 +16,12 @@ namespace ExpressionLibraryDemo
 
 				expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"<>" + y.ToString());
 				Console.WriteLine(expression.Formula() + " " + expression.ObjValue);
+
+				expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"=" + y.ToString());
+				Console.WriteLine(expression.Formula() + " " + expression.ObjValue);
+
+				expression = ExpressionsLibrary.Expression.Create(x.ToString() + @"+" + y.ToString());
+				Console.WriteLine(expression.Formula() + " " + expression.ObjValue);
 			}
 
 			expression = ExpressionsLibrary.Expression.Create(@"2/0");

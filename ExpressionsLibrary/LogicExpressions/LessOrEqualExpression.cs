@@ -18,9 +18,9 @@ namespace ExpressionsLibrary.LogicExpressions
 		/// Строковое представление логического выражения.
 		/// </summary>
 		public override string Formula() =>
-			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + 
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual +
 			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		
+
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.

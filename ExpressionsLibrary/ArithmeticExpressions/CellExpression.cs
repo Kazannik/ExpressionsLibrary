@@ -51,12 +51,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		/// <summary>
 		/// Значение алгебраического выражения.
 		/// </summary>
-		public override decimal Value => value; 
+		public override decimal Value => value;
 
 		/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="Format"]/*' />
 		public string Format
 		{
-			get => format; 
+			get => format;
 			set
 			{
 				format = value;
@@ -72,7 +72,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		/// </summary>
 		public string FormulaFormat
 		{
-			get => formulaFormat; 
+			get => formulaFormat;
 			set
 			{
 				formulaFormat = value;
@@ -121,12 +121,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 			}
 
 			readonly GetArgDelegate value;
-						
+
 			readonly Match match;
 
-			public GetArgDelegate Value => value; 
-			
-			public Match Match => match; 
+			public GetArgDelegate Value => value;
+
+			public Match Match => match;
 		}
 	}
 }

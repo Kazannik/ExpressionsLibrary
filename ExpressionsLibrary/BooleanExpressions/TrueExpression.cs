@@ -6,7 +6,7 @@
 	class TrueExpression : ExpressionBase, LogicExpressions.ILogicExpression
 	{
 		public static LogicExpressions.ILogicExpression Create() => new TrueExpression();
-		
+
 		private TrueExpression()
 		{
 			IsError = false;
@@ -27,7 +27,7 @@
 		/// Строковое представление логического выражения.
 		/// </summary>
 		public override string Formula() => BooleanExpression.SymbolTrue;
-		
+
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
 		/// </summary>

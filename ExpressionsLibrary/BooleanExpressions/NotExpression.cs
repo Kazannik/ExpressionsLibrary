@@ -11,15 +11,15 @@ namespace ExpressionsLibrary.BooleanExpressions
 
 		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			new NotExpression(ref cells, UnitCollection.Create(array));
-		
+
 		private NotExpression(ref Dictionary<string, ICell> cells, UnitCollection array) =>
 			expression = Expression.Create(ref cells, array);
-		
+
 
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError => expression.IsError; 
+		public override bool IsError => expression.IsError;
 
 		/// <summary>
 		/// Положительное значение логического выражения.
@@ -31,7 +31,7 @@ namespace ExpressionsLibrary.BooleanExpressions
 		/// </summary>
 		public override string Formula() =>
 			BooleanExpression.SymbolNot + ArithmeticExpression.SymbolSpace + expression.Formula();
-		
+
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
 		/// </summary>
