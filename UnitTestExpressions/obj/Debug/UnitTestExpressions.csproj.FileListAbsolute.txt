@@ -27,3 +27,14 @@ D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\ob
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTest.F67D80E0.Up2Date
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.dll
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.csproj.AssemblyReference.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.csproj.CoreCompileInputs.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\UnitTestExpressions.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\UnitTestExpressions.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ExpressionsLibrary.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ExpressionsLibrary.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTest.F67D80E0.Up2Date
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\UnitTestExpressions\obj\Debug\UnitTestExpressions.pdb

@@ -24,16 +24,10 @@
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return Value.ToString();
-		}
-
-		public static IExpression Create(decimal value)
-		{
-			return new ValueExpression(value);
-		}
-
+		public override string Formula() => Value.ToString();
+		
+		public static IExpression Create(decimal value) => new ValueExpression(value);
+		
 		public static IExpression Create(string stringVal)
 		{
 			decimal decimalVal = 0;

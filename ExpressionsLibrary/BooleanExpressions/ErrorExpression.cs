@@ -33,28 +33,19 @@
 		/// <summary>
 		/// Строковое представление логического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return formula;
-		}
+		public override string Formula() => formula;
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
 		/// </summary>
 		/// <param name="format">Формат отображения результата алгебраического выражения.</param>
-		public override string ToString(string format)
-		{
-			return Formula();
-		}
+		public override string ToString(string format) => Formula();
 
-		public static LogicExpressions.ILogicExpression Create(UnitCollection.IUnit unit)
-		{
-			return new ErrorExpression(UnitCollection.Create(unit));
-		}
+		public static LogicExpressions.ILogicExpression Create(UnitCollection.IUnit unit) =>
+			new ErrorExpression(UnitCollection.Create(unit));
+		
 
-		public static LogicExpressions.ILogicExpression Create(UnitCollection array)
-		{
-			return new ErrorExpression(array);
-		}
+		public static LogicExpressions.ILogicExpression Create(UnitCollection array) =>
+			new ErrorExpression(array);		
 	}
 }

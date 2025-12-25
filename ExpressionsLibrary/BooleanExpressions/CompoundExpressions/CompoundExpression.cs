@@ -48,10 +48,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError
-		{
-			get { return LeftExpression.IsError || RightExpression.IsError; }
-		}
+		public override bool IsError => LeftExpression.IsError || RightExpression.IsError;
 
 		/// <summary>
 		/// Левая часть алгебраического выражения.

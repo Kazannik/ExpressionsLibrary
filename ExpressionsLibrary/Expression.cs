@@ -9,18 +9,9 @@ namespace ExpressionsLibrary
 	{
 		private readonly IExpression expression;
 
-		private Expression(IExpression expression)
-		{
-			this.expression = expression;
-		}
+		private Expression(IExpression expression) => this.expression = expression;
 
-		public bool IsError
-		{
-			get
-			{
-				return expression.IsError;
-			}
-		}
+		public bool IsError => expression.IsError;
 
 		/// <summary>
 		/// Определяемые пользователем данные, связанные с этим объектом.
@@ -30,60 +21,35 @@ namespace ExpressionsLibrary
 		/// <summary>
 		/// Значение выражения.
 		/// </summary>
-		public object ObjValue
-		{
-			get
-			{
-				return expression.ObjValue;
-			}
-		}
+		public object ObjValue => expression.ObjValue;
 
-		public string Formula()
-		{
-			return expression.Formula();
-		}
+		public string Formula() => expression.Formula();
 
-		public string ToString(string format)
-		{
-			return expression.ToString(format: format);
-		}
-
+		public string ToString(string format) => expression.ToString(format: format);
 
 		/// <summary>
 		/// Определяет содержится ли ячейка с указанным ключем в выражении.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
-		public bool Contains(string key)
-		{
-			return expression.Contains(key);
-		}
+		public bool Contains(string key) => expression.Contains(key);
 
 		/// <summary>
 		/// Коллекция ключей ячеек.
 		/// </summary>
-		public string[] Keys
-		{
-			get { return expression.Keys; }
-		}
+		public string[] Keys => expression.Keys;
 
 		/// <summary>
 		/// Ячейка, используемая при расчете.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
-		public ICell this[string key]
-		{
-			get { return expression[key]; }
-		}
+		public ICell this[string key] => expression[key];
 
 		/// <summary>
 		/// Количество ячеек, используемых при расчете.
 		/// </summary>
-		public int Count
-		{
-			get { return expression.Count; }
-		}
+		public int Count => expression.Count;
 
 		public static IExpression Create(string text)
 		{
@@ -102,19 +68,18 @@ namespace ExpressionsLibrary
 
 		}
 
-		public static IExpression Create(string text, string cellpattern)
+		public static IExpression Create(string text, string cellPattern)
 		{
-			
 			bool isArithmetic = ArithmeticExpression.IsExpression(text: text);
 			bool isBoolean = BooleanExpression.IsExpression(text: text);
 			bool isLogic = LogicExpression.IsExpression(text: text);
 
 			if (isBoolean)
-				return new Expression(BooleanExpression.Create(text, cellpattern: cellpattern));
+				return new Expression(BooleanExpression.Create(text, cellPattern: cellPattern));
 			else if (isLogic)
-				return new Expression(LogicExpression.Create(text, cellpattern: cellpattern));
+				return new Expression(LogicExpression.Create(text, cellPattern: cellPattern));
 			else if (isArithmetic)
-				return new Expression(ArithmeticExpression.Create(text, cellpattern: cellpattern));
+				return new Expression(ArithmeticExpression.Create(text, cellPattern: cellPattern));
 			else
 				throw new ArgumentException("Текстовая строка не содержит элементов выражения.");
 		}

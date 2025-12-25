@@ -3,6 +3,6 @@
 	/// <summary>
 	/// Базовый класс булевого логического выражения.
 	/// </summary>
-	abstract class ExpressionBase : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
+	public abstract class ExpressionBase : LogicExpressions.ExpressionBase, LogicExpressions.ILogicExpression
 	{ }
 }

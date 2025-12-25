@@ -6,7 +6,7 @@ namespace ExpressionsLibrary
 	/// <summary>
 	/// Базовый класс выражений.
 	/// </summary>
-	abstract class ExpressionBase : IExpression
+	public abstract class ExpressionBase : IExpression
 	{
 		protected IExpression expression;
 
@@ -36,11 +36,8 @@ namespace ExpressionsLibrary
 		/// Короткое строковое представление выражения.
 		/// </summary>
 		/// <returns></returns>
-		public override string ToString()
-		{
-			return ToString(format: string.Empty);
-		}
-
+		public override string ToString() => ToString(format: string.Empty);
+		
 		/// <summary>
 		/// Короткое строковое представление выражения.
 		/// </summary>
@@ -53,53 +50,37 @@ namespace ExpressionsLibrary
 		/// </summary>
 		/// <param name="format">Строка, описывающая формат отображения результата алгебраического выражения.</param>
 		/// <returns></returns>
-		protected static bool IsFormat(string format)
-		{
-			return !string.IsNullOrWhiteSpace(format);
-		}
-
+		protected static bool IsFormat(string format) => !string.IsNullOrWhiteSpace(format);
+		
 		/// <summary>
 		/// Определяет содержится ли ячейка с указанным ключем в выражении.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
-		public bool Contains(string key)
-		{
-			return collection.ContainsKey(key);
-		}
-
+		public bool Contains(string key) => collection.ContainsKey(key);
+		
 		/// <summary>
 		/// Коллекция ключей ячеек.
 		/// </summary>
-		public string[] Keys
-		{
-			get { return collection.Keys.ToArray(); }
-		}
+		public string[] Keys => collection.Keys.ToArray(); 
 
 		/// <summary>
 		/// Ячейка, используемая при расчете.
 		/// </summary>
 		/// <param name="key">Ключ ячейки.</param>
 		/// <returns></returns>
-		public ICell this[string key]
-		{
-			get { return collection[key]; }
-		}
+		public ICell this[string key] => collection[key]; 
 
 		/// <summary>
 		/// Количество ячеек, используемых при расчете.
 		/// </summary>
-		public int Count
-		{
-			get { return collection.Count; }
-		}
-
+		public int Count => collection.Count; 
 
 		protected static string ClearText(string text)
 		{
 			if (text.IndexOf((char)32) >= 0)
 				return text.Replace(" ", "");
-			else 
+			else
 				return text;
 		}
 	}

@@ -16,3 +16,13 @@ D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\Expressi.C11244E4.Up2Date
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.exe
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.csproj.AssemblyReference.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.csproj.CoreCompileInputs.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.exe.config
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.exe
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionLibraryDemo.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionsLibrary.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\bin\Debug\ExpressionsLibrary.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\Expressi.C11244E4.Up2Date
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.exe
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionLibraryDemo\obj\Debug\ExpressionLibraryDemo.pdb

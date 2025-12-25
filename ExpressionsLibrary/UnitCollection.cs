@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// Ignore Spelling: Sqrt
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,10 +14,7 @@ namespace ExpressionsLibrary
 	{
 		private readonly List<IUnit> List;
 
-		public UnitCollection()
-		{
-			List = new List<IUnit>();
-		}
+		public UnitCollection() => List = new List<IUnit>();
 
 		public static UnitCollection Create(IUnit unit)
 		{
@@ -34,15 +33,13 @@ namespace ExpressionsLibrary
 			return result;
 		}
 
-		public static UnitCollection Create(UnitCollection array, int start)
-		{
-			return Create(array, start, array.List.Count - start);
-		}
-
-		public static UnitCollection Create(UnitCollection array, int start, int lenght)
+		public static UnitCollection Create(UnitCollection array, int start) => 
+			Create(array, start, array.List.Count - start);
+		
+		public static UnitCollection Create(UnitCollection array, int start, int length)
 		{
 			UnitCollection result = new UnitCollection();
-			for (int i = 0; i < lenght; i++)
+			for (int i = 0; i < length; i++)
 			{
 				result.List.Add(BaseUnit.Create(result, array.List[start + i]));
 			}
@@ -59,20 +56,11 @@ namespace ExpressionsLibrary
 			return result;
 		}
 
-		public IUnit First
-		{
-			get { return List.First(); }
-		}
+		public IUnit First => List.First(); 
 
-		public IUnit Last
-		{
-			get { return List.Last(); }
-		}
+		public IUnit Last => List.Last(); 
 
-		public IUnit this[int index]
-		{
-			get { return List[index]; }
-		}
+		public IUnit this[int index] => List[index]; 
 
 		/// <summary>
 		/// Выражение содержит ошибку.
@@ -89,86 +77,47 @@ namespace ExpressionsLibrary
 			}
 		}
 
-		public bool IsContainsError()
-		{
-			bool containsErr = (List.Count(x => x.Action < 0)) > 0;
-			return containsErr;
-		}
-		public bool IsFirstError()
-		{
-			bool firstErr = List.Count > 0 && First.IsArithmetic || First.IsBoolean || First.IsLogic;
-			return firstErr;
-		}
-		public bool IsLastError()
-		{
-			bool lastErr = List.Count > 0 && Last.IsArithmetic || Last.IsBoolean || Last.IsLogic;
-			return lastErr;
-		}
-
+		public bool IsContainsError() => List.Any(x => x.Action < 0);
+			
+		public bool IsFirstError() => List.Any() && First.IsArithmetic || First.IsBoolean || First.IsLogic;
+			
+		public bool IsLastError() => List.Any() && Last.IsArithmetic || Last.IsBoolean || Last.IsLogic;
+		
 		/// <summary>
 		/// Алгебраическое выражение.
 		/// </summary>
-		public bool IsArithmetic
-		{
-			get
-			{
-				return !IsLogic && (List.Count(x => x.Action >= 1 && x.Action <= 6)) > 0;
-			}
-		}
-
+		public bool IsArithmetic => !IsLogic && List.Any(x => x.Action >= 1 && x.Action <= 6);
+				
 		/// <summary>
 		/// Логическое выражение.
 		/// </summary>
-		public bool IsLogic
-		{
-			get
-			{
-				return !IsBoolean && (List.Count(x => x.Action >= 7 && x.Action <= 12)) > 0;
-			}
-		}
-
+		public bool IsLogic => !IsBoolean && List.Any(x => x.Action >= 7 && x.Action <= 12);
+			
 		/// <summary>
-		/// Булевое логическое выражение.
+		/// Булево логическое выражение.
 		/// </summary>
-		public bool IsBoolean
-		{
-			get
-			{
-				return (List.Count(x => x.Action >= 13 && x.Action <= 16)) > 0;
-			}
-		}
+		public bool IsBoolean => List.Any(x => x.Action >= 13 && x.Action <= 16);
+			
 
 		/// <summary>
 		/// Выражение целиком заключено в скобки (X+Y).
 		/// </summary>
-		public bool IsAssociation
-		{ // Значение 0 указывает на то, что открывающаяся скобка имеет нулевую позицию, а значит все выражение заключено в скобки.
-			get { return OpenIndex() == 0; }
-		}
+		public bool IsAssociation => OpenIndex() == 0; 
 
 		/// <summary>
-		/// Орицательное выражение заключенное в скобки -(X+Y)
+		/// Отрицательное выражение заключенное в скобки -(X+Y)
 		/// </summary>
-		public bool IsNegativeAssociation
-		{
-			get { return OpenIndex() == 1 && First.UnitType == MatchType.Subtracting; }
-		}
+		public bool IsNegativeAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Subtracting; 
 
 		/// <summary>
-		/// Орицательное выражение заключенное в скобки Not(... )
+		/// Отрицательное выражение заключенное в скобки Not(... )
 		/// </summary>
-		public bool IsNotAssociation
-		{
-			get { return OpenIndex() == 1 && First.UnitType == MatchType.Not; }
-		}
+		public bool IsNotAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Not; 
 
 		/// <summary>
 		/// Положительное выражение заключенное в скобки +(X+Y)
 		/// </summary>
-		public bool IsPositiveAssociation
-		{
-			get { return OpenIndex() == 1 && First.UnitType == MatchType.Addition; }
-		}
+		public bool IsPositiveAssociation => OpenIndex() == 1 && First.UnitType == MatchType.Addition; 
 
 		public bool IsAssociationError
 		{
@@ -186,10 +135,7 @@ namespace ExpressionsLibrary
 			}
 		}
 
-		public int Count
-		{
-			get { return List.Count; }
-		}
+		public int Count => List.Count; 
 
 		private int OpenIndex()
 		{
@@ -239,16 +185,10 @@ namespace ExpressionsLibrary
 			else { return -1; }
 		}
 
-		IEnumerator<IUnit> IEnumerable<IUnit>.GetEnumerator()
-		{
-			return List.GetEnumerator();
-		}
-
-		public IEnumerator GetEnumerator()
-		{
-			return List.GetEnumerator();
-		}
-
+		IEnumerator<IUnit> IEnumerable<IUnit>.GetEnumerator() => List.GetEnumerator();
+		
+		public IEnumerator GetEnumerator() => List.GetEnumerator();
+		
 		/// <summary>
 		/// Интерфейс базового алгебраического действия.
 		/// </summary>
@@ -258,26 +198,32 @@ namespace ExpressionsLibrary
 			/// Тип элемента.
 			/// </summary>
 			MatchType UnitType { get; }
+
 			/// <summary>
 			/// Приоритет математического действия.
 			/// </summary>
 			int Action { get; }
+
 			/// <summary>
 			/// Признак оператора арифметического выражения.
 			/// </summary>
 			bool IsArithmetic { get; }
+
 			/// <summary>
 			/// Признак оператора булевого выражения.
 			/// </summary>
 			bool IsBoolean { get; }
+
 			/// <summary>
 			/// Признак оператора логического выражения.
 			/// </summary>
 			bool IsLogic { get; }
+
 			/// <summary>
 			/// Строковое значение элемента.
 			/// </summary>
 			string Value { get; }
+
 			/// <summary>
 			/// Индекс элемента в родительской коллекции.
 			/// </summary>
@@ -290,38 +236,42 @@ namespace ExpressionsLibrary
 		private abstract class BaseUnit : IUnit
 		{
 			private readonly UnitCollection parent;
+
 			/// <summary>
 			/// Тип элемента.
 			/// </summary>
 			public MatchType UnitType { get; }
+
 			/// <summary>
 			/// Приоритет математического действия.
 			/// </summary>
 			public int Action { get; }
+
 			/// <summary>
 			/// Признак оператора арифметического выражения.
 			/// </summary>
 			public bool IsArithmetic { get; }
+
 			/// <summary>
 			/// Признак оператора булевого выражения.
 			/// </summary>
 			public bool IsBoolean { get; }
+
 			/// <summary>
 			/// Признак оператора логического выражения.
 			/// </summary>
 			public bool IsLogic { get; }
+
 			/// <summary>
 			/// Строковое значение элемента.
 			/// </summary>
 			public string Value { get; }
+
 			/// <summary>
 			/// Индекс элемента в родительской коллекции.
 			/// </summary>
-			public int Index
-			{
-				get { return parent.List.IndexOf(this); }
-			}
-
+			public int Index => parent.List.IndexOf(this);
+			
 			/// <summary>
 			/// Конструктор базового элемента алгебраического действия
 			/// </summary>
@@ -475,6 +425,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Error, action: -1, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Ссылка на ячейку.(0)
 		/// </summary>
@@ -485,6 +436,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Cell, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Числовой показатель.(0)
 		/// </summary>
@@ -495,6 +447,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Decimal, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Закрывающаяся скобка.(0)
 		/// </summary>
@@ -505,6 +458,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Close, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Открывающаяся скобка.(0)
 		/// </summary>
@@ -515,6 +469,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Open, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак степени числа.(1)
 		/// </summary>
@@ -525,6 +480,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Power, action: 1, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак корня числа.(1)
 		/// </summary>
@@ -535,6 +491,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Sqrt, action: 1, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак отрицательного числа.(2)
 		/// </summary>
@@ -545,6 +502,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Negative, action: 2, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак умножения.(3)
 		/// </summary>
@@ -555,6 +513,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Multiplication, action: 3, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак деления.(3)
 		/// </summary>
@@ -565,6 +524,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Division, action: 3, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Вычисление целой части от деления.(4)
 		/// </summary>
@@ -575,6 +535,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Fix, action: 4, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Вычисление остатка от деления.(5)
 		/// </summary>
@@ -585,6 +546,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Mod, action: 5, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак сложения.(6)
 		/// </summary>
@@ -595,6 +557,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Addition, action: 6, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак вычитания.(6)
 		/// </summary>
@@ -605,6 +568,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Subtracting, action: 6, arithmetic: true, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак равно.(7)
 		/// </summary>
@@ -615,6 +579,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Equal, action: 7, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак не равно (!=).(8)
 		/// </summary>
@@ -625,6 +590,7 @@ namespace ExpressionsLibrary
 					type: MatchType.NotEqual, action: 8, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак меньше (&lt;).(9)
 		/// </summary>
@@ -635,6 +601,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Less, action: 9, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак больше (>).(10)
 		/// </summary>
@@ -645,6 +612,7 @@ namespace ExpressionsLibrary
 					type: MatchType.More, action: 10, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак меньше или равно (&lt;=).(11)
 		/// </summary>
@@ -655,6 +623,7 @@ namespace ExpressionsLibrary
 					type: MatchType.LessOrEqual, action: 11, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак больше или равно (>=).(12)
 		/// </summary>
@@ -665,6 +634,7 @@ namespace ExpressionsLibrary
 					type: MatchType.MoreOrEqual, action: 12, arithmetic: false, boolean: false, logic: true)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак положительного логического выражения (True).(0)
 		/// </summary>
@@ -675,6 +645,7 @@ namespace ExpressionsLibrary
 					type: MatchType.True, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак отрицательного логического выражения (False).(0)
 		/// </summary>
@@ -685,6 +656,7 @@ namespace ExpressionsLibrary
 					type: MatchType.False, action: 0, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак логического отрицания (NOT).(13)
 		/// </summary>
@@ -695,6 +667,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Not, action: 13, arithmetic: false, boolean: false, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак логического сложения (AND).(14)
 		/// </summary>
@@ -705,6 +678,7 @@ namespace ExpressionsLibrary
 					type: MatchType.And, action: 14, arithmetic: false, boolean: true, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак логического ИЛИ (OR).(15)
 		/// </summary>
@@ -715,6 +689,7 @@ namespace ExpressionsLibrary
 					type: MatchType.Or, action: 15, arithmetic: false, boolean: true, logic: false)
 			{ }
 		}
+
 		/// <summary>
 		/// Знак исключающегося ИЛИ (XOR).(16)
 		/// </summary>
@@ -846,102 +821,127 @@ namespace ExpressionsLibrary
 			/// Значение, содержащее ошибку.
 			/// </summary>
 			Error = -1,
+
 			/// <summary>
 			/// Ссылка на ячейку.
 			/// </summary>
 			Cell = 0,
+
 			/// <summary>
 			/// Числовой показатель.
 			/// </summary>
 			Decimal = 1,
+
 			/// <summary>
 			/// Открывающаяся скобка [(].
 			/// </summary>
 			Open = 2,
+
 			/// <summary>
 			/// Закрывающаяся скобка [)].
 			/// </summary>
 			Close = 3,
+
 			/// <summary>
 			/// Степень числа [^].
 			/// </summary>
 			Power = 4,
+
 			/// <summary>
 			/// Корень [sqrt].
 			/// </summary>
 			Sqrt = 5,
+
 			/// <summary>
 			/// Отрицательное число [-].
 			/// </summary>
 			Negative = 6,
+
 			/// <summary>
 			/// Знак умножения [*].
 			/// </summary>
 			Multiplication = 7,
+
 			/// <summary>
 			/// Знак деления [/].
 			/// </summary>
 			Division = 8,
+
 			/// <summary>
 			/// Знак операции получения целой части от деления [\].
 			/// </summary>
 			Fix = 9,
+
 			/// <summary>
 			/// Знак операции получения остатка от деления [%].
 			/// </summary>
 			Mod = 10,
+
 			/// <summary>
 			/// Знак сложения [+].
 			/// </summary>
 			Addition = 11,
+
 			/// <summary>
 			/// Знак вычитания [-].
 			/// </summary>
 			Subtracting = 12,
+
 			/// <summary>
 			/// Равно [=].
 			/// </summary>
 			Equal = 13,
+
 			/// <summary>
 			/// Не равно [&lt;>].
 			/// </summary>
 			NotEqual = 14,
+
 			/// <summary>
 			/// Меньше [&lt;].
 			/// </summary>
 			Less = 15,
+
 			/// <summary>
 			/// Больше [>].
 			/// </summary>
 			More = 16,
+
 			/// <summary>
 			/// Меньше или равно [&lt;=].
 			/// </summary>
 			LessOrEqual = 17,
+
 			/// <summary>
 			/// Больше или равно [>=].
 			/// </summary>
 			MoreOrEqual = 18,
+
 			/// <summary>
 			/// Положительное логическое выражение.
 			/// </summary>
 			True = 19,
+
 			/// <summary>
 			/// Отрицательное логическое выражение.
 			/// </summary>
 			False = 20,
+
 			/// <summary>
 			/// Логическое отрицание [not].
 			/// </summary>
 			Not = 21,
+
 			/// <summary>
 			/// Логическое сложение [and].
 			/// </summary>
 			And = 22,
+
 			/// <summary>
 			/// Логическое ИЛИ [or].
 			/// </summary>
 			Or = 23,
+
 			/// <summary>
 			/// Исключающее ИЛИ [xor].
 			/// </summary>

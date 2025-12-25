@@ -33,19 +33,11 @@
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return formula;
-		}
+		public override string Formula() => formula;
 
-		public static IExpression Create(UnitCollection.IUnit unit)
-		{
-			return new ErrorExpression(UnitCollection.Create(unit));
-		}
-
-		public static IExpression Create(UnitCollection array)
-		{
-			return new ErrorExpression(array);
-		}
+		public static IExpression Create(UnitCollection.IUnit unit) => new ErrorExpression(UnitCollection.Create(unit));
+		
+		public static IExpression Create(UnitCollection array) => new ErrorExpression(array);
+		
 	}
 }

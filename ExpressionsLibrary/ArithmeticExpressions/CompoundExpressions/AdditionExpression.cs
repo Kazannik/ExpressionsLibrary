@@ -12,18 +12,13 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 		/// <summary>
 		/// Значение алгебраического выражения.
 		/// </summary>
-		public override decimal Value
-		{
-			get { return LeftExpression.Value + RightExpression.Value; }
-		}
+		public override decimal Value => LeftExpression.Value + RightExpression.Value;
 
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolAddition + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		}
+		public override string Formula() =>
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolAddition + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
 
 		/// <summary>
 		/// Короткое строковое представление выражения.
@@ -41,9 +36,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 			}
 		}
 
-		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
-		{
-			return new AdditionExpression(ref cells, left, right);
-		}
+		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
+			new AdditionExpression(ref cells, left, right);
 	}
 }

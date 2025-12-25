@@ -24,13 +24,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 					return 0;
 			}
 		}
+		
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError
-		{
-			get { return (RightExpression.Value == 0) || LeftExpression.IsError || RightExpression.IsError; }
-		}
+		public override bool IsError => (RightExpression.Value == 0) || LeftExpression.IsError || RightExpression.IsError; 
+		
 		/// <summary>
 		/// Строковое представление алгебраического выражения.
 		/// </summary>
@@ -54,9 +53,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions.CompoundExpressions
 				return GetLeftFormula() + ArithmeticExpression.SymbolSpace + ArithmeticExpression.SymbolSqrt + ArithmeticExpression.SymbolSpace + GetRightFormula();
 		}
 
-		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
-		{
-			return new SqrtExpression(ref cells, left, right);
-		}
+		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
+			new SqrtExpression(ref cells, left, right);		
 	}
 }

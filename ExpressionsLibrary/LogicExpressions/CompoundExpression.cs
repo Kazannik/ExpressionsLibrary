@@ -48,10 +48,7 @@ namespace ExpressionsLibrary.LogicExpressions
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
 		/// </summary>
-		public override bool IsError
-		{
-			get { return LeftExpression.IsError || RightExpression.IsError; }
-		}
+		public override bool IsError => LeftExpression.IsError || RightExpression.IsError;
 
 		/// <summary>
 		/// Левая часть алгебраического выражения.
@@ -62,6 +59,7 @@ namespace ExpressionsLibrary.LogicExpressions
 		/// Правая часть алгебраического выражения.
 		/// </summary>
 		public ArithmeticExpressions.IExpression RightExpression { get; }
+
 		public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
 		{
 			int i = array.GetLastIndex();

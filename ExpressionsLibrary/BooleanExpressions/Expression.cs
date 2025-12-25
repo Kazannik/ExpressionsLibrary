@@ -10,7 +10,7 @@ namespace ExpressionsLibrary.BooleanExpressions
 		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
 		{
 			if (array.Count == 0)
-			{ // Элементы отсуствуют.
+			{ // Элементы отсутствуют.
 				return ErrorExpression.Create(array);
 			}
 			else if (array.Count == 1 && array.First.UnitType == UnitCollection.MatchType.True)

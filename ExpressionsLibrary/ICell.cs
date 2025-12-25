@@ -15,6 +15,7 @@
 		/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="SetValue"]/*' />
 		void SetValue(decimal value);
 
+		/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="Value"]/*' />
 		decimal Value { get; }
 	}
 }

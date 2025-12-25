@@ -28,10 +28,10 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 		/// <summary>
 		/// Строковое представление логического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		}
+		public override string Formula() =>
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + 
+			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+		
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
@@ -45,9 +45,7 @@ namespace ExpressionsLibrary.BooleanExpressions.CompoundExpressions
 				return GetLeftFormula() + ArithmeticExpression.SymbolSpace + BooleanExpression.SymbolXor + ArithmeticExpression.SymbolSpace + GetRightFormula();
 		}
 
-		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
-		{
-			return new XorExpression(ref cells, left, right);
-		}
+		public static LogicExpressions.ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
+			new XorExpression(ref cells, left, right);
 	}
 }

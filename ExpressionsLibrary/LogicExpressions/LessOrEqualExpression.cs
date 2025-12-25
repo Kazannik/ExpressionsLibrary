@@ -12,18 +12,15 @@ namespace ExpressionsLibrary.LogicExpressions
 		/// <summary>
 		/// Положительное значение логического выражения.
 		/// </summary>
-		public override bool Value
-		{
-			get { return (LeftExpression.Value <= RightExpression.Value); }
-		}
+		public override bool Value => LeftExpression.Value <= RightExpression.Value;
 
 		/// <summary>
 		/// Строковое представление логического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + RightExpression.Formula();
-		}
+		public override string Formula() =>
+			LeftExpression.Formula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + 
+			ArithmeticExpression.SymbolSpace + RightExpression.Formula();
+		
 
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
@@ -36,9 +33,8 @@ namespace ExpressionsLibrary.LogicExpressions
 			else
 				return GetLeftFormula() + ArithmeticExpression.SymbolSpace + LogicExpression.SymbolLessOrEqual + ArithmeticExpression.SymbolSpace + GetRightFormula();
 		}
-		public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right)
-		{
-			return new LessOrEqualExpression(ref cells, left, right);
-		}
+
+		public static ILogicExpression Create(ref Dictionary<string, ICell> cells, UnitCollection left, UnitCollection right) =>
+			new LessOrEqualExpression(ref cells, left, right);
 	}
 }

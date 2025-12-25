@@ -10,7 +10,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		public static IExpression Create(ref Dictionary<string, ICell> cells, UnitCollection array)
 		{
 			if (array.Count == 0 || array.IsError)
-			{ // Элементы отсуствуют.
+			{ // Элементы отсутствуют.
 				return ErrorExpression.Create(array);
 			}
 			else if (array.Count == 1 && array.First.UnitType == UnitCollection.MatchType.Decimal)

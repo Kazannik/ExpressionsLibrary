@@ -13,3 +13,9 @@ D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csproj.CoreCompileInputs.cache
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
 D:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\bin\Debug\ExpressionsLibrary.pdb
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csproj.AssemblyReference.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.csproj.CoreCompileInputs.cache
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.dll
+E:\Kazannik.m.V6\source\repos\Kazannik\ExpressionsLibrary\ExpressionsLibrary\obj\Debug\ExpressionsLibrary.pdb

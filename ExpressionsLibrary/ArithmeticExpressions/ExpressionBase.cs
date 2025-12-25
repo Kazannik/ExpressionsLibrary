@@ -10,7 +10,7 @@
 		/// </summary>
 		public abstract decimal Value { get; }
 
-		public override object ObjValue { get { return Value; } }
+		public override object ObjValue => Value; 
 
 		public override string ToString(string format)
 		{

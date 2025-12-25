@@ -4,7 +4,7 @@
     
     <Member name="ICell">
       <summary>
-        Интерфейс ячейки формулы, используемая при расчете.
+        Интерфейс ячейки формулы, используемой при расчете.
       </summary>
     </Member>
 
@@ -40,7 +40,7 @@
 
     <Member name="Key">
       <summary>
-        Ключ для доступа к ячеке расчетов.
+        Ключ для доступа к ячейке расчетов.
       </summary>
       <remarks>
         After Complete has been called on a dataflow block, that block will complete

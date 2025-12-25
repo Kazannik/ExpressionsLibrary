@@ -3,14 +3,13 @@
 	/// <summary>
 	/// Базовый класс логического выражений.
 	/// </summary>
-	abstract class ExpressionBase : ExpressionsLibrary.ExpressionBase, ILogicExpression
+	public abstract class ExpressionBase : ExpressionsLibrary.ExpressionBase, ILogicExpression
 	{
 		/// <summary>
 		/// Значение логического выражения.
 		/// </summary>
 		public abstract bool Value { get; }
 
-		public override object ObjValue { get { return Value; } }
-		
+		public override object ObjValue => Value;
 	}
 }

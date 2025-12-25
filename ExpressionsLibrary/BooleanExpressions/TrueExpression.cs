@@ -5,11 +5,8 @@
 	/// </summary>
 	class TrueExpression : ExpressionBase, LogicExpressions.ILogicExpression
 	{
-		public static LogicExpressions.ILogicExpression Create()
-		{
-			return new TrueExpression();
-		}
-
+		public static LogicExpressions.ILogicExpression Create() => new TrueExpression();
+		
 		private TrueExpression()
 		{
 			IsError = false;
@@ -29,17 +26,12 @@
 		/// <summary>
 		/// Строковое представление логического выражения.
 		/// </summary>
-		public override string Formula()
-		{
-			return BooleanExpression.SymbolTrue;
-		}
+		public override string Formula() => BooleanExpression.SymbolTrue;
+		
 		/// <summary>
 		/// Короткое строковое представление логического выражения.
 		/// </summary>
 		/// <param name="format">Формат отображения результата алгебраического выражения.</param>
-		public override string ToString(string format)
-		{
-			return Formula();
-		}
+		public override string ToString(string format) => Formula();
 	}
 }

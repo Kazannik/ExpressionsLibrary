@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ExpressionsLibrary.ArithmeticExpressions
 {
-	
+
 	/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="Cell"]/*' />
 	class CellExpression : ExpressionBase, ICell
 	{
@@ -28,27 +28,17 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 
 		delegate string GetArgDelegate();
 
-		string GetKey()
-		{
-			return Key;
-		}
-		string GetValue()
-		{
-			return GetStringValue.Invoke(Value);
-		}
+		string GetKey() => Key;
+
+		string GetValue() => GetStringValue.Invoke(Value);
 
 		delegate string GetValueDelegate(decimal value);
 
 		GetValueDelegate GetStringValue;
 
-		string ClearFormat(decimal value)
-		{
-			return value.ToString();
-		}
-		string DecimalFormat(decimal value)
-		{
-			return value.ToString(this.Format);
-		}
+		string ClearFormat(decimal value) => value.ToString();
+
+		string DecimalFormat(decimal value) => value.ToString(Format);
 
 		/// <summary>
 		/// Признак содержания ошибки в выражении.
@@ -61,12 +51,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		/// <summary>
 		/// Значение алгебраического выражения.
 		/// </summary>
-		public override decimal Value { get { return value; } }
+		public override decimal Value => value; 
 
 		/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="Format"]/*' />
 		public string Format
 		{
-			get { return format; }
+			get => format; 
 			set
 			{
 				format = value;
@@ -82,7 +72,7 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		/// </summary>
 		public string FormulaFormat
 		{
-			get { return formulaFormat; }
+			get => formulaFormat; 
 			set
 			{
 				formulaFormat = value;
@@ -118,15 +108,9 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 		}
 
 		/// <include file='XmlDocs/CommonXmlDocComments.xml' path='CommonXmlDocComments/Cells/Member[@name="SetValue"]/*' />
-		public void SetValue(decimal value)
-		{
-			this.value = value;
-		}
+		public void SetValue(decimal value) => this.value = value;
 
-		public static IExpression Create(string key)
-		{
-			return new CellExpression(key);
-		}
+		public static IExpression Create(string key) => new CellExpression(key);
 
 		private readonly struct CellRegex
 		{
@@ -137,10 +121,12 @@ namespace ExpressionsLibrary.ArithmeticExpressions
 			}
 
 			readonly GetArgDelegate value;
-			
+						
 			readonly Match match;
-			public GetArgDelegate Value { get { return value; } }
-			public Match Match { get { return match; } }
+
+			public GetArgDelegate Value => value; 
+			
+			public Match Match => match; 
 		}
 	}
 }
